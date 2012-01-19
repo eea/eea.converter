@@ -26,20 +26,20 @@ You can download a sample buildout at:
 Dependencies
 ------------
 
-  * pdfinfo to parse pdf metadata (part of the xpdf package).
+  * pdfinfo to parse pdf metadata (part of the xpdf package)::
 
-    yum install xpdf (fedora)
-    apt-get install xpdf (debian)
+      yum install xpdf (fedora)
+      apt-get install xpdf (debian)
 
-  * pdftk to generate a cover image from a pdf file.
+  * pdftk to generate a cover image from a pdf file::
 
-    yum install pdftk (fedora)
-    apt-get install pdftk (debian)
+      yum install pdftk (fedora)
+      apt-get install pdftk (debian)
 
-  * ImageMagick (6.3.7+)
+  * ImageMagick (6.3.7+)::
 
-    yum install ImageMagick
-    apt-get install imagemagick
+      yum install ImageMagick
+      apt-get install imagemagick
 
 
 Documentation
