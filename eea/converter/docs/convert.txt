@@ -1,0 +1,14 @@
+EEA Converter
+=============
+Convert PDF and Image files using ImageMagick
+
+    >>> from eea.converter.tests.utils import get_filedata
+    >>> from zope.component import getUtility
+    >>> from eea.converter.interfaces import IConvert
+    >>> convert = getUtility(IConvert)
+
+Convert a SVG file to PNG
+
+    >>> svg = get_filedata('data/chart.svg')
+    >>> convert(data=svg, data_from='svg', data_to='png')
+    '\x89PNG\...
