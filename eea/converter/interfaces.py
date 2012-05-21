@@ -8,3 +8,6 @@ class IConvert(Interface):
     def __call__(data, data_from=".pdf", data_to=".png", **kwargs):
         """ Try to convert raw data to given file type
         """
+
+class IWatermark(Interface):
+    """ Place watermarks using PIL """

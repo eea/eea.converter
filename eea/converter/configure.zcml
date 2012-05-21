@@ -6,4 +6,9 @@ i18n_domain="eea">
     provides=".interfaces.IConvert"
     />
 
+  <utility
+    factory=".watermark.Watermark"
+    provides=".interfaces.IWatermark"
+    />
+
 </configure>
