@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1-dev - (unreleased)
-----------------------
+1.1 - (2012-06-12)
+------------------
 * Added watermark utility
   [szabozo0]
 
