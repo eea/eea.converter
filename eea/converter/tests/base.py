@@ -3,7 +3,6 @@
 from plone.testing import z2
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
-#from plone.app.testing import applyProfile
 
 class EEAFixture(PloneSandboxLayer):
     """ Custom fixture
@@ -20,11 +19,6 @@ class EEAFixture(PloneSandboxLayer):
         """ Uninstall Zope
         """
         z2.uninstallProduct(app, 'eea.converter')
-
-    def setUpPloneSite(self, portal):
-        """ Setup Plone
-        """
-        #applyProfile(portal, 'eea.converter:default')
 
 EEAFIXTURE = EEAFixture()
 FUNCTIONAL_TESTING = FunctionalTesting(bases=(EEAFIXTURE,),

@@ -10,4 +10,5 @@ class IConvert(Interface):
         """
 
 class IWatermark(Interface):
-    """ Place watermarks using PIL """
+    """ Place watermarks using PIL
+    """

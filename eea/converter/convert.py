@@ -5,6 +5,7 @@ import tempfile
 import logging
 from subprocess import Popen, PIPE, STDOUT
 from eea.converter import CAN_CONVERT_IMAGE
+
 logger = logging.getLogger('eea.converter')
 
 class Convert(object):
@@ -12,7 +13,7 @@ class Convert(object):
     """
 
     def cleanup(self, *paths):
-        """ remove temporary files
+        """ Remove temporary files
         """
         for path in paths:
             try:

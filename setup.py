@@ -30,7 +30,7 @@ setup(name=NAME,
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'Pillow'
       ],
       extras_require={
           'test': ['plone.app.testing',]

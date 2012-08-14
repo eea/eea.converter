@@ -1,9 +1,11 @@
-""" Watermark utility"""
+""" Watermark utility
+"""
 
 from PIL import Image, ImageEnhance
 
 def reduce_opacity(im, opacity):
-    """Returns an image with reduced opacity."""
+    """ Returns an image with reduced opacity
+    """
     assert opacity >= 0 and opacity <= 1
     if im.mode != 'RGBA':
         im = im.convert('RGBA')
