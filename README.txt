@@ -1,30 +1,51 @@
-Introduction
-============
+=============
+EEA Converter
+=============
 This package provides utilities to convert images and PDF files
 using ImageMagick.
 
+.. note ::
+
+  This add-on doesn't do anything by itself. It needs to be integrated by a
+  developer within your own products. For reference you can check
+  the `eea.googlecharts`_ package.
+
 
 Installation
-------------
+============
 
-The easiest way to get eea.converter support in Plone 4 using this package is to
-work with installations based on `zc.buildout`_.  Other types of installations
-should also be possible, but might turn out to be somewhat tricky.
+zc.buildout
+-----------
+If you are using `zc.buildout`_ and the `plone.recipe.zope2instance`_
+recipe to manage your project, you can do this:
 
-To get started you will simply need to add the package to your "eggs" and
-"zcml" sections, run buildout, restart your Plone instance and install the
-"eea.converter" package using the quick-installer or via the "Add-on
-Products" section in "Site Setup".
+* Update your buildout.cfg file:
 
-  .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout/
+  * Add ``eea.converter`` to the list of eggs to install
+  * Tell the `plone.recipe.zope2instance`_ recipe to install a ZCML slug
 
-You can download a sample buildout at:
+  ::
 
-  http://svn.eionet.europa.eu/repositories/Zope/trunk/eea.converter/buildouts/plone4/
+    [instance]
+    ...
+    eggs =
+      ...
+      eea.converter
+
+    zcml =
+      ...
+      eea.converter
+
+* Re-run buildout, e.g. with::
+
+  $ ./bin/buildout
+
+You can skip the ZCML slug if you are going to explicitly include the package
+from another package's configure.zcml file.
 
 
 Dependencies
-------------
+============
 
   * pdfinfo to parse pdf metadata (part of the xpdf package)::
 
@@ -42,30 +63,31 @@ Dependencies
       apt-get install imagemagick
 
 
+Source code
+===========
+
+Latest source code (Zope 2 compatible):
+  - `Plone Collective on Github <https://github.com/collective/eea.converter>`_
+  - `EEA on Github <https://github.com/eea/eea.converter>`_
+
+
 Documentation
--------------
+=============
 
   See the **doc** directory in this package.
 
 
 API Doc
--------
+=======
 
   http://apidoc.eea.europa.eu/eea.converter-module.html
 
-Authors
--------
-
-  - "European Environment Agency", webadmin at eea europa eu
-
-
 Copyright and license
----------------------
-
+=====================
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-The EEA Daviz (the Original Code) is free software;
+The EEA Exhibit (the Original Code) is free software;
 you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later
@@ -75,8 +97,11 @@ More details under docs/License.txt
 
 
 Funding
--------
+=======
 
-  EEA_ - European Enviroment Agency (EU)
+  EEA_ - European Environment Agency (EU)
 
 .. _EEA: http://www.eea.europa.eu/
+.. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
+.. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
+.. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
