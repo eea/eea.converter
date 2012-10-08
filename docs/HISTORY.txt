@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0-dev - (unreleased)
-----------------------
+6.0 - (2012-10-08)
+------------------
 * Fixed dependencies, cleanup and make the package run on a clean Zope
   [ghicaale #5426]
 
