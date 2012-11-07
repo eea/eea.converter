@@ -1,6 +1,15 @@
 =============
 EEA Converter
 =============
+.. image:: http://ci.eionet.europa.eu/job/eea.converter-www/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea.converter-www/lastBuild
+.. image:: http://ci.eionet.europa.eu/job/eea.converter-plone4/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea.converter-plone4/lastBuild
+.. image:: http://ci.eionet.europa.eu/job/eea.converter-zope/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea.converter-zope/lastBuild
+
+Introduction
+============
 This package provides utilities to convert images and PDF files
 using ImageMagick.
 
