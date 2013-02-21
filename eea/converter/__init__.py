@@ -1,15 +1,19 @@
 """ Converters
 """
 import logging
+import sys
 from subprocess import Popen, PIPE, STDOUT
 logger = logging.getLogger('eea.converter')
+
+CLOSE_FDS = not sys.platform.startswith('win')
 
 def can_convert_image():
     """ Check if pdftk is installed
     """
     # Test for ImageMagik
     process = Popen('convert --version', shell=True,
-                    stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+                    stdin=PIPE, stdout=PIPE, stderr=STDOUT,
+                    close_fds=CLOSE_FDS)
     res = process.stdout.read()
     if 'imagemagick' not in res.lower():
         logger.warn(
@@ -22,7 +26,8 @@ def can_update_pdf_metadata():
     """ Check if pdftk is installed
     """
     process = Popen('pdftk --version', shell=True,
-                    stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+                    stdin=PIPE, stdout=PIPE, stderr=STDOUT,
+                    close_fds=CLOSE_FDS)
     res = process.stdout.read()
     if 'handy tool' not in res.lower():
         logger.warn("pdftk NOT FOUND: PDF metadata syncronize is not supported")
