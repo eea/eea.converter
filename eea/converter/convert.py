@@ -3,10 +3,14 @@
 import os
 import tempfile
 import logging
+import sys
 from subprocess import Popen, PIPE, STDOUT
 from eea.converter import CAN_CONVERT_IMAGE
 
+CLOSE_FDS = not sys.platform.startswith('win')
+
 logger = logging.getLogger('eea.converter')
+
 
 class Convert(object):
     """ Convert images utility
@@ -58,7 +62,8 @@ class Convert(object):
         }
 
         process = Popen(cmd, shell=True,
-                        stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+                        stdin=PIPE, stdout=PIPE, stderr=STDOUT,
+                        close_fds=CLOSE_FDS)
         res = process.stdout.read()
         if res:
             logger.debug(res)

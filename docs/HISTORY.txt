@@ -4,6 +4,9 @@ Changelog
 6.1-dev - (unreleased)
 ----------------------
 
+* Add Windows support for close_fds parameter of Popen
+  [erral #1]
+
 6.0 - (2012-10-08)
 ------------------
 * Fixed dependencies, cleanup and make the package run on a clean Zope
