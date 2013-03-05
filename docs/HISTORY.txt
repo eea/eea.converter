@@ -6,6 +6,8 @@ Changelog
 
 6.1 - (2013-02-25)
 ------------------
+* Feature: added information for contributors
+  [ciobabog refs #13892]
 * Add Windows support for close_fds parameter of Popen
   [erral #1]
 
