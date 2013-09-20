@@ -34,6 +34,6 @@ def can_update_pdf_metadata():
         return False
     return True
 
-CAN_UPDATE_PDF_METADATA = can_update_pdf_metadata()
+CAN_JOIN_PDFS = CAN_UPDATE_PDF_METADATA = can_update_pdf_metadata()
 CAN_CONVERT_IMAGE = can_convert_image()
 CAN_GENERATE_COVER_IMAGE = CAN_UPDATE_PDF_METADATA and CAN_CONVERT_IMAGE

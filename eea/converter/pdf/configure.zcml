@@ -1,0 +1,21 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <!-- Generic options maker -->
+  <adapter
+    zcml:condition="installed collective.sendaspdf"
+    for=" Products.Archetypes.interfaces.base.IBaseObject"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.OptionsMaker" />
+
+  <!-- Cover options maker -->
+  <adapter
+    name="pdf.cover"
+    zcml:condition="installed collective.sendaspdf"
+    for=" Products.Archetypes.interfaces.base.IBaseObject"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.CoverOptionsMaker" />
+
+</configure>

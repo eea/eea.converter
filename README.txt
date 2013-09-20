@@ -11,65 +11,93 @@ EEA Converter
 Introduction
 ============
 This package provides utilities to convert images and PDF files
-using ImageMagick.
-
-.. note ::
-
-  This add-on doesn't do anything by itself. It needs to be integrated by a
-  developer within your own products. For reference you can check
-  the `eea.googlecharts`_ package.
-
+using ImageMagick. Also, toghether with `collective.sendaspdf`_ and pdftk
+users can download HTML pages as PDFs *with custom cover support*
 
 Installation
 ============
 
-zc.buildout
------------
-If you are using `zc.buildout`_ and the `plone.recipe.zope2instance`_
-recipe to manage your project, you can do this:
+- Add eea.converter to your eggs section in your buildout and re-run buildout.
+  You can download a sample buildout from
+  https://github.com/collective/eea.converter/tree/master/buildouts/plone4
 
-* Update your buildout.cfg file:
+Getting started
+===============
 
-  * Add ``eea.converter`` to the list of eggs to install
-  * Tell the `plone.recipe.zope2instance`_ recipe to install a ZCML slug
+1. Try http://localhost:8080/Plone/front-page/download.pdf
 
-  ::
 
-    [instance]
-    ...
-    eggs =
-      ...
-      eea.converter
+Customize output PDF
+====================
 
-    zcml =
-      ...
-      eea.converter
+Cover
+-----
+Provide custom browser:page called *@@pdf.cover*::
 
-* Re-run buildout, e.g. with::
+  <browser:page
+    for="my.package.interfaces.ICustomContent"
+    name="pdf.cover"
+    class=".app.pdfview.Cover"
+    template="zpt/pdf.cover.pt"
+    permission="zope2.View"
+    />
 
-  $ ./bin/buildout
+Body
+----
+Provide custom browser:page called *@@pdf.body*::
 
-You can skip the ZCML slug if you are going to explicitly include the package
-from another package's configure.zcml file.
+  <browser:page
+    for="my.package.interfaces.ICustomContent"
+    name="pdf.body"
+    class=".app.pdfview.Body"
+    template="zpt/pdf.body.pt"
+    permission="zope2.View"
+    />
 
+Options
+-------
+
+For PDF cover you'll have to provide a named adapter like::
+
+  <adapter
+    name="pdf.cover"
+    for=" my.package.interfaces.ICustomContent"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.CoverOptionsMaker" />
+
+For PDF body you'll have to provide an unamed adapter like::
+
+  <adapter
+    for=" my.package.interfaces.ICustomContent"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.OptionsMaker" />
+
+Also add custom print.css for your needs. See more at `collective.sendaspdf`_
 
 Dependencies
 ============
 
-  * pdfinfo to parse pdf metadata (part of the xpdf package)::
+.. note ::
 
-      yum install xpdf (fedora)
-      apt-get install xpdf (debian)
+  These are not hard dependencies. You can use all features of eea.converter or
+  just the ones that you need.
 
-  * pdftk to generate a cover image from a pdf file::
+* pdfinfo to parse pdf metadata (part of the xpdf package)::
 
-      yum install pdftk (fedora)
-      apt-get install pdftk (debian)
+    yum install xpdf (fedora)
+    apt-get install xpdf (debian)
 
-  * ImageMagick (6.3.7+)::
+* pdftk to generate a cover image from a pdf file::
 
-      yum install ImageMagick
-      apt-get install imagemagick
+    yum install pdftk (fedora)
+    apt-get install pdftk (debian)
+
+* ImageMagick (6.3.7+)::
+
+    yum install ImageMagick
+    apt-get install imagemagick
+
+* `collective.sendaspdf`_
 
 
 Source code
@@ -114,3 +142,4 @@ Funding
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
 .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
 .. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
+.. _`collective.sendaspdf`: https://pypi.python.org/pypi/collective.sendaspdf

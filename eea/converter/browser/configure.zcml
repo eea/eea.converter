@@ -1,0 +1,31 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <browser:page
+    for="Products.Archetypes.interfaces.base.IBaseObject"
+    name="pdf.cover"
+    class=".app.pdfview.Cover"
+    template="zpt/pdf.cover.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="Products.Archetypes.interfaces.base.IBaseObject"
+    name="pdf.body"
+    class=".app.pdfview.Body"
+    template="zpt/pdf.body.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    zcml:condition="installed collective.sendaspdf"
+    for="Products.Archetypes.interfaces.base.IBaseObject"
+    name="download.pdf"
+    class=".app.download.Pdf"
+    permission="zope2.View"
+    />
+
+</configure>

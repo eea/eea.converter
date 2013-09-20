@@ -1,0 +1,41 @@
+<tal:block tal:define="disabledLeft python:request.set('disable_plone.leftcolumn', 1)"/>
+<tal:block tal:define="disabledRight python:request.set('disable_plone.rightcolumn', 1)"/>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="en"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core">
+
+  <div class="cover-body">
+
+    <div class="cover-image" tal:condition="context/getImage|nothing">
+      <a tal:define="here_url context/@@plone_context_state/object_url"
+        tal:attributes="href string:$here_url/image/image_view_fullscreen">
+        <img tal:attributes="src string:$here_url/image_large" style="min-width: 100%; width: 100%;" />
+      </a>
+    </div>
+
+  </div>
+
+  <div class="cover-logo">
+    <img tal:define="
+        lang  context/@@plone_portal_state/language;
+        logo string:logo.png"
+      tal:attributes="
+        alt context/portal_properties/title;
+        src string:${portal_url}/${logo}"/>
+  </div>
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>

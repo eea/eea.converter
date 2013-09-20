@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="en"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core">
+<div class="pdf-body">
+
+  <div class="pdf-thumbnail" tal:condition="context/getImage|nothing">
+    <a tal:define="here_url context/@@plone_context_state/object_url"
+      tal:attributes="href string:$here_url/image/image_view_fullscreen">
+      <img tal:attributes="src string:$here_url/image_large" style="min-width: 100%; width: 100%;" />
+    </a>
+  </div>
+
+</div>
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
