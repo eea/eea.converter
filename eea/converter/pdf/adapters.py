@@ -27,7 +27,7 @@ class OptionsMaker(object):
             'margin-bottom': '20',
             'margin-left': '20',
             'margin-right': '20',
-            'page-offset': '3',
+            'page-offset': '2',
         }
 
 class CoverOptionsMaker(object):
@@ -46,7 +46,6 @@ class CoverOptionsMaker(object):
         """
 
         return {
-            'cover': self.context.absolute_url() + '/pdf.cover',
             'page-size': 'A4',
             'margin-top': '0',
             'margin-bottom': '0',

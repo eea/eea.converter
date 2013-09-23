@@ -3,6 +3,8 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed PDF cover asking for credentials for non-published documents
+  [voineali refs #14904]
 
 6.2 - (2013-09-23)
 ------------------

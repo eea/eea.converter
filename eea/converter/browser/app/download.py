@@ -57,7 +57,7 @@ class Pdf(PreDownloadPDF):
 
         # Generate pdf cover
         self._get_adapter_options = self._cover_get_adapter_options
-        self.generate_pdf_file('')
+        self.generate_pdf_file(self.cover())
         cover = os.path.join(self.tempdir, self.filename)
 
         # Generate pdf body
