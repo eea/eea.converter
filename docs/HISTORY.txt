@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.2-dev - (unreleased)
-----------------------
+6.2 - (2013-09-23)
+------------------
 * Feature: Export HTML to PDF with custom cover (requires collective.sendaspdf)
   [voineali refs #14904]
 
@@ -27,3 +27,4 @@ Changelog
 ------------------
 * Initial release
   [voineali]
+
