@@ -6,7 +6,7 @@
 
   <browser:page
     zcml:condition="installed collective.sendaspdf"
-    for="Products.Archetypes.interfaces.base.IBaseObject"
+    for="zope.interface.Interface"
     name="pdf.cover"
     class=".app.pdfview.Cover"
     template="zpt/pdf.cover.pt"
@@ -15,7 +15,7 @@
 
   <browser:page
     zcml:condition="installed collective.sendaspdf"
-    for="Products.Archetypes.interfaces.base.IBaseObject"
+    for="zope.interface.Interface"
     name="pdf.body"
     class=".app.pdfview.Body"
     template="zpt/pdf.body.pt"
@@ -24,7 +24,7 @@
 
   <browser:page
     zcml:condition="installed collective.sendaspdf"
-    for="Products.Archetypes.interfaces.base.IBaseObject"
+    for="zope.interface.Interface"
     name="download.pdf"
     class=".app.download.Pdf"
     permission="zope2.View"
