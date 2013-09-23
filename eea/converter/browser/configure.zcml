@@ -5,6 +5,7 @@
   i18n_domain="eea">
 
   <browser:page
+    zcml:condition="installed collective.sendaspdf"
     for="Products.Archetypes.interfaces.base.IBaseObject"
     name="pdf.cover"
     class=".app.pdfview.Cover"
@@ -13,6 +14,7 @@
     />
 
   <browser:page
+    zcml:condition="installed collective.sendaspdf"
     for="Products.Archetypes.interfaces.base.IBaseObject"
     name="pdf.body"
     class=".app.pdfview.Body"

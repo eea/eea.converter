@@ -18,7 +18,7 @@ class OptionsMaker(object):
             'header-right': self.context.title_or_id(),
             'header-line': 1,
             'header-spacing': '5',
-            'footer-left': '[page] [section]' ,
+            'footer-left': '[page]' ,
             'footer-right': '[subsection]',
             'footer-line': 1,
             'footer-spacing': '5',
