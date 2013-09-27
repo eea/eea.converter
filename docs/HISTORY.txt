@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Bug fix: Fixed PDF cover asking for credentials for non-published documents
   [voineali refs #14904]
+* Feature: Added custom PDF html-header and html-footer in order to easily
+  customize them (just override @@pdf.header and @@pdf.footer for your contexts)
+  [voineali refs #16802]
 
 6.2 - (2013-09-23)
 ------------------

@@ -33,3 +33,11 @@ class Body(BrowserView):
             return self.index()
 
         return view()
+
+class Header(BrowserView):
+    """ PDF Header
+    """
+
+class Footer(BrowserView):
+    """ PDF Footer
+    """

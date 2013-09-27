@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script>
+function subst() {
+  var vars={};
+  var x=document.location.search.substring(1).split('&');
+  for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+  var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+  for(var i in x) {
+    var y = document.getElementsByClassName(x[i]);
+    for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+  }
+}
+    </script>
+  </head>
+  <body style="border:0; margin: 0;" onload="subst()">
+    <div style="border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999; font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold">
+      <span class="subsection"></span>
+    </div>
+  </body>
+</html>
