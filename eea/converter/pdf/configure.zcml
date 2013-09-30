@@ -6,7 +6,7 @@
   <!-- Generic options maker -->
   <adapter
     zcml:condition="installed collective.sendaspdf"
-    for=" Products.Archetypes.interfaces.base.IBaseObject"
+    for="zope.interface.Interface"
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.OptionsMaker" />
 
@@ -14,7 +14,7 @@
   <adapter
     name="pdf.cover"
     zcml:condition="installed collective.sendaspdf"
-    for=" Products.Archetypes.interfaces.base.IBaseObject"
+    for="zope.interface.Interface"
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
 
