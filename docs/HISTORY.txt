@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.3-dev - (unreleased)
-----------------------
+6.3 - (2013-10-04)
+------------------
 * Bug fix: Fixed PDF cover asking for credentials for non-published documents
   [voineali refs #14904]
 * Feature: Added custom PDF html-header and html-footer in order to easily
