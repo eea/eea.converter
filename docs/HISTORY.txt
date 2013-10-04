@@ -3,6 +3,11 @@ Changelog
 
 6.4-dev - (unreleased)
 ----------------------
+* Feature: Added utility method to truncate text by the number of characters
+  without cutting words at the end
+  [voineali refs #16946]
+* Feature: Added utility method to convert relative urls to absolute urls
+  [voineali refs #16946]
 
 6.3 - (2013-10-04)
 ------------------
