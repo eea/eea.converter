@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.5-dev - (unreleased)
+----------------------
+
 6.4 - (2013-10-07)
 ------------------
 * Feature: Added utility method to truncate text by the number of characters
