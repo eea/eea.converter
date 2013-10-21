@@ -77,7 +77,7 @@ class Convert(object):
             logger.debug(res)
 
         res = None
-        # if multiple pages return first; TODO change API for multipage support
+        # if multiple pages return first; better multipage support needed
         multiple_tmp_to = []
         if not os.path.exists(tmp_to):
             pattern_tmp_to = "%s-%%d.%s" % tuple(tmp_to.rsplit(".", 1))
