@@ -32,7 +32,12 @@ class Convert(object):
         return CAN_CONVERT_IMAGE
 
     def convert(self, data, data_from=".pdf", data_to='.png', **kwargs):
-        """ Converts raw data from given format to given format
+        """
+        Converts raw data from given format to given format
+
+        Keyword arguments:
+        path_from -- if given, ignore `data` param and use this file as input
+
         """
         if not self.can_convert:
             raise RuntimeError('ImageMagick is not installed. Aborting...')
@@ -43,11 +48,14 @@ class Convert(object):
         if not data_to.startswith('.'):
             data_to = '.%s' % data_to
 
-        tmp_from = tempfile.mktemp(suffix=data_from)
+        if kwargs.get('path_from'):
+            tmp_from = kwargs['path_from']
+        else:
+            tmp_from = tempfile.mktemp(suffix=data_from)
+            with open(tmp_from, 'wb') as from_file:
+                from_file.write(data)
         tmp_to = tempfile.mktemp(suffix=data_to)
 
-        with open(tmp_from, 'wb') as from_file:
-            from_file.write(data)
 
         width = kwargs.get('width', None)
         height = kwargs.get('height', None)
@@ -69,10 +77,26 @@ class Convert(object):
             logger.debug(res)
 
         res = None
+        # if multiple pages return first; TODO change API for multipage support
+        multiple_tmp_to = []
+        if not os.path.exists(tmp_to):
+            pattern_tmp_to = "%s-%%d.%s" % tuple(tmp_to.rsplit(".", 1))
+            i = 0
+            tmp_to = file_for_page = pattern_tmp_to % i
+            while os.path.exists(file_for_page):
+                multiple_tmp_to.append(file_for_page)
+                i += 1
+                file_for_page = pattern_tmp_to % i
+
         with open(tmp_to, 'rb') as to_file:
             res = to_file.read()
 
-        self.cleanup(tmp_from, tmp_to)
+        if multiple_tmp_to:
+            self.cleanup(*multiple_tmp_to)
+        else:
+            self.cleanup(tmp_to)
+        if not kwargs.get('path_from'):
+            self.cleanup(tmp_from)
         return res
 
     def __call__(self, data, **kwargs):

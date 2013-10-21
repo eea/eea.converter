@@ -3,6 +3,8 @@ Changelog
 
 6.5-dev - (unreleased)
 ----------------------
+* Bug fix: return first page on pdf to image conversion; refactor cover
+  [simiamih refs #16799]
 
 6.4 - (2013-10-07)
 ------------------

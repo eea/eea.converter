@@ -25,6 +25,7 @@ class Pdf(PreDownloadPDF):
         """ PDF cover page
         """
         if not self._cover:
+            self.request.URL0 = "pdf.cover" # pdf.print.css requirement
             self._cover = queryMultiAdapter((self.context, self.request),
                                             name=u'pdf.cover')
         return self._cover
@@ -49,6 +50,13 @@ class Pdf(PreDownloadPDF):
             return {}, None
         return options.getOptions(), options.overrideAll()
 
+    def make_pdf_cover(self):
+        """ Separate method for creating pdf cover
+        """
+        self._get_adapter_options = self._cover_get_adapter_options
+        self.generate_pdf_file(self.cover())
+        return os.path.join(self.tempdir, self.filename)
+
     def make_pdf(self):
         """ Override pdf converter
         """
@@ -56,9 +64,7 @@ class Pdf(PreDownloadPDF):
             return super(Pdf, self).make_pdf()
 
         # Generate pdf cover
-        self._get_adapter_options = self._cover_get_adapter_options
-        self.generate_pdf_file(self.cover())
-        cover = os.path.join(self.tempdir, self.filename)
+        cover = self.make_pdf_cover()
 
         # Generate pdf body
         self._get_adapter_options = super(Pdf, self)._get_adapter_options
