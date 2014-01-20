@@ -111,13 +111,13 @@ Latest source code (Zope 2 compatible):
 Documentation
 =============
 
-  See the **doc** directory in this package.
+See the **doc** directory in this package.
 
 
 API Doc
 =======
 
-  http://apidoc.eea.europa.eu/eea.converter-module.html
+http://apidoc.eea.europa.eu/eea.converter-module.html
 
 Copyright and license
 =====================
@@ -136,7 +136,7 @@ More details under docs/License.txt
 Funding
 =======
 
-  EEA_ - European Environment Agency (EU)
+EEA_ - European Environment Agency (EU)
 
 .. _EEA: http://www.eea.europa.eu/
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
