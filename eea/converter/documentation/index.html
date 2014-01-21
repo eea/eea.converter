@@ -1,5 +1,5 @@
 
-<tal:block define="context python: request.PARENTS[-2]; here nocall:context">
+<tal:block define="context python: request.PARENTS[1]; here nocall:context">
 <html metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
 
@@ -18,6 +18,7 @@
   <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="_static/sphinx-bootstrap.css" type="text/css"/>
   <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
+  <link rel="stylesheet" href="_static/theme.css" type="text/css"/>
 </metal:styleslot>
 <metal:javascriptslot fill-slot="javascript_head_slot">
   <script type="text/javascript">
@@ -157,13 +158,11 @@ apt-get install imagemagick</pre>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div>See the <strong>doc</strong> directory in this package.</div></blockquote>
+<p>See the <strong>doc</strong> directory in this package.</p>
 </div>
 <div class="section" id="api-doc">
 <h2>API Doc<a class="headerlink" href="#api-doc" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><a class="reference external" href="http://apidoc.eea.europa.eu/eea.converter-module.html">http://apidoc.eea.europa.eu/eea.converter-module.html</a></div></blockquote>
+<p><a class="reference external" href="http://apidoc.eea.europa.eu/eea.converter-module.html">http://apidoc.eea.europa.eu/eea.converter-module.html</a></p>
 </div>
 <div class="section" id="copyright-and-license">
 <h2>Copyright and license<a class="headerlink" href="#copyright-and-license" title="Permalink to this headline">¶</a></h2>
@@ -178,8 +177,7 @@ version.</p>
 </div>
 <div class="section" id="funding">
 <h2>Funding<a class="headerlink" href="#funding" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><a class="reference external" href="http://www.eea.europa.eu/">EEA</a> - European Environment Agency (EU)</div></blockquote>
+<p><a class="reference external" href="http://www.eea.europa.eu/">EEA</a> - European Environment Agency (EU)</p>
 </div>
 </div>
 
@@ -203,44 +201,6 @@ version.</p>
         </div>
     </div>
 </metal:main>
-
-<metal:right-portlet fill-slot="portlets_two_slot">
-      <div class="span3">
-          
-        <div class="sphinxsidebar">
-            <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">EEA Converter</a><ul>
-<li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#getting-started">Getting started</a></li>
-<li><a class="reference internal" href="#customize-output-pdf">Customize output PDF</a><ul>
-<li><a class="reference internal" href="#cover">Cover</a></li>
-<li><a class="reference internal" href="#body">Body</a></li>
-<li><a class="reference internal" href="#options">Options</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#source-code">Source code</a></li>
-<li><a class="reference internal" href="#documentation">Documentation</a></li>
-<li><a class="reference internal" href="#api-doc">API Doc</a></li>
-<li><a class="reference internal" href="#copyright-and-license">Copyright and license</a></li>
-<li><a class="reference internal" href="#funding">Funding</a></li>
-</ul>
-</li>
-</ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-            </div>
-        </div>
-      </div>
-  
-</metal:right-portlet>
 
 </body>
 </html>
