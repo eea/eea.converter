@@ -3,6 +3,9 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Change: pass a doctype to the header pdf template in order to workaround
+  wkhtmltopdf 0.12 issue which fails to insert the header without it
+  [ichim-david refs #18550]
 
 6.6 - (2014-01-21)
 ------------------
