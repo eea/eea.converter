@@ -91,4 +91,5 @@ class CoverOptionsMaker(object):
             'margin-bottom': '0',
             'margin-left': '0',
             'margin-right': '0',
+            '--no-toc': True
         }
