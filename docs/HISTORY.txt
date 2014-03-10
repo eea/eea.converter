@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.7-dev - (unreleased)
-----------------------
+6.7 - (2014-03-10)
+------------------
 * Bug fix: Do not add table of content on PDF cover
   [voineali refs #18630]
 * Change: pass a doctype to the header pdf template in order to workaround
