@@ -12,7 +12,7 @@ Introduction
 ============
 This package provides utilities to convert images and PDF files
 using ImageMagick. Also, toghether with `collective.sendaspdf`_ and pdftk
-users can download HTML pages as PDFs *with custom cover support*
+users can download HTML pages as PDFs *with custom cover and back cover support*
 
 Installation
 ============
@@ -54,6 +54,18 @@ Provide custom browser:page called *@@pdf.body*::
     permission="zope2.View"
     />
 
+Back Cover
+----------
+Provide custom browser:page called *@@pdf.cover.back*::
+
+  <browser:page
+    for="my.package.interfaces.ICustomContent"
+    name="pdf.cover.back"
+    class=".app.pdfview.BackCover"
+    template="zpt/pdf.cover.back.pt"
+    permission="zope2.View"
+    />
+
 Options
 -------
 
@@ -64,6 +76,14 @@ For PDF cover you'll have to provide a named adapter like::
     for=" my.package.interfaces.ICustomContent"
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
+
+Same for PDF back cover::
+
+  <adapter
+    name="pdf.cover.back"
+    for=" my.package.interfaces.ICustomContent"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.BackCoverOptionsMaker" />
 
 For PDF body you'll have to provide an unamed adapter like::
 

@@ -3,6 +3,8 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Feature: Added PDF Back Cover support
+  [voineali refs #19882]
 
 6.7 - (2014-03-10)
 ------------------

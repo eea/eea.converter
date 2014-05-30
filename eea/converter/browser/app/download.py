@@ -19,6 +19,7 @@ class Pdf(PreDownloadPDF):
         self.filename = ''
         self._cover = None
         self._body = None
+        self._backcover = None
 
     @property
     def cover(self):
@@ -39,6 +40,15 @@ class Pdf(PreDownloadPDF):
                                            name=u'pdf.body')
         return self._body
 
+    @property
+    def backcover(self):
+        """ PDF back cover
+        """
+        if not self._backcover:
+            self._backcover = queryMultiAdapter((self.context, self.request),
+                                                name=u'pdf.cover.back')
+        return self._backcover
+
     def _cover_get_adapter_options(self):
         """ Get options per
         """
@@ -50,11 +60,45 @@ class Pdf(PreDownloadPDF):
             return {}, None
         return options.getOptions(), options.overrideAll()
 
+    def _backcover_get_adapter_options(self):
+        """ Get options per
+        """
+        options = queryAdapter(
+            self.context, ISendAsPDFOptionsMaker, name='pdf.cover.back',
+            default=queryAdapter(self.context, ISendAsPDFOptionsMaker))
+
+        if not options:
+            return {}, None
+        return options.getOptions(), options.overrideAll()
+
     def make_pdf_cover(self):
         """ Separate method for creating pdf cover
         """
+        if not self.cover:
+            return ''
+
         self._get_adapter_options = self._cover_get_adapter_options
         self.generate_pdf_file(self.cover())
+        return os.path.join(self.tempdir, self.filename)
+
+    def make_pdf_body(self):
+        """ Separate method for creating pdf body
+        """
+        if not self.body:
+            return ''
+
+        self._get_adapter_options = super(Pdf, self)._get_adapter_options
+        self.generate_pdf_file(self.body())
+        return os.path.join(self.tempdir, self.filename)
+
+    def make_pdf_backcover(self):
+        """ Separate method for creating pdf back cover
+        """
+        if not self.backcover:
+            return ''
+
+        self._get_adapter_options = self._backcover_get_adapter_options
+        self.generate_pdf_file(self.backcover())
         return os.path.join(self.tempdir, self.filename)
 
     def make_pdf(self):
@@ -67,15 +111,16 @@ class Pdf(PreDownloadPDF):
         cover = self.make_pdf_cover()
 
         # Generate pdf body
-        self._get_adapter_options = super(Pdf, self)._get_adapter_options
-        self.generate_pdf_file(self.body())
-        body = os.path.join(self.tempdir, self.filename)
+        body = self.make_pdf_body()
 
-        # Join cover and body
+        # Generate pdf back cover
+        backcover = self.make_pdf_backcover()
+
+        # Join cover, body and backcover
         self.filename = self.generate_temp_filename()
         output = os.path.join(self.tempdir, self.filename)
 
-        cmd = "pdftk %s %s output %s" % (cover, body, output)
+        cmd = "pdftk %s %s %s output %s" % (cover, body, backcover, output)
         logger.debug(cmd)
 
         process = Popen(
@@ -90,3 +135,8 @@ class Pdf(PreDownloadPDF):
         self.pdf_tool.registerPDF(self.filename)
         self.pdf_file = file(output, 'r')
         self.pdf_file.close()
+
+    def __call__(self, **kwargs):
+        # Cheat condition @@plone_context_state/is_view_template
+        self.request['ACTUAL_URL'] = self.context.absolute_url()
+        return super(Pdf, self).__call__(**kwargs)

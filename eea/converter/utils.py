@@ -139,7 +139,7 @@ def absolute_url(context, url, default=None, **kwargs):
     # Relative url
     doc = context.restrictedTraverse(url, None)
 
-    # Try parrent
+    # Try parent
     if not doc:
         doc = context.getParentNode().restrictedTraverse(url, None)
 

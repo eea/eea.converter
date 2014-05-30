@@ -18,4 +18,11 @@
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
 
+  <adapter
+    name="pdf.cover.back"
+    zcml:condition="installed collective.sendaspdf"
+    for="zope.interface.Interface"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.BackCoverOptionsMaker" />
+
 </configure>

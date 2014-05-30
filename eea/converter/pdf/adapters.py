@@ -93,3 +93,7 @@ class CoverOptionsMaker(object):
             'margin-right': '0',
             '--no-toc': True
         }
+
+class BackCoverOptionsMaker(CoverOptionsMaker):
+    """ PDF Converter for Back Cover
+    """

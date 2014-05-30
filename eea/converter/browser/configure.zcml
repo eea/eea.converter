@@ -13,6 +13,15 @@
     permission="zope2.View"
     />
 
+<browser:page
+    zcml:condition="installed collective.sendaspdf"
+    for="zope.interface.Interface"
+    name="pdf.cover.back"
+    class=".app.pdfview.BackCover"
+    template="zpt/pdf.cover.back.pt"
+    permission="zope2.View"
+    />
+
   <browser:page
     zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"

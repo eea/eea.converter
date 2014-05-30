@@ -17,6 +17,9 @@ class Cover(BrowserView):
         """
         return truncate(text, length, orphans, suffix, end)
 
+class BackCover(Cover):
+    """ PDF Back Cover
+    """
 
 class Body(BrowserView):
     """ PDF Body

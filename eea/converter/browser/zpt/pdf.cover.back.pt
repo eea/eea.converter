@@ -1,0 +1,23 @@
+<tal:block tal:define="disabledLeft python:request.set('disable_plone.leftcolumn', 1)"/>
+<tal:block tal:define="disabledRight python:request.set('disable_plone.rightcolumn', 1)"/>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="en"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core">
+
+    <!-- Back cover here -->
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
