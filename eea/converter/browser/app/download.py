@@ -20,6 +20,7 @@ class Pdf(PreDownloadPDF):
         self._cover = None
         self._body = None
         self._backcover = None
+        self._disclaimer = None
 
     @property
     def cover(self):
@@ -30,6 +31,15 @@ class Pdf(PreDownloadPDF):
             self._cover = queryMultiAdapter((self.context, self.request),
                                             name=u'pdf.cover')
         return self._cover
+
+    @property
+    def disclaimer(self):
+        """ PDF disclaimer, first page after cover
+        """
+        if not self._disclaimer:
+            self._disclaimer = queryMultiAdapter((self.context, self.request),
+                                                 name=u'pdf.disclaimer')
+        return self._disclaimer
 
     @property
     def body(self):
@@ -54,6 +64,17 @@ class Pdf(PreDownloadPDF):
         """
         options = queryAdapter(
             self.context, ISendAsPDFOptionsMaker, name='pdf.cover',
+            default=queryAdapter(self.context, ISendAsPDFOptionsMaker))
+
+        if not options:
+            return {}, None
+        return options.getOptions(), options.overrideAll()
+
+    def _disclaimer_get_adapter_options(self):
+        """ Get options per
+        """
+        options = queryAdapter(
+            self.context, ISendAsPDFOptionsMaker, name='pdf.disclaimer',
             default=queryAdapter(self.context, ISendAsPDFOptionsMaker))
 
         if not options:
@@ -91,6 +112,16 @@ class Pdf(PreDownloadPDF):
         self.generate_pdf_file(self.body())
         return os.path.join(self.tempdir, self.filename)
 
+    def make_pdf_disclaimer(self):
+        """ Separate method for creating pdf disclaimer
+        """
+        if not self.disclaimer:
+            return ''
+
+        self._get_adapter_options = self._disclaimer_get_adapter_options()
+        self.generate_pdf_file(self.disclaimer())
+        return os.path.join(self.tempdir, self.filename)
+
     def make_pdf_backcover(self):
         """ Separate method for creating pdf back cover
         """
@@ -110,6 +141,9 @@ class Pdf(PreDownloadPDF):
         # Generate pdf cover
         cover = self.make_pdf_cover()
 
+        # Generate pdf disclaimer
+        disclaimer = self.make_pdf_disclaimer()
+
         # Generate pdf body
         body = self.make_pdf_body()
 
@@ -120,7 +154,10 @@ class Pdf(PreDownloadPDF):
         self.filename = self.generate_temp_filename()
         output = os.path.join(self.tempdir, self.filename)
 
-        cmd = "pdftk %s %s %s output %s" % (cover, body, backcover, output)
+        cmd = "pdftk %s %s %s %s output %s" % (
+            cover, disclaimer, body, backcover, output
+        )
+
         logger.debug(cmd)
 
         process = Popen(

@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Feature: Added PDF Back Cover support
   [voineali refs #19882]
+* Feature: Added PDF Disclaimer support (the first page after cover containing
+  author details and copyrights)
+  [voineali refs #19882]
 
 6.7 - (2014-03-10)
 ------------------

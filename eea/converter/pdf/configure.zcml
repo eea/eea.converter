@@ -19,6 +19,13 @@
     factory=".adapters.CoverOptionsMaker" />
 
   <adapter
+    name="pdf.disclaimer"
+    zcml:condition="installed collective.sendaspdf"
+    for="zope.interface.Interface"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.DisclaimerOptionsMaker" />
+
+  <adapter
     name="pdf.cover.back"
     zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"

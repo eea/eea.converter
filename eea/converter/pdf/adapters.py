@@ -94,6 +94,10 @@ class CoverOptionsMaker(object):
             '--no-toc': True
         }
 
+class DisclaimerOptionsMaker(CoverOptionsMaker):
+    """ PDF Converter for Disclaimer
+    """
+
 class BackCoverOptionsMaker(CoverOptionsMaker):
     """ PDF Converter for Back Cover
     """

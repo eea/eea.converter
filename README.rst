@@ -42,6 +42,19 @@ Provide custom browser:page called *@@pdf.cover*::
     permission="zope2.View"
     />
 
+Disclaimer
+----------
+First page after PDF Cover containing author details and copyrights.
+Provide custom browser:page called *@@pdf.cover*::
+
+  <browser:page
+    for="my.package.interfaces.ICustomContent"
+    name="pdf.disclaimer"
+    class=".app.pdfview.Disclaimer"
+    template="zpt/pdf.disclaimer.pt"
+    permission="zope2.View"
+    />
+
 Body
 ----
 Provide custom browser:page called *@@pdf.body*::
@@ -77,7 +90,15 @@ For PDF cover you'll have to provide a named adapter like::
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
 
-Same for PDF back cover::
+Same for PDF disclaimer::
+
+  <adapter
+    name="pdf.disclaimer"
+    for=" my.package.interfaces.ICustomContent"
+    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    factory=".adapters.DisclaimerOptionsMaker" />
+
+Or for PDF back cover::
 
   <adapter
     name="pdf.cover.back"
@@ -85,7 +106,7 @@ Same for PDF back cover::
     provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
     factory=".adapters.BackCoverOptionsMaker" />
 
-For PDF body you'll have to provide an unamed adapter like::
+For PDF body you'll have to provide an unnamed adapter like::
 
   <adapter
     for=" my.package.interfaces.ICustomContent"
