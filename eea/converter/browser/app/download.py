@@ -118,7 +118,7 @@ class Pdf(PreDownloadPDF):
         if not self.disclaimer:
             return ''
 
-        self._get_adapter_options = self._disclaimer_get_adapter_options()
+        self._get_adapter_options = self._disclaimer_get_adapter_options
         self.generate_pdf_file(self.disclaimer())
         return os.path.join(self.tempdir, self.filename)
 
