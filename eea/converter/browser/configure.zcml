@@ -46,7 +46,7 @@
     name="pdf.header"
     class=".app.pdfview.Header"
     template="zpt/pdf.header.pt"
-    permission="zope2.View"
+    permission="zope.Public"
     />
 
   <browser:page
@@ -55,7 +55,7 @@
     name="pdf.footer"
     class=".app.pdfview.Footer"
     template="zpt/pdf.footer.pt"
-    permission="zope2.View"
+    permission="zope.Public"
     />
 
   <browser:page
