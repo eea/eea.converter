@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.8-dev - (unreleased)
-----------------------
+6.8 - (2014-06-06)
+------------------
 * Feature: Added PDF Back Cover support
   [voineali refs #19882]
 * Feature: Added PDF Disclaimer support (the first page after cover containing
