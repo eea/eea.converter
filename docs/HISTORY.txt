@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.9-dev - (unreleased)
+----------------------
+
 6.8 - (2014-06-06)
 ------------------
 * Feature: Added PDF Back Cover support
