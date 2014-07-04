@@ -12,3 +12,12 @@ class IConvert(Interface):
 class IWatermark(Interface):
     """ Place watermarks using PIL
     """
+
+class IPDFOptionsMaker(Interface):
+    """ PDF Options Maker
+    """
+    def __call__():
+        """
+        :return: a list of wkhtmltopdf Page Options
+        See http://wkhtmltopdf.org/usage/wkhtmltopdf.txt
+        """

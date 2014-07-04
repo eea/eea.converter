@@ -1,35 +1,46 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
-  <!-- Generic options maker -->
+  <!-- Global options maker -->
   <adapter
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.OptionsMaker" />
 
   <!-- Cover options maker -->
   <adapter
     name="pdf.cover"
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
 
+  <!-- Disclaimer -->
   <adapter
     name="pdf.disclaimer"
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.DisclaimerOptionsMaker" />
 
+  <!-- Table of contents -->
+  <adapter
+    name="pdf.toc"
+    for="zope.interface.Interface"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
+    factory=".adapters.TocOptionsMaker" />
+
+  <!-- Body options maker -->
+  <adapter
+    name="pdf.body"
+    for="zope.interface.Interface"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
+    factory=".adapters.BodyOptionsMaker" />
+
+  <!-- Back cover -->
   <adapter
     name="pdf.cover.back"
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.BackCoverOptionsMaker" />
 
 </configure>

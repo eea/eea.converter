@@ -21,6 +21,10 @@ class Disclaimer(Cover):
     """ PDF Disclaimer
     """
 
+class Toc(Cover):
+    """ PDF Table of Contents
+    """
+
 class BackCover(Cover):
     """ PDF Back Cover
     """

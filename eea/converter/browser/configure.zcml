@@ -1,11 +1,9 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
-  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="pdf.cover"
     class=".app.pdfview.Cover"
@@ -14,7 +12,6 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="pdf.disclaimer"
     class=".app.pdfview.Disclaimer"
@@ -23,7 +20,14 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
+    for="zope.interface.Interface"
+    name="pdf.toc"
+    class=".app.pdfview.Toc"
+    template="zpt/pdf.toc.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     for="zope.interface.Interface"
     name="pdf.cover.back"
     class=".app.pdfview.BackCover"
@@ -32,7 +36,6 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="pdf.body"
     class=".app.pdfview.Body"
@@ -41,7 +44,6 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="pdf.header"
     class=".app.pdfview.Header"
@@ -50,7 +52,6 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="pdf.footer"
     class=".app.pdfview.Footer"
@@ -59,7 +60,6 @@
     />
 
   <browser:page
-    zcml:condition="installed collective.sendaspdf"
     for="zope.interface.Interface"
     name="download.pdf"
     class=".app.download.Pdf"

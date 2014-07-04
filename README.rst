@@ -11,7 +11,7 @@ EEA Converter
 Introduction
 ============
 This package provides utilities to convert images and PDF files
-using ImageMagick. Also, toghether with `collective.sendaspdf`_ and pdftk
+using ImageMagick. Also, toghether with `eea.pdf`_
 users can download HTML pages as PDFs *with custom cover and back cover support*
 
 Installation
@@ -87,7 +87,7 @@ For PDF cover you'll have to provide a named adapter like::
   <adapter
     name="pdf.cover"
     for=" my.package.interfaces.ICustomContent"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.CoverOptionsMaker" />
 
 Same for PDF disclaimer::
@@ -95,7 +95,7 @@ Same for PDF disclaimer::
   <adapter
     name="pdf.disclaimer"
     for=" my.package.interfaces.ICustomContent"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.DisclaimerOptionsMaker" />
 
 Or for PDF back cover::
@@ -103,17 +103,17 @@ Or for PDF back cover::
   <adapter
     name="pdf.cover.back"
     for=" my.package.interfaces.ICustomContent"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.BackCoverOptionsMaker" />
 
 For PDF body you'll have to provide an unnamed adapter like::
 
   <adapter
     for=" my.package.interfaces.ICustomContent"
-    provides="collective.sendaspdf.interfaces.ISendAsPDFOptionsMaker"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.OptionsMaker" />
 
-Also add custom print.css for your needs. See more at `collective.sendaspdf`_
+Also add custom print.css for your needs. See more at `eea.pdf`_
 
 Dependencies
 ============
@@ -138,7 +138,7 @@ Dependencies
     yum install ImageMagick
     apt-get install imagemagick
 
-* `collective.sendaspdf`_
+* `eea.pdf`_
 
 
 Source code
@@ -183,4 +183,4 @@ EEA_ - European Environment Agency (EU)
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
 .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
 .. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
-.. _`collective.sendaspdf`: https://pypi.python.org/pypi/collective.sendaspdf
+.. _`eea.pdf`: http://eea.github.com/docs/eea.pdf
