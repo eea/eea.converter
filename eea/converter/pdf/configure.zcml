@@ -22,13 +22,6 @@
     provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.DisclaimerOptionsMaker" />
 
-  <!-- Table of contents -->
-  <adapter
-    name="pdf.toc"
-    for="zope.interface.Interface"
-    provides="eea.converter.interfaces.IPDFOptionsMaker"
-    factory=".adapters.TocOptionsMaker" />
-
   <!-- Body options maker -->
   <adapter
     name="pdf.body"
@@ -42,5 +35,8 @@
     for="zope.interface.Interface"
     provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.BackCoverOptionsMaker" />
+
+  <utility provides="eea.converter.interfaces.IHtml2Pdf"
+           factory=".wk.WkHtml2Pdf" />
 
 </configure>

@@ -21,3 +21,7 @@ class IPDFOptionsMaker(Interface):
         :return: a list of wkhtmltopdf Page Options
         See http://wkhtmltopdf.org/usage/wkhtmltopdf.txt
         """
+
+class IHtml2Pdf(Interface):
+    """ HTML to PDF utility
+    """

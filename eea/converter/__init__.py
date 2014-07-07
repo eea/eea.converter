@@ -1,7 +1,7 @@
 """ Converters
 """
 import logging
-import sys
+import sys, os
 from subprocess import Popen, PIPE, STDOUT
 logger = logging.getLogger('eea.converter')
 
@@ -33,6 +33,14 @@ def can_update_pdf_metadata():
         logger.warn("pdftk NOT FOUND: PDF metadata syncronize is not supported")
         return False
     return True
+
+
+WK_COMMAND = os.environ.get('WKHTMLTOPDF_PATH')
+if WK_COMMAND:
+    logger.info('wkhtmltopdf found at  %s: ', WK_COMMAND)
+else:
+    WK_COMMAND = 'wkhtmltopdf'
+    logger.warn("wkhtmltopdf path unknown, hope it's in the path")
 
 CAN_JOIN_PDFS = CAN_UPDATE_PDF_METADATA = can_update_pdf_metadata()
 CAN_CONVERT_IMAGE = can_convert_image()

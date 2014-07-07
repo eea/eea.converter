@@ -79,6 +79,17 @@ Provide custom browser:page called *@@pdf.cover.back*::
     permission="zope2.View"
     />
 
+Table of contents
+-----------------
+To enable Table of contents provide an empty browser:page called *@@pdf.toc*::
+
+  <browser:page
+    for="my.package.interfaces.ICustomContent"
+    name="pdf.toc"
+    template="zpt/pdf.toc.pt"
+    permission="zope2.View"
+    />
+
 Options
 -------
 
@@ -106,7 +117,15 @@ Or for PDF back cover::
     provides="eea.converter.interfaces.IPDFOptionsMaker"
     factory=".adapters.BackCoverOptionsMaker" />
 
-For PDF body you'll have to provide an unnamed adapter like::
+For PDF body you'll have to provide a named adapter like::
+
+  <adapter
+    name="pdf.body"
+    for=" my.package.interfaces.ICustomContent"
+    provides="eea.converter.interfaces.IPDFOptionsMaker"
+    factory=".adapters.BodyOptionsMaker" />
+
+For global PDF options provide an unamed adapter like::
 
   <adapter
     for=" my.package.interfaces.ICustomContent"

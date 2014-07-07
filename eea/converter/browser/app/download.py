@@ -1,58 +1,164 @@
 """ Download as PDF
 """
-import os
 import logging
-from subprocess import Popen, PIPE, STDOUT
 
 from Products.Five.browser import BrowserView
-from zope.component import queryMultiAdapter, queryAdapter
-from eea.converter.interfaces import IPDFOptionsMaker
+from zope.component import queryAdapter, queryUtility
+from eea.converter.interfaces import IPDFOptionsMaker, IHtml2Pdf
 
 logger = logging.getLogger('eea.converter')
-
-PDF = [
-    # Global PDF options
-    '',
-
-    # Cover
-    'pdf.cover',
-
-    # Disclaimer
-    'pdf.disclaimer',
-
-    # Table of contents
-    'pdf.toc',
-
-    # Body
-    'pdf.body',
-
-    # Back cover
-    'pdf.cover.back'
-]
 
 class Pdf(BrowserView):
     """ Download as PDF using @@pdf.cover and @@pdf.body browser views
     """
-    def options(self, section=u''):
+    def __init__(self, context, request):
+        super(Pdf, self).__init__(context, request)
+        self._cookies = None
+
+    @property
+    def cookies(self):
+        """ Cookies
+        """
+        if self._cookies is None:
+            ac_cookie = self.request.cookies.get('__ac', None)
+            if not ac_cookie:
+                self._cookies = {}
+                return self._cookies
+
+            self._cookies = {'__ac': ac_cookie}
+        return self._cookies
+
+    def options(self, section=u'', margin=True):
         """ Get options for given section
         """
-        options = queryAdapter(
-            self.context, IPDFOptionsMaker, name=section,
-            default=lambda: [])
+        return queryAdapter(self.context, IPDFOptionsMaker, name=section)
 
-        return options()
+    def make_cover(self):
+        """
+        Unfortunately wkhtmltopdf can't make cover and body with different
+        margins, thus generate them separately
+        """
+        cover = self.options('pdf.cover')
+        cover = cover()
+        if not cover:
+            return ''
 
-    def make_pdf(self):
+        options = self.options('')
+        options._margin = False
+        options._cookies = self.cookies
+
+        options = options()
+        options.extend(cover)
+
+        html2pdf = queryUtility(IHtml2Pdf)
+        return html2pdf(options)
+
+    # BBB
+    make_pdf_cover = make_cover
+
+    def make_back_cover(self):
+        """ Back cover
+        """
+        cover = self.options('pdf.cover.back')
+        cover = cover()
+        if not cover:
+            return ''
+
+        options = self.options('')
+        options._margin = False
+        options._cookies = self.cookies
+
+        options = options()
+        options.extend(cover)
+
+        html2pdf = queryUtility(IHtml2Pdf)
+        return html2pdf(options)
+
+    def make_disclaimer(self):
+        """
+        Generate pdf disclaimer
+        """
+        disclaimer = self.options('pdf.disclaimer')
+        disclaimer = disclaimer()
+        if not disclaimer:
+            return ''
+
+        options = self.options('')
+        options._margin = False
+        options._cookies = self.cookies
+
+        options = options()
+        options.extend(disclaimer)
+
+        html2pdf = queryUtility(IHtml2Pdf)
+        return html2pdf(options)
+
+    def make_body(self):
         """ Override pdf converter
         """
-        options = []
-        # Cover options
-        for section in PDF:
-            options.extend(self.options(section))
+        body = self.options('pdf.body')
+        body = body()
+        if not body:
+            return ''
 
-        return options
+        options = self.options('')
+        options._cookies = self.cookies
+
+        options = options()
+        options.extend(body)
+
+        html2pdf = queryUtility(IHtml2Pdf)
+        return html2pdf(options)
+
+    def make_pdf(self):
+        """ Compute pdf
+        """
+        pdfs = []
+
+        cover = self.make_cover()
+        if cover:
+            pdfs.append(cover)
+
+        disclaimer = self.make_disclaimer()
+        if disclaimer:
+            pdfs.append(disclaimer)
+
+        body = self.make_body()
+        if body:
+            pdfs.append(body)
+
+        backcover = self.make_back_cover()
+        if backcover:
+            pdfs.append(backcover)
+
+        html2pdf = queryUtility(IHtml2Pdf)
+        output = html2pdf.concat(pdfs[:], default=body)
+
+        data = open(output, 'rb').read()
+        html2pdf.cleanup(output, *pdfs)
+        return data
+
+    @property
+    def filename(self):
+        """ Generates the name for the PDF file.
+        If the context title does not contain non-ascii characters,
+        we'll use it.
+        Otherwise we'll rewrite it using normalize string.
+        """
+        try:
+            name = self.context.title.encode('ascii')
+        except (UnicodeDecodeError, UnicodeEncodeError, ):
+            name = self.context.id
+        return '%s.pdf' % name
 
     def __call__(self, **kwargs):
         # Cheat condition @@plone_context_state/is_view_template
         self.request['ACTUAL_URL'] = self.context.absolute_url()
+
+        self.request.response.setHeader("Content-type", "application/pdf")
+        self.request.response.setHeader("X-Robots-Tag", "noindex")
+        self.request.response.setHeader('Content-Disposition',
+            'attachment; filename="%s"' % self.filename
+        )
+
         return self.make_pdf()

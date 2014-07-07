@@ -3,6 +3,10 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Feature: Added Table of Contents support
+  [voineali refs #20268]
+* Cleanup: Remove collective.sendaspdf dependency
+  [voineali refs #20268]
 
 6.8 - (2014-06-06)
 ------------------

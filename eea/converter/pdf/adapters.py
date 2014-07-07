@@ -5,17 +5,75 @@ class OptionsMaker(object):
     """
     def __init__(self, context):
         self.context = context
+        self._options = None
+        self._margin = True
+        self._cookies = None
+        self._body = None
+
+    @property
+    def body(self):
+        """ PDF Body
+        """
+        if not self._body:
+            self._body = ''
+        return self._body
+
+    @property
+    def margin(self):
+        """ PDF Margins
+        """
+        if not self._margin:
+            return [
+                '--margin-top', '0',
+               '--margin-bottom', '0',
+                '--margin-left', '0',
+                '--margin-right', '0',
+            ]
+        else:
+            return [
+                '--margin-top', '32',
+                '--margin-bottom', '32',
+                '--margin-left', '20',
+                '--margin-right', '20',
+            ]
+
+    @property
+    def cookies(self):
+        """ Allowed cookies
+        """
+        cookies = []
+        if isinstance(self._cookies, dict):
+            for name, value in self._cookies.items():
+                cookies.extend(['--cookie', name, value])
+        return cookies
+
+    @property
+    def options(self):
+        """ Salfely get global options
+        """
+        if self._options is None:
+            self._options = [
+                '--page-size', 'A4',
+                '--page-offset', '2',
+                '--print-media-type',
+                '--disable-javascript',
+                '--encoding', 'utf-8',
+                '--quiet',
+            ]
+            self._options.extend(self.margin)
+            self._options.extend(self.cookies)
+        return self._options
 
     def __call__(self, **kwargs):
-        return [
-             '--page-size', 'A4',
-            '--margin-top', '32',
-             '--margin-bottom', '32',
-             '--margin-left', '20',
-             '--page-offset', '2',
-             '--margin-right', '20',
-             '--print-media-type'
-        ]
+        margin = kwargs.get('margin', None)
+        if margin is not None:
+            self._margin = margin
+
+        cookies = kwargs.get('cookies', None)
+        if cookies is not None:
+            self._cookies = cookies
+
+        return self.options
 
 class BodyOptionsMaker(object):
     """ PDF Converter for Archetypes
@@ -24,12 +82,12 @@ class BodyOptionsMaker(object):
         self.context = context
         self._header = None
         self._footer = None
+        self._toc = None
         self._body = None
 
     @property
     def body(self):
-        """
-        :return: pdf.body
+        """ PDF body
         """
         if not self._body:
             try:
@@ -44,7 +102,7 @@ class BodyOptionsMaker(object):
     def header(self):
         """ Safely get pdf.header
         """
-        if not self._header:
+        if self._header is None:
             try:
                 self.context.restrictedTraverse('@@pdf.header')
             except Exception:
@@ -57,7 +115,7 @@ class BodyOptionsMaker(object):
     def footer(self):
         """ Safely get pdf.footer
         """
-        if not self._footer:
+        if self._footer is None:
             try:
                 self.context.restrictedTraverse('@@pdf.footer')
             except Exception:
@@ -66,12 +124,34 @@ class BodyOptionsMaker(object):
                 self._footer = self.context.absolute_url() + '/pdf.footer'
         return self._footer
 
+    @property
+    def toc(self):
+        """ Safely get table of contents
+        """
+        if self._toc is None:
+            try:
+                self.context.restrictedTraverse('@@pdf.toc')
+            except Exception:
+                self._toc = ''
+            else:
+                self._toc = self.context.absolute_url() + '/pdf.toc'
+        return self._toc
+
     def __call__(self, **kwargs):
         options = []
         if not self.body:
             return options
 
-        options.extend([self.body])
+        if self.toc:
+            options.extend([
+                'toc',
+                '--toc-header-text', repr('Table of contents')
+            ])
+
+        options.extend([
+            self.body,
+            '--load-error-handling', 'ignore'
+        ])
 
         if self.header:
             options.extend([
@@ -96,94 +176,54 @@ class CoverOptionsMaker(object):
     """
     def __init__(self, context):
         self.context = context
-        self._cover = None
+        self._body = None
 
     @property
-    def cover(self):
+    def body(self):
         """ Safely get pdf.cover
         """
-        if not self._cover:
+        if not self._body:
             try:
                 self.context.restrictedTraverse('@@pdf.cover')
             except Exception:
-                self._cover = ''
+                self._body = ''
             else:
-                self._cover = self.context.absolute_url() + '/pdf.cover'
-        return self._cover
+                self._body = self.context.absolute_url() + '/pdf.cover'
+        return self._body
 
     def __call__(self, **kwargs):
-        if self.cover:
-            return ['cover', self.cover]
+        if self.body:
+            return ['cover', self.body]
         return []
 
 class BackCoverOptionsMaker(CoverOptionsMaker):
     """ PDF Converter for Back Cover
     """
     @property
-    def cover(self):
+    def body(self):
         """ Safely get pdf.cover
         """
-        if not self._cover:
+        if not self._body:
             try:
                 self.context.restrictedTraverse('@@pdf.cover.back')
             except Exception:
-                self._cover = ''
+                self._body = ''
             else:
-                self._cover = self.context.absolute_url() + '/pdf.cover.back'
-        return self._cover
+                self._body = self.context.absolute_url() + '/pdf.cover'
+        return self._body
 
-    def __call__(self, **kwargs):
-        if self.cover:
-            return [self.cover]
-        return []
-
-class TocOptionsMaker(object):
-    """ PDF Table of contents
-    """
-    def __init__(self, context):
-        self.context = context
-        self._toc = None
-
-    @property
-    def toc(self):
-        """ Table of contents
-        """
-        if not self._toc:
-            try:
-                self.context.restrictedTraverse('@@pdf.toc')
-            except Exception:
-                self._toc = ''
-            else:
-                self._toc = self.context.absolute_url() + '/pdf.toc'
-        return self._toc
-
-    def __call__(self, **kwargs):
-        if self.toc:
-            return ['toc']
-        return []
-
-class DisclaimerOptionsMaker(object):
+class DisclaimerOptionsMaker(CoverOptionsMaker):
     """ PDF Converter for Disclaimer
     """
-    def __init__(self, context):
-        self.context = context
-        self._disclaimer = None
-
     @property
-    def disclaimer(self):
+    def body(self):
         """ Safely get pdf.disclaimer
         """
-        if not self._disclaimer:
+        if not self._body:
             try:
                 self.context.restrictedTraverse('@@pdf.disclaimer')
             except Exception:
-                self._disclaimer = ''
+                self._body = ''
             else:
-                self._disclaimer = (
-                    self.context.absolute_url() + '/pdf.disclaimer')
-        return self._disclaimer
-
-    def __call__(self, **kwargs):
-        if self.disclaimer:
-            return [self.disclaimer]
-        return []
+                self._body = self.context.absolute_url() + '/pdf.disclaimer'
+        return self._body
