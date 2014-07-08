@@ -147,9 +147,15 @@ class Pdf(BrowserView):
 
         timeout = self.options('').timeout
         html2pdf = queryUtility(IHtml2Pdf)
-        output = html2pdf.concat(pdfs[:], default=body, timeout=timeout)
 
         data = ''
+        if not pdfs:
+            return data
+        elif len(pdfs) == 1:
+            output = pdfs.pop(0)
+        else:
+            output = html2pdf.concat(pdfs[:], default=body, timeout=timeout)
+
         if output and os.path.exists(output):
             data = open(output, 'rb').read()
             pdfs.append(output)
