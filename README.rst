@@ -11,8 +11,10 @@ EEA Converter
 Introduction
 ============
 This package provides utilities to convert images and PDF files
-using ImageMagick. Also, toghether with `eea.pdf`_
-users can download HTML pages as PDFs *with custom cover and back cover support*
+using ImageMagick. It also provides a generic /download.pdf browser view that
+allow your users to download Plone pages as PDF files with custom PDF cover,
+disclaimer and back cover (requires `wkhtmltopdf`_ and `pdftk`_ system-packages
+installed on your server).
 
 Installation
 ============
@@ -142,20 +144,32 @@ Dependencies
   These are not hard dependencies. You can use all features of eea.converter or
   just the ones that you need.
 
+.. _pdfinfo:
+
 * pdfinfo to parse pdf metadata (part of the xpdf package)::
 
     yum install xpdf (fedora)
     apt-get install xpdf (debian)
+
+.. _pdftk:
 
 * pdftk to generate a cover image from a pdf file::
 
     yum install pdftk (fedora)
     apt-get install pdftk (debian)
 
+.. _imagemagick:
+
 * ImageMagick (6.3.7+)::
 
     yum install ImageMagick
     apt-get install imagemagick
+
+.. _wkhtmltopdf:
+
+* wkhtmltopdf (0.12.1+):
+
+    `Download and install <http://wkhtmltopdf.org/downloads.html>`_
 
 * `eea.pdf`_
 

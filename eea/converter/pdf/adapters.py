@@ -154,7 +154,7 @@ class BodyOptionsMaker(object):
         if self.toc:
             options.extend([
                 'toc',
-                '--toc-header-text', repr('Table of contents')
+                '--toc-header-text', "Table of contents"
             ])
 
         options.extend([
