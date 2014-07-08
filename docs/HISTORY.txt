@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.9-dev - (unreleased)
+7.0-dev - (unreleased)
 ----------------------
 * Feature: Added Table of Contents support
   [voineali refs #20268]
