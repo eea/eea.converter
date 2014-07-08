@@ -18,21 +18,23 @@ class WkHtml2Pdf(Html2Pdf):
         if not CAN_JOIN_PDFS:
             return default
 
+        if not pdfs:
+            return default
+
         output = tempfile.mkstemp('.pdf')[1]
         pdfs.insert(0, 'pdftk')
         pdfs.extend([
             'output', output
         ])
 
-        pdfs = ' '.join(pdfs)
-        pro = subprocess.Popen(pdfs, shell=True,
-                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT, close_fds=True)
-
-        res = pro.stdout.read()
-        if res:
-            logger.exception(res)
-        return output
+        try:
+            subprocess.check_call(pdfs)
+        except Exception, err:
+            logger.exception(err)
+            self.cleanup(output)
+            return default
+        else:
+            return output
 
     def cleanup(self, *files):
         """
@@ -52,15 +54,14 @@ class WkHtml2Pdf(Html2Pdf):
 
         output = tempfile.mkstemp('.pdf')[1]
         args.append(output)
-        args = ' '.join(args)
 
         # logger.info(args)
 
-        pro = subprocess.Popen(args, shell=True,
-                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT, close_fds=True)
-
-        res = pro.stdout.read()
-        logger.debug(res)
-
-        return output
+        try:
+            subprocess.check_call(args)
+        except Exception, err:
+            logger.exception(err)
+            self.cleanup(output)
+            return ''
+        else:
+            return output

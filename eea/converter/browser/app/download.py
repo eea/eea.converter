@@ -1,9 +1,11 @@
 """ Download as PDF
 """
+import os
 import logging
 
 from Products.Five.browser import BrowserView
 from zope.component import queryAdapter, queryUtility
+from Products.statusmessages.interfaces import IStatusMessage
 from eea.converter.interfaces import IPDFOptionsMaker, IHtml2Pdf
 
 logger = logging.getLogger('eea.converter')
@@ -134,8 +136,11 @@ class Pdf(BrowserView):
         html2pdf = queryUtility(IHtml2Pdf)
         output = html2pdf.concat(pdfs[:], default=body)
 
-        data = open(output, 'rb').read()
-        html2pdf.cleanup(output, *pdfs)
+        data = ''
+        if output and os.path.exists(output):
+            data = open(output, 'rb').read()
+            html2pdf.cleanup(output, *pdfs)
+
         return data
 
     @property
@@ -155,10 +160,18 @@ class Pdf(BrowserView):
         # Cheat condition @@plone_context_state/is_view_template
         self.request['ACTUAL_URL'] = self.context.absolute_url()
 
+        data = self.make_pdf()
+        if not data:
+            IStatusMessage(self.request).addStatusMessage(
+                "An error occurred while downloading your PDF file. "
+                "Please try again later.",
+                type='error')
+            return self.request.response.redirect(self.context.absolute_url())
+
+
         self.request.response.setHeader("Content-type", "application/pdf")
         self.request.response.setHeader("X-Robots-Tag", "noindex")
         self.request.response.setHeader('Content-Disposition',
             'attachment; filename="%s"' % self.filename
         )
-
-        return self.make_pdf()
+        return data
