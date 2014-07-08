@@ -102,6 +102,8 @@ class Pdf(BrowserView):
         """ Override pdf converter
         """
         body = self.options('pdf.body')
+        toc = body.toc
+
         body = body()
         if not body:
             return ''
@@ -114,7 +116,13 @@ class Pdf(BrowserView):
         options.extend(body)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options, timeout)
+        output = html2pdf(options, timeout)
+
+        # Cleanup possible temp toc file
+        if toc:
+            html2pdf.cleanup(toc)
+
+        return output
 
     def make_pdf(self):
         """ Compute pdf
@@ -144,8 +152,9 @@ class Pdf(BrowserView):
         data = ''
         if output and os.path.exists(output):
             data = open(output, 'rb').read()
-            html2pdf.cleanup(output, *pdfs)
+            pdfs.append(output)
 
+        html2pdf.cleanup(*pdfs)
         return data
 
     @property

@@ -1,5 +1,7 @@
 """ PDF Adapters
 """
+import tempfile
+
 class OptionsMaker(object):
     """ PDF Converter Global PDF options
     """
@@ -135,16 +137,27 @@ class BodyOptionsMaker(object):
 
     @property
     def toc(self):
-        """ Safely get table of contents
+        """ Table of contents
         """
         if self._toc is None:
             try:
-                self.context.restrictedTraverse('@@pdf.toc')
+                body = self.context.restrictedTraverse('@@pdf.toc')
             except Exception:
                 self._toc = ''
             else:
-                self._toc = self.context.absolute_url() + '/pdf.toc'
+                # self._toc = self.context.absolute_url() + '/pdf.toc'
+
+                ## XXX wkhtmltopdf doesn't support URLs for TOC xsl
+                ## To be replaced with previous commented one when fixed by wk
+
+                output = tempfile.mkstemp('.xsl')[1]
+                open(output, 'w').write(body())
+                self._toc = output
+
+                ## End patch
+
         return self._toc
+
 
     def __call__(self, **kwargs):
         options = []
@@ -154,7 +167,7 @@ class BodyOptionsMaker(object):
         if self.toc:
             options.extend([
                 'toc',
-                '--toc-header-text', "Table of contents"
+                '--xsl-style-sheet', self.toc,
             ])
 
         options.extend([

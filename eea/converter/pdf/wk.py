@@ -10,6 +10,13 @@ from eea.converter.pdf import Html2Pdf
 
 logger = logging.getLogger('eea.converter')
 
+def raiseTimeout(timeout, proc, args):
+    """ Raise timeout error
+    """
+    logger.warn("Timeout error: timeout = %s; cmd = %s",
+                     timeout, ' '.join(args))
+    proc.kill()
+
 class WkHtml2Pdf(Html2Pdf):
     """ Utility to convert html to pdf
     """
@@ -70,8 +77,6 @@ class WkHtml2Pdf(Html2Pdf):
         output = tempfile.mkstemp('.pdf')[1]
         args.append(output)
 
-        # logger.info(args)
-
         try:
             proc = subprocess.Popen(
                 args,
@@ -81,16 +86,20 @@ class WkHtml2Pdf(Html2Pdf):
             )
 
             if timeout:
-                timer = Timer(timeout, proc.kill)
+                timer = Timer(timeout, raiseTimeout, [timeout, proc, args])
                 timer.start()
                 proc.communicate()
                 timer.cancel()
             else:
                 proc.communicate()
-
         except Exception, err:
-            logger.exception(err)
+            logger.exception('%s. cmd: %s', err, ' '.join(args))
             self.cleanup(output)
-            return ''
-        else:
-            return output
+            output = ''
+
+        if output and not os.path.getsize(output):
+            logger.warn('Empty output PDF. cmd = %s', ' '.join(args))
+            self.cleanup(output)
+            output = ''
+
+        return output

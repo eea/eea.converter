@@ -24,7 +24,7 @@
     name="pdf.toc"
     class=".app.pdfview.Toc"
     template="zpt/pdf.toc.pt"
-    permission="zope2.View"
+    permission="zope.Public"
     />
 
   <browser:page
