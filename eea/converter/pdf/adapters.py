@@ -5,10 +5,19 @@ class OptionsMaker(object):
     """
     def __init__(self, context):
         self.context = context
+        self._timeout = None
         self._options = None
         self._margin = True
         self._cookies = None
         self._body = None
+
+    @property
+    def timeout(self):
+        """ Kill process after timeout
+        """
+        if self._timeout is None:
+            self._timeout = 60
+        return self._timeout
 
     @property
     def body(self):

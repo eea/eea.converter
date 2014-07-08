@@ -48,12 +48,13 @@ class Pdf(BrowserView):
         options = self.options('')
         options._margin = False
         options._cookies = self.cookies
+        timeout = options.timeout
 
         options = options()
         options.extend(cover)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options)
+        return html2pdf(options, timeout)
 
     # BBB
     make_pdf_cover = make_cover
@@ -69,12 +70,13 @@ class Pdf(BrowserView):
         options = self.options('')
         options._margin = False
         options._cookies = self.cookies
+        timeout = options.timeout
 
         options = options()
         options.extend(cover)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options)
+        return html2pdf(options, timeout)
 
     def make_disclaimer(self):
         """
@@ -88,12 +90,13 @@ class Pdf(BrowserView):
         options = self.options('')
         options._margin = False
         options._cookies = self.cookies
+        timeout = options.timeout
 
         options = options()
         options.extend(disclaimer)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options)
+        return html2pdf(options, timeout)
 
     def make_body(self):
         """ Override pdf converter
@@ -105,12 +108,13 @@ class Pdf(BrowserView):
 
         options = self.options('')
         options._cookies = self.cookies
+        timeout = options.timeout
 
         options = options()
         options.extend(body)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options)
+        return html2pdf(options, timeout)
 
     def make_pdf(self):
         """ Compute pdf
@@ -133,8 +137,9 @@ class Pdf(BrowserView):
         if backcover:
             pdfs.append(backcover)
 
+        timeout = self.options('').timeout
         html2pdf = queryUtility(IHtml2Pdf)
-        output = html2pdf.concat(pdfs[:], default=body)
+        output = html2pdf.concat(pdfs[:], default=body, timeout=timeout)
 
         data = ''
         if output and os.path.exists(output):
