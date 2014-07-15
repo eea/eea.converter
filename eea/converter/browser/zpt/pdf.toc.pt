@@ -9,29 +9,93 @@
   <xsl:template match="outline:outline">
     <html>
       <head>
-        <title>Table of Contents</title>
+        <title>Contents</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
-          h1 {
-            text-align: center;
-            font-size: 20px;
-            font-family: arial;
+          body {
+            font-family: verdana;
           }
-          div {border-bottom: 1px dashed rgb(200,200,200);}
-          span {float: right;}
-          li {list-style: none;}
+          header {
+            text-align: left;
+            font-size: 20pt;
+            font-weight: bold;
+            padding-bottom: 2em;
+            border-bottom: 1pt solid #000;
+            margin-bottom: 1.5em;
+          }
+
+          div.item a {
+            background-color: #fff;
+            padding-right: 3pt;
+            clear: both;
+            padding-bottom: 1pt;
+          }
+
+          span {
+            float: right;
+            padding: 0;
+            margin: 0;
+            padding-left: 3pt;
+          }
+
+          li {
+            list-style: none;
+          }
+
+          a {
+            text-decoration:none;
+            color: black;
+          }
+
+          ul ul div.item:after {
+            content: "";
+            display: block;
+            overflow: hidden;
+            border-bottom: 2pt dotted #000;
+            margin-top: -3pt;
+          }
+
+          ul div.item {
+            margin-top: 1.5em;
+            border-bottom: 1pt solid #000;
+            padding: 5pt 0;
+            margin-bottom: 1em;
+          }
+
+          ul div.item span {
+            display: none;
+          }
+
+          ul ul div.item {
+            margin: 0;
+            padding: 0;
+            border: none;
+          }
+
+          ul ul div.item span {
+            display: block;
+          }
+
           ul {
-            font-size: 20px;
-            font-family: arial;
+            margin: 5pt 0;
+            font-weight: bold;
+            padding-left: 0em;
+            font-size: 14pt;
           }
-          ul ul {font-size: 80%; }
-          ul {padding-left: 0em;}
-          ul ul {padding-left: 1em;}
-          a {text-decoration:none; color: black;}
+
+          ul ul {
+            padding-left: 1em;
+            font-size: 12pt;
+          }
+
+          ul ul ul {
+            font-weight: normal;
+          }
+
         </style>
       </head>
-      <body>
-        <h1>Table of Contents</h1>
+      <body class="table-of-contents">
+        <header>Contents</header>
         <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
       </body>
     </html>
@@ -39,7 +103,8 @@
   <xsl:template match="outline:item">
     <li>
       <xsl:if test="@title!=''">
-        <div>
+        <div class="item">
+          <span> <xsl:value-of select="@page" /> </span>
           <a>
             <xsl:if test="@link">
               <xsl:attribute name="href"><xsl:value-of select="@link"/></xsl:attribute>
@@ -49,7 +114,6 @@
             </xsl:if>
             <xsl:value-of select="@title" />
           </a>
-          <span> <xsl:value-of select="@page" /> </span>
         </div>
       </xsl:if>
       <ul>
