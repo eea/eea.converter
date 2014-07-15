@@ -4,64 +4,57 @@
   i18n_domain="eea">
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.cover"
+    for="zope.interface.Interface"
     class=".app.pdfview.Cover"
-    template="zpt/pdf.cover.pt"
     permission="zope2.View"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.disclaimer"
+    for="zope.interface.Interface"
     class=".app.pdfview.Disclaimer"
-    template="zpt/pdf.disclaimer.pt"
     permission="zope2.View"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.toc"
+    for="zope.interface.Interface"
     class=".app.pdfview.Toc"
-    template="zpt/pdf.toc.pt"
     permission="zope.Public"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.cover.back"
+    for="zope.interface.Interface"
     class=".app.pdfview.BackCover"
-    template="zpt/pdf.cover.back.pt"
     permission="zope2.View"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.body"
+    for="zope.interface.Interface"
     class=".app.pdfview.Body"
-    template="zpt/pdf.body.pt"
     permission="zope2.View"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.header"
+    for="zope.interface.Interface"
     class=".app.pdfview.Header"
-    template="zpt/pdf.header.pt"
     permission="zope.Public"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="pdf.footer"
+    for="zope.interface.Interface"
     class=".app.pdfview.Footer"
-    template="zpt/pdf.footer.pt"
     permission="zope.Public"
     />
 
   <browser:page
-    for="zope.interface.Interface"
     name="download.pdf"
+    for="zope.interface.Interface"
     class=".app.download.Pdf"
     permission="zope2.View"
     />

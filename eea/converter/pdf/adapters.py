@@ -9,9 +9,10 @@ class OptionsMaker(object):
         self.context = context
         self._timeout = None
         self._options = None
-        self._margin = True
         self._cookies = None
         self._body = None
+        self._margin = True
+        self._outline = True
 
     @property
     def timeout(self):
@@ -59,6 +60,14 @@ class OptionsMaker(object):
         return cookies
 
     @property
+    def outline(self):
+        """ Put an outline into the pdf
+        """
+        if not self._outline:
+            return ['--no-outline']
+        return ['--outline']
+
+    @property
     def options(self):
         """ Salfely get global options
         """
@@ -73,6 +82,7 @@ class OptionsMaker(object):
             ]
             self._options.extend(self.margin)
             self._options.extend(self.cookies)
+            self._options.extend(self.outline)
         return self._options
 
     def __call__(self, **kwargs):
@@ -84,6 +94,10 @@ class OptionsMaker(object):
         if cookies is not None:
             self._cookies = cookies
 
+        outline = kwargs.get('outline', None)
+        if outline is not None:
+            self._outline = outline
+
         return self.options
 
 class BodyOptionsMaker(object):
@@ -94,6 +108,7 @@ class BodyOptionsMaker(object):
         self._header = None
         self._footer = None
         self._toc = None
+        self._toc_links = None
         self._body = None
 
     @property
@@ -158,6 +173,13 @@ class BodyOptionsMaker(object):
 
         return self._toc
 
+    @property
+    def toc_links(self):
+        """ Enable table of contents links
+        """
+        if self._toc_links is None:
+            self._toc_links = True
+        return self._toc_links
 
     def __call__(self, **kwargs):
         options = []
@@ -169,6 +191,11 @@ class BodyOptionsMaker(object):
                 'toc',
                 '--xsl-style-sheet', self.toc,
             ])
+
+            if self.toc_links is False:
+                options.extend([
+                    '--disable-toc-links',
+                ])
 
         options.extend([
             self.body,

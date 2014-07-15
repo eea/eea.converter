@@ -103,6 +103,7 @@ class Pdf(BrowserView):
         """
         body = self.options('pdf.body')
         toc = body.toc
+        toc_links = body.toc_links
 
         body = body()
         if not body:
@@ -110,6 +111,7 @@ class Pdf(BrowserView):
 
         options = self.options('')
         options._cookies = self.cookies
+        options._outline = toc_links
         timeout = options.timeout
 
         options = options()

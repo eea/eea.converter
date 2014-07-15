@@ -17,7 +17,9 @@
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core">
 
-    <!-- Back cover here -->
+<div class="back-cover">
+
+</div>
 
 </metal:content-core>
 </metal:content-core>

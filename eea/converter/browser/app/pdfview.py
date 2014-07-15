@@ -1,11 +1,14 @@
 """ PDF Views
 """
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.converter.utils import truncate
 
 class Cover(BrowserView):
     """ PDF Cover
     """
+    template = ViewPageTemplateFile('../zpt/pdf.cover.pt')
+
     def truncate(self, text, length=300, orphans=10, suffix=u".", end=u"."):
         """
         Truncate text by the number of characters without cutting words at
@@ -17,22 +20,36 @@ class Cover(BrowserView):
         """
         return truncate(text, length, orphans, suffix, end)
 
+    def __call__(self, **kwargs):
+        return self.template()
+
 class Disclaimer(Cover):
     """ PDF Disclaimer
     """
+    template = ViewPageTemplateFile('../zpt/pdf.disclaimer.pt')
 
 class Toc(Cover):
     """ PDF Table of Contents
     """
+    template = ViewPageTemplateFile('../zpt/pdf.toc.pt')
+
+    @property
+    def toc_links(self):
+        """ Enable Table of contents links
+        """
+        return True
 
 class BackCover(Cover):
     """ PDF Back Cover
     """
+    template = ViewPageTemplateFile('../zpt/pdf.cover.back.pt')
 
 
-class Body(BrowserView):
+class Body(Cover):
     """ PDF Body
     """
+    template = ViewPageTemplateFile('../zpt/pdf.body.pt')
+
     def __call__(self, **kwargs):
 
         layout = self.context.getLayout()
@@ -46,10 +63,12 @@ class Body(BrowserView):
 
         return view()
 
-class Header(BrowserView):
+class Header(Cover):
     """ PDF Header
     """
+    template = ViewPageTemplateFile('../zpt/pdf.header.pt')
 
-class Footer(BrowserView):
+class Footer(Cover):
     """ PDF Footer
     """
+    template = ViewPageTemplateFile('../zpt/pdf.footer.pt')

@@ -77,6 +77,8 @@ class WkHtml2Pdf(Html2Pdf):
         output = tempfile.mkstemp('.pdf')[1]
         args.append(output)
 
+        # logger.info(' '.join(args))
+
         try:
             proc = subprocess.Popen(
                 args,
