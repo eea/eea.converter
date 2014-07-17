@@ -53,6 +53,14 @@
     />
 
   <browser:page
+    name="pdf.support"
+    for="zope.interface.Interface"
+    class=".app.support.Support"
+    permission="zope.Public"
+    allowed_interface=".interfaces.ISupport"
+    />
+
+  <browser:page
     name="download.pdf"
     for="zope.interface.Interface"
     class=".app.download.Pdf"

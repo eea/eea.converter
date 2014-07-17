@@ -3,6 +3,8 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Feature: Added API to restrict access to download.pdf
+  [voineali refs #20436]
 
 7.0 - (2014-07-15)
 ------------------

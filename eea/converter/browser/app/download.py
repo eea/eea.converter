@@ -4,7 +4,8 @@ import os
 import logging
 
 from Products.Five.browser import BrowserView
-from zope.component import queryAdapter, queryUtility
+from zope.publisher.interfaces import NotFound
+from zope.component import queryAdapter, queryUtility, queryMultiAdapter
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.converter.interfaces import IPDFOptionsMaker, IHtml2Pdf
 
@@ -179,6 +180,12 @@ class Pdf(BrowserView):
         return '%s.pdf' % name
 
     def __call__(self, **kwargs):
+
+        support = queryMultiAdapter((self.context, self.request),
+                                    name='pdf.support')
+        if not getattr(support, 'can_download', None):
+            raise NotFound(self.context, self.__name__, self.request)
+
         # Cheat condition @@plone_context_state/is_view_template
         self.request['ACTUAL_URL'] = self.context.absolute_url()
 

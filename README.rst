@@ -136,6 +136,22 @@ For global PDF options provide an unamed adapter like::
 
 Also add custom print.css for your needs. See more at `eea.pdf`_
 
+Restrict access
+===============
+In order to restrict access to /download.pdf you'll have to provide a
+multi-adapter named pdf.support with a read-only attribute called can_download
+like::
+
+  <browser:page
+    name="pdf.support"
+    for="zope.interface.Interface"
+    class=".support.Support"
+    permission="zope.Public"
+    allowed_interface="eea.converter.interfaces.ISupport"
+    />
+
+See default implementation within eea.converter.browser.app.support
+
 Dependencies
 ============
 

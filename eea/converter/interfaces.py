@@ -1,6 +1,7 @@
 """ Converter interfaces
 """
 from zope.interface import Interface
+from eea.converter.browser.interfaces import ISupport
 
 class IConvert(Interface):
     """ Convert images using ImageMagick
@@ -25,3 +26,11 @@ class IPDFOptionsMaker(Interface):
 class IHtml2Pdf(Interface):
     """ HTML to PDF utility
     """
+
+__all__ = [
+    ISupport.__name__,
+    IConvert.__name__,
+    IWatermark.__name__,
+    IPDFOptionsMaker.__name__,
+    IHtml2Pdf.__name__
+]
