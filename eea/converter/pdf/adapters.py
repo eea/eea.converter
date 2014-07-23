@@ -76,7 +76,6 @@ class OptionsMaker(object):
                 '--page-size', 'A4',
                 '--page-offset', '2',
                 '--print-media-type',
-                '--disable-javascript',
                 '--encoding', 'utf-8',
                 '--quiet',
             ]
