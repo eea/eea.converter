@@ -2,7 +2,8 @@
 """
 import urlparse
 
-def truncate(text, length=300, orphans=10, suffix=u".", end=u"."):
+def truncate(text, length=300, orphans=10,
+             suffix=u".", end=u".", cut=True, **kwargs):
     """
     Truncate text by the number of characters without cutting words at
     the end.
@@ -32,6 +33,11 @@ def truncate(text, length=300, orphans=10, suffix=u".", end=u"."):
     >>> truncate(text, length=70, orphans=7, suffix='..', end=None)
     u'This is a very long description. It needs to be truncated. So what...do?'
 
+    Do not cut phrases.
+
+    >>> truncate(text, length=10, orphans=5, suffix='.', cut=False)
+    u''
+
 
     Keyword arguments:
     text -- text to truncate
@@ -59,12 +65,15 @@ def truncate(text, length=300, orphans=10, suffix=u".", end=u"."):
                 break
 
         if res:
-            res = u".".join(res)
-            if res[-1] not in ['.', '!', '?']:
+            length = len(res)
+            res = end.join(res)
+            if res[-1] not in ['.', '!', '?'] and length > 1:
                 res += suffix
             return res
 
-    return u' '.join(text[:length+1].split()[:-1]) + suffix
+    if cut:
+        return u' '.join(text[:length+1].split()[:-1]) + suffix
+    return u''
 
 def absolute_url(context, url, default=None, **kwargs):
     """ Revert relative url to absolute url

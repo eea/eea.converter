@@ -9,7 +9,8 @@ class Cover(BrowserView):
     """
     template = ViewPageTemplateFile('../zpt/pdf.cover.pt')
 
-    def truncate(self, text, length=300, orphans=10, suffix=u".", end=u"."):
+    def truncate(self, text, length=300, orphans=10,
+                 suffix=u".", end=u".", cut=True, **kwargs):
         """
         Truncate text by the number of characters without cutting words at
         the end.
@@ -18,7 +19,7 @@ class Cover(BrowserView):
 
         If end char provided try to separate by it
         """
-        return truncate(text, length, orphans, suffix, end)
+        return truncate(text, length, orphans, suffix, end, cut)
 
     def __call__(self, **kwargs):
         return self.template()
