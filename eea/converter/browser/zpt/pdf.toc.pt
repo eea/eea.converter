@@ -3,14 +3,16 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:outline="http://wkhtmltopdf.org/outline"
                 xmlns:tal="http://xml.zope.org/namespaces/tal"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns:i18n="http://namespaces.zope.org/i18n"
+                xmlns="http://www.w3.org/1999/xhtml"
+                i18n:domain="eea">
   <xsl:output doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
               doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
               indent="yes" />
   <xsl:template match="outline:outline">
     <html>
       <head>
-        <title>Contents</title>
+        <title i18n:translate="">Contents</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
           body {
@@ -96,7 +98,7 @@
         </style>
       </head>
       <body class="table-of-contents">
-        <header>Contents</header>
+        <header i18n:translate="">Contents</header>
         <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
       </body>
     </html>

@@ -14,7 +14,7 @@
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core">
 
-    <!-- Disclaimer here -->
+    <div tal:condition="nothing" i18n:translate="">Contents</div>
 
 </metal:content-core>
 </metal:content-core>

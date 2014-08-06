@@ -3,6 +3,8 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Feature: Added i18n translations
+  [voineali refs #20431]
 * Feature: Added possibility to avoid truncated sentences in description
   [voineali refs #20456]
 * Feature: Enabled javascript by default within PDF export.
