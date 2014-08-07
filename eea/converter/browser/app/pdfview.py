@@ -40,6 +40,12 @@ class Toc(Cover):
         """
         return True
 
+    @property
+    def header(self):
+        """ Header
+        """
+        return u"Contents"
+
 class BackCover(Cover):
     """ PDF Back Cover
     """

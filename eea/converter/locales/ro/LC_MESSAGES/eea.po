@@ -16,5 +16,5 @@ msgstr ""
 
 #: ../../converter/browser/zpt/pdf.disclaimer.pt:17
 msgid "Contents"
-msgstr ""
+msgstr "Cuprins"
 
