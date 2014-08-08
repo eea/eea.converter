@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
   <head>
-    <script>
-function subst() {
-  var vars={};
-  var x=document.location.search.substring(1).split('&');
-  for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
-  var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
-  for(var i in x) {
-    var y = document.getElementsByClassName(x[i]);
-    for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
-  }
-}
-    </script>
+    <style>
+    .pull-left { float: left; }
+    .pull-right { float: right; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    div {
+      border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999;
+      font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
+    }
+    </style>
   </head>
-  <body style="border:0; margin: 0;" onload="subst()">
-    <div style="border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999; font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold">
-      <span class="subsection"></span>
+  <body style="border:0; margin: 0;">
+    <div tal:define="
+      page request/page|python:0;
+      page python: int(page);
+      even python: page % 2 == 0;
+      klass python:'text-left' if even else 'text-right'
+    " tal:attributes="class klass">
+      <span class="subsection" tal:content="view/body"></span>
     </div>
   </body>
 </html>

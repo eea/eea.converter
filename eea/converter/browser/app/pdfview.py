@@ -75,7 +75,23 @@ class Header(Cover):
     """
     template = ViewPageTemplateFile('../zpt/pdf.header.pt')
 
+    @property
+    def body(self):
+        """ Header body
+        """
+        text = self.request.get('subsection', '')
+        text = self.truncate(text, 75, 5, suffix='')
+        return text
+
 class Footer(Cover):
     """ PDF Footer
     """
     template = ViewPageTemplateFile('../zpt/pdf.footer.pt')
+
+    @property
+    def body(self):
+        """ Footer body
+        """
+        text = self.request.get('section', '')
+        text = self.truncate(text, 75, 5, suffix='')
+        return text

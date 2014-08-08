@@ -3,6 +3,9 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Bug fix: Fix long PDF header and footer texts and align left or right
+  according with page parity
+  [voineali refs #20431]
 * Feature: Added i18n translations
   [voineali refs #20431]
 * Feature: Added possibility to avoid truncated sentences in description
