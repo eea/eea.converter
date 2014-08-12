@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.1-dev - (unreleased)
-----------------------
+7.1 - (2014-08-12)
+------------------
 * Bug fix: Align PDF Table of Contents trailing dotted with page number
   [voineali refs #20431]
 * Bug fix: Fix long PDF header and footer texts and align left or right
