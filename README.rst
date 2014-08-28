@@ -139,7 +139,7 @@ Also add custom print.css for your needs. See more at `eea.pdf`_
 Restrict access
 ===============
 In order to restrict access to /download.pdf you'll have to provide a
-multi-adapter named pdf.support with a read-only attribute called can_download
+multi-adapter named pdf.support with a method called can_download
 like::
 
   <browser:page

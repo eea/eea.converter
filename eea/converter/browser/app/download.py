@@ -183,7 +183,7 @@ class Pdf(BrowserView):
 
         support = queryMultiAdapter((self.context, self.request),
                                     name='pdf.support')
-        if not getattr(support, 'can_download', None):
+        if not getattr(support, 'can_download', lambda: False)():
             raise NotFound(self.context, self.__name__, self.request)
 
         # Cheat condition @@plone_context_state/is_view_template

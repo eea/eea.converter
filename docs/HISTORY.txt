@@ -3,6 +3,8 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Change: Made @@pdf.support/can_download accessible from URL
+  [voineali refs #20846]
 
 7.1 - (2014-08-12)
 ------------------

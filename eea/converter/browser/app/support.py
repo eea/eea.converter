@@ -8,7 +8,6 @@ from eea.converter.interfaces import ISupport
 class Support(BrowserView):
     """ PDF Support
     """
-    @property
     def can_download(self):
         """ Override this adapter in order to restrict access to PDF download
         """
