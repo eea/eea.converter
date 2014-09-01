@@ -1,7 +1,6 @@
 """ Browser interfaces
 """
 from zope.interface import Interface
-from zope import schema
 
 class ISupport(Interface):
     """ PDF Support
