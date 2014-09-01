@@ -1,6 +1,8 @@
 """ wkhtmltopdf wrapper
 """
 import os
+import shutil
+import shlex
 import subprocess
 import logging
 import tempfile
@@ -17,67 +19,64 @@ def raiseTimeout(timeout, proc, args):
                      timeout, ' '.join(args))
     proc.kill()
 
-class WkHtml2Pdf(Html2Pdf):
-    """ Utility to convert html to pdf
+def _cleanup(*files):
+    """ Remove temporary files
     """
-    def concat(self, pdfs, default=None, timeout=10):
-        """ Concat more PDF to one
-        """
-        if not CAN_JOIN_PDFS:
-            return default
-
-        if not pdfs:
-            return default
-
-        output = tempfile.mkstemp('.pdf')[1]
-        pdfs.insert(0, 'pdftk')
-        pdfs.extend([
-            'output', output
-        ])
-
+    for tmp in files:
         try:
-            proc = subprocess.Popen(
-                pdfs,
-                stdin=tempfile.TemporaryFile(),
-                stdout=tempfile.TemporaryFile(),
-                stderr=tempfile.TemporaryFile()
-            )
-
-            if timeout:
-                timer = Timer(timeout, proc.kill)
-                timer.start()
-                proc.communicate()
-                timer.cancel()
-            else:
-                proc.communicate()
-
+            os.unlink(tmp)
         except Exception, err:
             logger.exception(err)
-            self.cleanup(output)
-            return default
+
+class Job(object):
+    """ OS job
+    """
+    def __init__(self, cmd, output, timeout, cleanup, dependencies=None):
+        if isinstance(cmd, (tuple, list)):
+            self.cmd = ' '.join(cmd)
         else:
-            return output
+            self.cmd = cmd
+        self.timeout = timeout
+        self.toclean = set(cleanup)
+        self.path = output
+        self.dependencies = dependencies or []
 
-    def cleanup(self, *files):
+    def cleanup(self):
+        """ Remove temporary files
         """
-        :param files: Try to unlink given files
-        :return: nothing
+        _cleanup(*self.toclean)
+
+    def copy(self, src, dst):
         """
-        for tmp in files:
-            try:
-                os.unlink(tmp)
-            except Exception, err:
-                logger.exception(err)
+        :param src: Input file
+        :param dst: Output file
+        :return: status code, 0 for no errors
+        """
+        try:
+            dirname = os.path.dirname(dst)
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+            shutil.copyfile(src, dst)
+        except Exception, err:
+            logger.exception(err)
+            return 1
+        return 0
 
-    def __call__(self, options, timeout=10):
+    def run(self, **kwargs):
+        """ Run job
+        """
+        dependencies = []
+        for dependency in self.dependencies:
+            self.toclean.update(dependency.toclean)
+            dependency.run(**kwargs)
+            if dependency.path:
+                dependencies.append(dependency.path)
 
-        args = [WK_COMMAND]
-        args.extend(options)
+        self.cmd = self.cmd % {
+            'dependencies': ' '.join(dependencies)
+        }
 
-        output = tempfile.mkstemp('.pdf')[1]
-        args.append(output)
-
-        # logger.info(' '.join(args))
+        args = shlex.split(self.cmd)
 
         try:
             proc = subprocess.Popen(
@@ -87,21 +86,68 @@ class WkHtml2Pdf(Html2Pdf):
                 stderr=tempfile.TemporaryFile()
             )
 
-            if timeout:
-                timer = Timer(timeout, raiseTimeout, [timeout, proc, args])
+            if self.timeout:
+                timer = Timer(self.timeout, raiseTimeout,
+                              [self.timeout, proc, self.cmd])
                 timer.start()
                 proc.communicate()
                 timer.cancel()
             else:
                 proc.communicate()
         except Exception, err:
-            logger.exception('%s. cmd: %s', err, ' '.join(args))
-            self.cleanup(output)
-            output = ''
+            logger.exception('%s. cmd: %s', err, self.cmd)
+            self.cleanup()
+            self.path = ''
 
-        if output and not os.path.getsize(output):
-            logger.warn('Empty output PDF. cmd = %s', ' '.join(args))
-            self.cleanup(output)
-            output = ''
+        if self.path and not os.path.getsize(self.path):
+            logger.warn('Empty output PDF. cmd = %s', self.cmd)
+            self.cleanup()
+            self.path = ''
 
-        return output
+class WkHtml2Pdf(Html2Pdf):
+    """ Utility to convert html to pdf
+    """
+    def concat(self, pdfs, default=None, timeout=10, dry_run=False, **kwargs):
+        """ Concat more PDF to one
+        """
+        if not CAN_JOIN_PDFS:
+            return default
+
+        if not pdfs:
+            return default
+
+        output = tempfile.mkstemp('.pdf')[1]
+        cmd = ['pdftk', '%(dependencies)s', 'output', output]
+
+        cleanup = set(kwargs.get('cleanup') or [])
+        cleanup.add(output)
+
+        job = Job(cmd, output, timeout, cleanup, dependencies=pdfs)
+        if dry_run:
+            return job
+
+        job.run()
+        return job
+
+    def cleanup(self, *files):
+        """ Remove tmp files
+        """
+        _cleanup(*files)
+
+    def __call__(self, options, timeout=10, dry_run=False, **kwargs):
+
+        args = [WK_COMMAND]
+        args.extend(options)
+
+        output = tempfile.mkstemp('.pdf')[1]
+        args.append(output)
+
+        cleanup = set(kwargs.get('cleanup') or [])
+        cleanup.add(output)
+
+        job = Job(args, output, timeout, cleanup)
+        if dry_run:
+            return job
+
+        job.run()
+        return job

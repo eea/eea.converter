@@ -1,8 +1,10 @@
 Changelog
 =========
 
-7.2-dev - (unreleased)
+8.0-dev - (unreleased)
 ----------------------
+* Change: Changed download.pdf API in order to allow dry-run used by async jobs
+  [voineali refs #20843]
 * Change: Made @@pdf.support/can_download accessible from URL
   [voineali refs #20846]
 

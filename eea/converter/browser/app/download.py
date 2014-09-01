@@ -36,7 +36,14 @@ class Pdf(BrowserView):
         """
         return queryAdapter(self.context, IPDFOptionsMaker, name=section)
 
-    def make_cover(self):
+    # BBB
+    def make_pdf_cover(self, **kwargs):
+        """ Return path to PDF cover
+        """
+        pdf = self.make_cover(**kwargs)
+        return pdf.path
+
+    def make_cover(self, dry_run=False, **kwargs):
         """
         Unfortunately wkhtmltopdf can't make cover and body with different
         margins, thus generate them separately
@@ -44,7 +51,7 @@ class Pdf(BrowserView):
         cover = self.options('pdf.cover')
         cover = cover()
         if not cover:
-            return ''
+            return None
 
         options = self.options('')
         options._margin = False
@@ -55,18 +62,15 @@ class Pdf(BrowserView):
         options.extend(cover)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options, timeout)
+        return html2pdf(options, timeout, dry_run)
 
-    # BBB
-    make_pdf_cover = make_cover
-
-    def make_back_cover(self):
+    def make_back_cover(self, dry_run=False, **kwargs):
         """ Back cover
         """
         cover = self.options('pdf.cover.back')
         cover = cover()
         if not cover:
-            return ''
+            return None
 
         options = self.options('')
         options._margin = False
@@ -77,16 +81,16 @@ class Pdf(BrowserView):
         options.extend(cover)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options, timeout)
+        return html2pdf(options, timeout, dry_run)
 
-    def make_disclaimer(self):
+    def make_disclaimer(self, dry_run=False, **kwargs):
         """
         Generate pdf disclaimer
         """
         disclaimer = self.options('pdf.disclaimer')
         disclaimer = disclaimer()
         if not disclaimer:
-            return ''
+            return None
 
         options = self.options('')
         options._margin = False
@@ -97,9 +101,9 @@ class Pdf(BrowserView):
         options.extend(disclaimer)
 
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options, timeout)
+        return html2pdf(options, timeout, dry_run)
 
-    def make_body(self):
+    def make_body(self, dry_run=False, **kwargs):
         """ Override pdf converter
         """
         body = self.options('pdf.body')
@@ -108,7 +112,7 @@ class Pdf(BrowserView):
 
         body = body()
         if not body:
-            return ''
+            return None
 
         options = self.options('')
         options._cookies = self.cookies
@@ -118,52 +122,55 @@ class Pdf(BrowserView):
         options = options()
         options.extend(body)
 
+        cleanup = [toc] if toc else []
         html2pdf = queryUtility(IHtml2Pdf)
-        output = html2pdf(options, timeout)
+        return html2pdf(options, timeout, dry_run, cleanup=cleanup)
 
-        # Cleanup possible temp toc file
-        if toc:
-            html2pdf.cleanup(toc)
-
-        return output
-
-    def make_pdf(self):
-        """ Compute pdf
+    def make_concat(self, dependencies, default='', dry_run=False, **kwargs):
+        """ Concat pdfs
         """
-        pdfs = []
-
-        cover = self.make_cover()
-        if cover:
-            pdfs.append(cover)
-
-        disclaimer = self.make_disclaimer()
-        if disclaimer:
-            pdfs.append(disclaimer)
-
-        body = self.make_body()
-        if body:
-            pdfs.append(body)
-
-        backcover = self.make_back_cover()
-        if backcover:
-            pdfs.append(backcover)
-
         timeout = self.options('').timeout
         html2pdf = queryUtility(IHtml2Pdf)
+        return html2pdf.concat(dependencies, default=default,
+                               timeout=timeout, dry_run=dry_run)
+
+
+    def make_pdf(self, dry_run=False, **kwargs):
+        """ Compute pdf
+        """
+        dependencies = []
+
+        cover = self.make_cover(dry_run=True)
+        if cover:
+            dependencies.append(cover)
+
+        disclaimer = self.make_disclaimer(dry_run=True)
+        if disclaimer:
+            dependencies.append(disclaimer)
+
+        body = self.make_body(dry_run=True)
+        if body:
+            dependencies.append(body)
+
+        backcover = self.make_back_cover(dry_run=True)
+        if backcover:
+            dependencies.append(backcover)
+
+        converter = self.make_concat(dependencies, default=body, dry_run=True)
+
+        if dry_run:
+            return converter
 
         data = ''
-        if not pdfs:
+        if not converter:
             return data
-        elif len(pdfs) == 1:
-            output = pdfs.pop(0)
-        else:
-            output = html2pdf.concat(pdfs[:], default=body, timeout=timeout)
 
+        converter.run()
+        output = converter.path
         if output and os.path.exists(output):
             data = open(output, 'rb').read()
-            pdfs.append(output)
 
-        html2pdf.cleanup(*pdfs)
+        converter.cleanup()
         return data
 
     @property
