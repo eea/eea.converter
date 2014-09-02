@@ -41,7 +41,7 @@ class Pdf(BrowserView):
         """ Return path to PDF cover
         """
         pdf = self.make_cover(**kwargs)
-        return pdf.path
+        return pdf.path if pdf else ''
 
     def make_cover(self, dry_run=False, **kwargs):
         """
