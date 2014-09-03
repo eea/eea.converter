@@ -44,6 +44,8 @@ class Job(object):
     def cleanup(self):
         """ Remove temporary files
         """
+        for dependency in self.dependencies:
+            self.toclean.update(dependency.toclean)
         _cleanup(*self.toclean)
 
     def copy(self, src, dst):
@@ -67,7 +69,6 @@ class Job(object):
         """
         dependencies = []
         for dependency in self.dependencies:
-            self.toclean.update(dependency.toclean)
             dependency.run(**kwargs)
             if dependency.path:
                 dependencies.append(dependency.path)
