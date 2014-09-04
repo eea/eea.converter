@@ -3,6 +3,9 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Feature: Possibility to run a PDF conversion job in safe mode (default) or not
+  (raise all errors)
+  [voineali refs #20845]
 * Change: Changed download.pdf API in order to allow dry-run used by async jobs
   [voineali refs #20843]
 * Change: Made @@pdf.support/can_download accessible from URL

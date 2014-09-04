@@ -58,15 +58,14 @@ class Body(Cover):
     template = ViewPageTemplateFile('../zpt/pdf.body.pt')
 
     def __call__(self, **kwargs):
-
         layout = self.context.getLayout()
         if not layout:
-            return self.index()
+            return self.template()
 
         try:
             view = self.context.restrictedTraverse(layout)
         except Exception:
-            return self.index()
+            return self.template()
 
         return view()
 

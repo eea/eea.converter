@@ -1,6 +1,7 @@
 """ wkhtmltopdf wrapper
 """
 import os
+import errno
 import shutil
 import shlex
 import subprocess
@@ -12,12 +13,18 @@ from eea.converter.pdf import Html2Pdf
 
 logger = logging.getLogger('eea.converter')
 
-def raiseTimeout(timeout, proc, args):
+class TimeoutError(IOError):
+    """ Timeout exception
+    """
+
+def raiseTimeout(timeout, proc, cmd, errors):
     """ Raise timeout error
     """
-    logger.warn("Timeout error: timeout = %s; cmd = %s",
-                     timeout, ' '.join(args))
     proc.kill()
+
+    errors.append(
+        TimeoutError(errno.ETIME, "%ss timeout for cmd: %s" % (timeout, cmd))
+    )
 
 def _cleanup(*files):
     """ Remove temporary files
@@ -25,6 +32,11 @@ def _cleanup(*files):
     for tmp in files:
         try:
             os.unlink(tmp)
+        except OSError, err:
+            # Skip missing file
+            if err.errno == errno.ENOENT:
+                continue
+            logger.exception(err)
         except Exception, err:
             logger.exception(err)
 
@@ -78,6 +90,9 @@ class Job(object):
         }
 
         args = shlex.split(self.cmd)
+        safe = kwargs.get('safe', True)
+
+        errors = []
 
         try:
             proc = subprocess.Popen(
@@ -89,21 +104,32 @@ class Job(object):
 
             if self.timeout:
                 timer = Timer(self.timeout, raiseTimeout,
-                              [self.timeout, proc, self.cmd])
+                              [self.timeout, proc, self.cmd, errors])
                 timer.start()
                 proc.communicate()
                 timer.cancel()
             else:
                 proc.communicate()
         except Exception, err:
-            logger.exception('%s. cmd: %s', err, self.cmd)
             self.cleanup()
-            self.path = ''
+            if not safe:
+                raise
+            else:
+                logger.exception(err)
+                self.path = ''
+
+        if not safe:
+            for error in errors:
+                raise error
 
         if self.path and not os.path.getsize(self.path):
             logger.warn('Empty output PDF. cmd = %s', self.cmd)
             self.cleanup()
             self.path = ''
+
+            if not safe:
+                raise IOError(errno.ENOENT, "Empty output PDF", self.cmd)
+
 
 class WkHtml2Pdf(Html2Pdf):
     """ Utility to convert html to pdf
@@ -127,7 +153,8 @@ class WkHtml2Pdf(Html2Pdf):
         if dry_run:
             return job
 
-        job.run()
+        safe = kwargs.get('safe', True)
+        job.run(safe=safe)
         return job
 
     def cleanup(self, *files):
@@ -150,5 +177,6 @@ class WkHtml2Pdf(Html2Pdf):
         if dry_run:
             return job
 
-        job.run()
+        safe = kwargs.get('safe', True)
+        job.run(safe=safe)
         return job
