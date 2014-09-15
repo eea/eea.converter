@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.0-dev - (unreleased)
-----------------------
+8.0 - (2014-09-15)
+------------------
 * Feature: Possibility to run a PDF conversion job in safe mode (default) or not
   (raise all errors)
   [voineali refs #20845]
