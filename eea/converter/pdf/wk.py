@@ -143,7 +143,7 @@ class WkHtml2Pdf(Html2Pdf):
         if not pdfs:
             return default
 
-        output = tempfile.mkstemp('.pdf')[1]
+        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.')
         cmd = ['pdftk', '%(dependencies)s', 'output', output]
 
         cleanup = set(kwargs.get('cleanup') or [])
@@ -167,7 +167,7 @@ class WkHtml2Pdf(Html2Pdf):
         args = [WK_COMMAND]
         args.extend(options)
 
-        output = tempfile.mkstemp('.pdf')[1]
+        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.')
         args.append(output)
 
         cleanup = set(kwargs.get('cleanup') or [])

@@ -3,6 +3,8 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Change: Prefix temporary files with package name: eea.converter.
+  [voineali refs #21100]
 
 8.0 - (2014-09-15)
 ------------------
