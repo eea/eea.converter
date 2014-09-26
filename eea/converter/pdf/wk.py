@@ -111,25 +111,20 @@ class Job(object):
             else:
                 proc.communicate()
         except Exception, err:
-            self.cleanup()
-            if not safe:
-                raise
-            else:
-                logger.exception(err)
-                self.path = ''
-
-        if not safe:
-            for error in errors:
-                raise error
+            errors.append(err)
 
         if self.path and not os.path.getsize(self.path):
-            logger.warn('Empty output PDF. cmd = %s', self.cmd)
             self.cleanup()
             self.path = ''
+            errors.append(
+                IOError(errno.ENOENT, "Empty output PDF", self.cmd)
+            )
 
+        # Finish
+        for error in errors:
             if not safe:
-                raise IOError(errno.ENOENT, "Empty output PDF", self.cmd)
-
+                raise error
+            logger.exception(err)
 
 class WkHtml2Pdf(Html2Pdf):
     """ Utility to convert html to pdf
