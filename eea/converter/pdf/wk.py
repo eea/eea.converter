@@ -124,7 +124,7 @@ class Job(object):
         for error in errors:
             if not safe:
                 raise error
-            logger.exception(err)
+            logger.exception(error)
 
 class WkHtml2Pdf(Html2Pdf):
     """ Utility to convert html to pdf
