@@ -1,6 +1,7 @@
 """ wkhtmltopdf wrapper
 """
 import os
+import time
 import errno
 import shutil
 import shlex
@@ -91,6 +92,7 @@ class Job(object):
 
         args = shlex.split(self.cmd)
         safe = kwargs.get('safe', True)
+        retry = kwargs.pop('retry', 0)
 
         errors = []
 
@@ -114,6 +116,15 @@ class Job(object):
             errors.append(err)
 
         if self.path and not os.path.getsize(self.path):
+
+            #21149 Protect against random wkhtmltopdf Segmentation fault exit
+            if retry < 3:
+                retry += 1
+                kwargs['retry'] = retry
+                logger.warn('Retry %s cmd: %s', retry, self.cmd)
+                time.sleep(retry)
+                return self.run(**kwargs)
+
             self.cleanup()
             self.path = ''
             errors.append(
