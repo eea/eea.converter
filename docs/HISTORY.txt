@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.2-dev - (unreleased)
-----------------------
+8.2 - (2014-10-15)
+------------------
 * Bug fix: Protect against random wkhtmltopdf Segmentation fault errors and
   retry 3 times to re-generate PDF
   [voineali refs #21149]
