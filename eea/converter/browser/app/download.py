@@ -107,6 +107,7 @@ class Pdf(BrowserView):
         """ Override pdf converter
         """
         body = self.options('pdf.body')
+        body._cookies = self.cookies
         toc = body.toc
         toc_links = body.toc_links
 
@@ -115,7 +116,6 @@ class Pdf(BrowserView):
             return None
 
         options = self.options('')
-        options._cookies = self.cookies
         options._outline = toc_links
         timeout = options.timeout
 

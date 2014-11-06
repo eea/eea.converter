@@ -80,8 +80,8 @@ class OptionsMaker(object):
                 '--quiet',
             ]
             self._options.extend(self.margin)
-            self._options.extend(self.cookies)
             self._options.extend(self.outline)
+            self._options.extend(self.cookies)
         return self._options
 
     def __call__(self, **kwargs):
@@ -106,9 +106,21 @@ class BodyOptionsMaker(object):
         self.context = context
         self._header = None
         self._footer = None
+        self._cookies = None
         self._toc = None
         self._toc_links = None
         self._body = None
+
+    @property
+    def cookies(self):
+        """ Allowed cookies
+        """
+        cookies = []
+        if isinstance(self._cookies, dict):
+            cookies.append('[page]')
+            for name, value in self._cookies.items():
+                cookies.extend(['--cookie', name, value])
+        return cookies
 
     @property
     def body(self):
@@ -195,6 +207,10 @@ class BodyOptionsMaker(object):
                 options.extend([
                     '--disable-toc-links',
                 ])
+
+        cookies = self.cookies
+        if cookies:
+            options.extend(cookies)
 
         options.extend([
             self.body,
