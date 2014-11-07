@@ -16,6 +16,7 @@
           body {
             font-family: verdana;
           }
+
           header {
             text-align: left;
             font-size: 20pt;
@@ -25,71 +26,15 @@
             margin-bottom: 1.5em;
           }
 
-          div.item a {
-            background-color: #fff;
-            padding-right: 3pt;
-            clear: both;
-            padding-bottom: 1pt;
-          }
-
-          span {
-            float: right;
-            padding: 0;
-            margin: 0;
-            padding-left: 3pt;
-            margin-left: 10pt;
-            background: #ffffff;
-          }
-
-          li {
-            list-style: none;
-          }
-
-          a {
-            text-decoration:none;
-            color: black;
-          }
-
-          ul ul div.item:after {
-            content: "";
-            display: block;
-            overflow: hidden;
-            border-bottom: 2pt dotted #000;
-            margin-top: -3pt;
-          }
-
-          ul div.item {
-            margin-top: 1.5em;
-            border-bottom: 1pt solid #000;
-            padding: 5pt 0;
-            margin-bottom: 1em;
-          }
-
-          ul div.item span {
-            display: none;
-          }
-
-          ul ul div.item {
-            margin: 0;
-            padding: 0;
-            border: none;
-            text-align: justify;
-          }
-
-          ul ul div.item span {
-            display: block;
-          }
-
           ul {
-            margin: 5pt 0;
             font-weight: bold;
-            padding-left: 0em;
             font-size: 14pt;
+            padding-left: 0;
+            list-style: none;
             page-break-inside: auto;
           }
 
           ul ul {
-            padding-left: 1em;
             font-size: 12pt;
           }
 
@@ -99,6 +44,65 @@
 
           ul li {
             page-break-inside: avoid;
+          }
+
+          ul ul li {
+            margin: .5em 0 .5em 2em;
+          }
+
+          ul .item {
+            margin: 2em 0 1em 0;
+          }
+
+          ul ul .item {
+            margin: 0;
+
+          }
+
+          .item:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+
+          .item a {
+            display: block;
+            margin-right: 30pt;
+            color: #000;
+            text-decoration: none;
+          }
+
+          ul .page {
+            display: none;
+          }
+
+          ul ul .page {
+            float: right;
+            display: block;
+            color: black;
+            text-decoration: none;
+            height: 0;
+            margin-top: -14pt;
+          }
+
+          ul ul .item a:after {
+            content: "";
+            display: block;
+            border-bottom: 2pt dotted;
+            margin-top: -3pt;
+          }
+
+          ul .item {
+            border-bottom: 2px solid #000;
+          }
+
+          ul ul .item {
+            border-bottom: none;
+          }
+
+          .title {
+            background: white;
+            padding-right: 5pt;
           }
 
         </style>
@@ -120,9 +124,9 @@
             <xsl:if test="@backLink" tal:condition="view/toc_links">
               <xsl:attribute name="name"><xsl:value-of select="@backLink"/></xsl:attribute>
             </xsl:if>
-            <xsl:value-of select="@title" />
+            <span class="title"><xsl:value-of select="@title" /></span>
           </a>
-          <span> <xsl:value-of select="@page" /> </span>
+          <span class="page"><xsl:value-of select="@page"/></span>
         </div>
       </xsl:if>
       <ul>

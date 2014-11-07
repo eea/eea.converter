@@ -3,6 +3,8 @@ Changelog
 
 8.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed table of contents page alignment
+  [voineali refs #21628]
 * Bug fix: Fixed duplicate cookies when printing collection header/footer
   [voineali refs #21628]
 
