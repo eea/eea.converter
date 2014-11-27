@@ -57,6 +57,8 @@ class OptionsMaker(object):
         if isinstance(self._cookies, dict):
             for name, value in self._cookies.items():
                 cookies.extend(['--cookie', name, value])
+        elif isinstance(self._cookies, (str, unicode)):
+            cookies.extend(['--cookie-jar', self._cookies])
         return cookies
 
     @property
@@ -117,7 +119,6 @@ class BodyOptionsMaker(object):
         """
         cookies = []
         if isinstance(self._cookies, dict):
-            cookies.append('[page]')
             for name, value in self._cookies.items():
                 cookies.extend(['--cookie', name, value])
         return cookies

@@ -2,7 +2,8 @@
 """
 import os
 import logging
-
+import tempfile
+from urllib2 import urlparse
 from Products.Five.browser import BrowserView
 from zope.publisher.interfaces import NotFound
 from zope.component import queryAdapter, queryUtility, queryMultiAdapter
@@ -28,7 +29,17 @@ class Pdf(BrowserView):
                 self._cookies = {}
                 return self._cookies
 
-            self._cookies = {'__ac': ac_cookie}
+            ## XXX There is a bug with wkhtmltopdf --cookie param
+            ## Thus we'll use --cookie-jar
+            ## EEA ticket #21958. wkhtmltopdf tickets #1870, #1903
+
+            url = urlparse.urlparse(self.context.absolute_url())
+            domain = url.hostname
+            cookie = u"__ac=%s; domain=%s; path=/;" % (ac_cookie, domain)
+            _, output = tempfile.mkstemp('.cookie.jar', prefix='eea.converter.')
+            open(output, 'w').write(cookie)
+
+            self._cookies = output
         return self._cookies
 
     def options(self, section=u'', margin=True):
@@ -107,7 +118,6 @@ class Pdf(BrowserView):
         """ Override pdf converter
         """
         body = self.options('pdf.body')
-        body._cookies = self.cookies
         toc = body.toc
         toc_links = body.toc_links
 
@@ -116,6 +126,7 @@ class Pdf(BrowserView):
             return None
 
         options = self.options('')
+        options._cookies = self.cookies
         options._outline = toc_links
         timeout = options.timeout
 
@@ -123,6 +134,9 @@ class Pdf(BrowserView):
         options.extend(body)
 
         cleanup = [toc] if toc else []
+        if isinstance(self.cookies, (str, unicode)):
+            cleanup.append(self.cookies)
+
         html2pdf = queryUtility(IHtml2Pdf)
         return html2pdf(options, timeout, dry_run, cleanup=cleanup)
 
