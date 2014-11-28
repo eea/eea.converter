@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.4-dev - (unreleased)
-----------------------
+8.4 - (2014-11-28)
+------------------
 * Bug fix: Fixed duplicate cookies when printing collection header/footer by
   using wkhtmltopdf more stable --cookie-jar option than --cookie. This also
   fixed blank page at the beginning of PDF introduced in previous version
