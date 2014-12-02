@@ -3,6 +3,9 @@ Changelog
 
 8.5-dev - (unreleased)
 ----------------------
+* Bug fix: Added possibility to define shared temporary directory using os.env
+  EEACONVERTER_TEMP in order to avoid surprises while using together with zc.async
+  [voineali refs #21958]
 
 8.4 - (2014-11-28)
 ------------------

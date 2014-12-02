@@ -1,6 +1,7 @@
 """ PDF Adapters
 """
 import tempfile
+from eea.converter.config import TMPDIR
 
 class OptionsMaker(object):
     """ PDF Converter Global PDF options
@@ -177,7 +178,8 @@ class BodyOptionsMaker(object):
                 ## XXX wkhtmltopdf doesn't support URLs for TOC xsl
                 ## To be replaced with previous commented one when fixed by wk
 
-                _, output = tempfile.mkstemp('.xsl', prefix='eea.converter.')
+                _, output = tempfile.mkstemp('.xsl', prefix='eea.converter.',
+                                             dir=TMPDIR())
                 open(output, 'w').write(body())
                 self._toc = output
 

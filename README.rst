@@ -19,6 +19,9 @@ installed on your server).
 Installation
 ============
 
+- Make sure you have wkhtmltopdf 0.12.1+ installed or install it via zc.buildout
+- Make sure you have an OS environment called EEACONVERTER_TEMP within your
+  buildout if you have zope instances over more than one physical server.
 - Add eea.converter to your eggs section in your buildout and re-run buildout.
   You can download a sample buildout from
   https://github.com/collective/eea.converter/tree/master/buildouts/plone4

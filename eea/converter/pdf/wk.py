@@ -11,6 +11,7 @@ import tempfile
 from threading import Timer
 from eea.converter import WK_COMMAND, CAN_JOIN_PDFS
 from eea.converter.pdf import Html2Pdf
+from eea.converter.config import TMPDIR
 
 logger = logging.getLogger('eea.converter')
 
@@ -149,7 +150,8 @@ class WkHtml2Pdf(Html2Pdf):
         if not pdfs:
             return default
 
-        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.')
+        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.',
+                                     dir=TMPDIR())
         cmd = ['pdftk', '%(dependencies)s', 'output', output]
 
         cleanup = set(kwargs.get('cleanup') or [])
@@ -173,7 +175,8 @@ class WkHtml2Pdf(Html2Pdf):
         args = [WK_COMMAND]
         args.extend(options)
 
-        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.')
+        _, output = tempfile.mkstemp(suffix='.pdf', prefix='eea.converter.',
+                                     dir=TMPDIR())
         args.append(output)
 
         cleanup = set(kwargs.get('cleanup') or [])

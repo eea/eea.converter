@@ -9,6 +9,7 @@ from zope.publisher.interfaces import NotFound
 from zope.component import queryAdapter, queryUtility, queryMultiAdapter
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.converter.interfaces import IPDFOptionsMaker, IHtml2Pdf
+from eea.converter.config import TMPDIR
 
 logger = logging.getLogger('eea.converter')
 
@@ -35,8 +36,13 @@ class Pdf(BrowserView):
 
             url = urlparse.urlparse(self.context.absolute_url())
             domain = url.hostname
-            cookie = u"__ac=%s; domain=%s; path=/;" % (ac_cookie, domain)
-            _, output = tempfile.mkstemp('.cookie.jar', prefix='eea.converter.')
+
+            cookie = u"__ac={cookie}; domain={domain}; path=/;".format(
+                cookie=ac_cookie,
+                domain=domain
+            )
+            _, output = tempfile.mkstemp('.cookie.jar', prefix='eea.converter.',
+                                         dir=TMPDIR())
             open(output, 'w').write(cookie)
 
             self._cookies = output
