@@ -37,6 +37,10 @@ class Pdf(BrowserView):
             url = urlparse.urlparse(self.context.absolute_url())
             domain = url.hostname
 
+            # Also allow CDN resources
+            if domain.startswith(u"www."):
+                domain = domain.replace(u"www.", u".", 1)
+
             cookie = u"__ac={cookie}; domain={domain}; path=/;".format(
                 cookie=ac_cookie,
                 domain=domain

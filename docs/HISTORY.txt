@@ -3,6 +3,9 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Bug fix: While creating authentication cookie-jar, also be aware of
+  CDN resources
+  [voineali refs #22080]
 
 8.5 - (2014-12-02)
 ------------------
