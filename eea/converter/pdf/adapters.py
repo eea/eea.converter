@@ -178,13 +178,13 @@ class BodyOptionsMaker(object):
                 ## XXX wkhtmltopdf doesn't support URLs for TOC xsl
                 ## To be replaced with previous commented one when fixed by wk
 
-                _, output = tempfile.mkstemp('.xsl', prefix='eea.converter.',
-                                             dir=TMPDIR())
-                open(output, 'w').write(body())
-                self._toc = output
+                with tempfile.NamedTemporaryFile(
+                        prefix='eea.converter.', suffix='.xsl',
+                        dir=TMPDIR(), delete=False) as ofile:
+                    ofile.write(body())
+                    self._toc = ofile.name
 
                 ## End patch
-
         return self._toc
 
     @property

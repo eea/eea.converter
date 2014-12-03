@@ -45,11 +45,12 @@ class Pdf(BrowserView):
                 cookie=ac_cookie,
                 domain=domain
             )
-            _, output = tempfile.mkstemp('.cookie.jar', prefix='eea.converter.',
-                                         dir=TMPDIR())
-            open(output, 'w').write(cookie)
 
-            self._cookies = output
+            with tempfile.NamedTemporaryFile(
+                    prefix='eea.converter.', suffix='.cookie.jar',
+                    dir=TMPDIR(), delete=False) as ofile:
+                ofile.write(cookie)
+                self._cookies = ofile.name
         return self._cookies
 
     def options(self, section=u'', margin=True):
