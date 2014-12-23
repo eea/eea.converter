@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.7-dev - (unreleased)
+----------------------
+
 8.6 - (2014-12-23)
 ------------------
 * Bug fix: Use *with* statement with temporary files in order to ensure that they
