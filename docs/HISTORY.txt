@@ -3,6 +3,9 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Feature: Added possibility to use specific ZPT macro while exporting PDF body
+  (e.g. content-core)
+  [voineali refs #22686]
 
 8.6 - (2014-12-23)
 ------------------

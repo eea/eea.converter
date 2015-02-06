@@ -1,0 +1,6 @@
+<html>
+  <body class="">
+    <metal:block metal:use-macro="python:options['macro']" />
+  </body>
+<html>
+

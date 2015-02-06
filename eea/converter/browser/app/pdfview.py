@@ -56,8 +56,12 @@ class Body(Cover):
     """ PDF Body
     """
     template = ViewPageTemplateFile('../zpt/pdf.body.pt')
+    macro = ViewPageTemplateFile('../zpt/pdf.macro.pt')
+
 
     def __call__(self, **kwargs):
+        kwargs.update(self.request.form)
+
         layout = self.context.getLayout()
         if not layout:
             return self.template()
@@ -66,6 +70,15 @@ class Body(Cover):
             view = self.context.restrictedTraverse(layout)
         except Exception:
             return self.template()
+
+        macro = kwargs.get('macro', None)
+        if macro:
+            try:
+                macro = view.macros[macro]
+            except Exception, err:
+                return ''
+            else:
+                return self.macro(macro=macro)
 
         return view()
 
