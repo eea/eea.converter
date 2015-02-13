@@ -12,3 +12,13 @@ class Support(BrowserView):
         """ Override this adapter in order to restrict access to PDF download
         """
         return True
+
+    def async(self):
+        """ Async download
+        """
+        return False
+
+    def email(self):
+        """ User has email
+        """
+        return u''
