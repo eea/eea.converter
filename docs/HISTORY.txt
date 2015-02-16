@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.8.dev0 - (unreleased)
+-----------------------
+
 8.7 - (2015-02-16)
 ------------------
 * Feature: Update ISupport API with async and email methods
