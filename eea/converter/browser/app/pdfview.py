@@ -75,7 +75,7 @@ class Body(Cover):
         if macro:
             try:
                 macro = view.macros[macro]
-            except Exception, err:
+            except Exception:
                 return ''
             else:
                 return self.macro(macro=macro)
