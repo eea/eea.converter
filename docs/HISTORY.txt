@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.7-dev - (unreleased)
-----------------------
+8.7 - (2015-02-16)
+------------------
 * Feature: Update ISupport API with async and email methods
   [voineali refs #22971]
 * Feature: Added possibility to use specific ZPT macro while exporting PDF body
