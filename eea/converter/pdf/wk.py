@@ -3,7 +3,6 @@
 import os
 import time
 import errno
-import shutil
 import shlex
 import subprocess
 import logging
@@ -11,73 +10,14 @@ import tempfile
 from threading import Timer
 from eea.converter import WK_COMMAND, CAN_JOIN_PDFS
 from eea.converter.pdf import Html2Pdf
-from eea.converter.config import TMPDIR
-
+from eea.converter.job import _raiseTimeout, _output, _cleanup
+from eea.converter.job import AsyncJob
 logger = logging.getLogger('eea.converter')
 
-class TimeoutError(IOError):
-    """ Timeout exception
-    """
 
-def raiseTimeout(timeout, proc, cmd, errors):
-    """ Raise timeout error
-    """
-    proc.kill()
-
-    errors.append(
-        TimeoutError(errno.ETIME, "%ss timeout for cmd: %s" % (timeout, cmd))
-    )
-
-def _cleanup(*files):
-    """ Remove temporary files
-    """
-    for tmp in files:
-        try:
-            os.unlink(tmp)
-        except OSError, err:
-            # Skip missing file
-            if err.errno == errno.ENOENT:
-                continue
-            logger.exception(err)
-        except Exception, err:
-            logger.exception(err)
-
-class Job(object):
+class PdfJob(AsyncJob):
     """ OS job
     """
-    def __init__(self, cmd, output, timeout, cleanup, dependencies=None):
-        if isinstance(cmd, (tuple, list)):
-            self.cmd = ' '.join(cmd)
-        else:
-            self.cmd = cmd
-        self.timeout = timeout
-        self.toclean = set(cleanup)
-        self.path = output
-        self.dependencies = dependencies or []
-
-    def cleanup(self):
-        """ Remove temporary files
-        """
-        for dependency in self.dependencies:
-            self.toclean.update(dependency.toclean)
-        _cleanup(*self.toclean)
-
-    def copy(self, src, dst):
-        """
-        :param src: Input file
-        :param dst: Output file
-        :return: status code, 0 for no errors
-        """
-        try:
-            dirname = os.path.dirname(dst)
-            if not os.path.exists(dirname):
-                os.makedirs(dirname)
-            shutil.copyfile(src, dst)
-        except Exception, err:
-            logger.exception(err)
-            return 1
-        return 0
-
     def run(self, **kwargs):
         """ Run job
         """
@@ -106,7 +46,7 @@ class Job(object):
             )
 
             if self.timeout:
-                timer = Timer(self.timeout, raiseTimeout,
+                timer = Timer(self.timeout, _raiseTimeout,
                               [self.timeout, proc, self.cmd, errors])
                 timer.start()
                 proc.communicate()
@@ -138,6 +78,7 @@ class Job(object):
                 raise error
             logger.exception(error)
 
+
 class WkHtml2Pdf(Html2Pdf):
     """ Utility to convert html to pdf
     """
@@ -150,17 +91,13 @@ class WkHtml2Pdf(Html2Pdf):
         if not pdfs:
             return default
 
-        with tempfile.NamedTemporaryFile(
-                prefix='eea.converter.', suffix='.pdf',
-                dir=TMPDIR(), delete=False) as ofile:
-            output = ofile.name
-
-        cmd = ['pdftk', '%(dependencies)s', 'output', output]
+        out = _output()
+        cmd = ['pdftk', '%(dependencies)s', 'output', out]
 
         cleanup = set(kwargs.get('cleanup') or [])
-        cleanup.add(output)
+        cleanup.add(out)
 
-        job = Job(cmd, output, timeout, cleanup, dependencies=pdfs)
+        job = PdfJob(cmd, out, timeout, cleanup, dependencies=pdfs)
         if dry_run:
             return job
 
@@ -178,17 +115,13 @@ class WkHtml2Pdf(Html2Pdf):
         args = [WK_COMMAND]
         args.extend(options)
 
-        with tempfile.NamedTemporaryFile(
-                prefix='eea.converter.', suffix='.pdf',
-                dir=TMPDIR(), delete=False) as ofile:
-            output = ofile.name
-
-        args.append(output)
+        out = _output()
+        args.append(out)
 
         cleanup = set(kwargs.get('cleanup') or [])
-        cleanup.add(output)
+        cleanup.add(out)
 
-        job = Job(args, output, timeout, cleanup)
+        job = PdfJob(args, out, timeout, cleanup)
         if dry_run:
             return job
 

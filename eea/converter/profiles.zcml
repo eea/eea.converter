@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="eea">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="EEA Converter"
+      directory="profiles/default"
+      description="Conversion utilities"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="EEA Converter - uninstall"
+      directory="profiles/uninstall"
+      description="Uninstall eea.converter"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

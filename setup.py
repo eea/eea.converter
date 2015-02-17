@@ -43,6 +43,7 @@ setup(name=NAME,
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'kv',
           'Pillow',
           'Products.statusmessages'
       ],

@@ -139,10 +139,10 @@ For global PDF options provide an unamed adapter like::
 
 Also add custom print.css for your needs. See more at `eea.pdf`_
 
-Restrict access
-===============
+Restrict access and async
+=========================
 In order to restrict access to /download.pdf you'll have to provide a
-multi-adapter named pdf.support with a method called can_download
+multi-adapter named pdf.support with a method called **can_download**
 like::
 
   <browser:page
@@ -153,7 +153,77 @@ like::
     allowed_interface="eea.converter.interfaces.ISupport"
     />
 
+Same for asynchronous download, define a method called **async**.
 See default implementation within eea.converter.browser.app.support
+
+
+Content rules
+=============
+This package uses Plone Content-rules to notify users by email when an
+asynchronous job is done. Thus 3 custom content-rules will be added within
+Plone > Site Setup > Content-rules
+
+.. warning ::
+
+  As these content-rules are triggered by an asynchronous job, while
+  you customize the email template for these content-rules,
+  please **DO NOT USE OTHER** string substitutions **that the ones** that start
+  with **$download_** as you'll break the download chain.
+  Also if you disable these content-rules the users will never know when the
+  file is ready and what is the link where they can download the output document.
+
+Export succeeded
+----------------
+Notify the person who requested a PDF/ePub export that the document
+successfully exported and provide a link to the downloadable file.
+
+Export failed
+-------------
+Notify the person who requested a PDF/ePub export that the export failed.
+
+Export failed (admin)
+---------------------
+Notify admin that there were issues while exporting PDF/ePub
+
+
+Content rules email string substitution
+=======================================
+In order to be able to easily customize emails sent by this package the following
+custom email template string substitutions can be made
+
+
+${download_came_from_url}
+-------------------------
+The absolute URL of the Plone object which is downloaded as PDF/ePub
+
+${download_email}
+-----------------
+Email address of the user that triggered the download as PDF/ePub action
+
+${download_error}
+-----------------
+Error traceback when download as PDF/ePub job fails
+
+${download_from_email}
+----------------------
+Site Admin email address customizable via Plone > Site Setup > Mail
+
+${download_from_name}
+---------------------
+Site Admin name customizable via Plone > Site Setup > Mail
+
+${download_title}
+-----------------
+Title of the Plone object which is downloaded as PDF/ePub
+
+${download_url}
+---------------
+The absolute URL where the generated output PDF/ePub can be downloaded
+
+${download_type}
+----------------
+Download type: PDF/ePub
+
 
 Dependencies
 ============
@@ -190,7 +260,8 @@ Dependencies
 
     `Download and install <http://wkhtmltopdf.org/downloads.html>`_
 
-* `eea.pdf`_
+* `eea.pdf`_ (optional for advanced PDF export)
+* `eea.epub`_ (optional for ePub export)
 
 
 Source code
@@ -234,5 +305,5 @@ EEA_ - European Environment Agency (EU)
 .. _EEA: http://www.eea.europa.eu/
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
 .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
-.. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
 .. _`eea.pdf`: http://eea.github.com/docs/eea.pdf
+.. _`eea.epub`: http://eea.github.com/docs/eea.epub

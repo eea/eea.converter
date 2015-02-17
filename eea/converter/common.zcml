@@ -1,0 +1,22 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  i18n_domain="eea">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include file="documentation.zcml" />
+  <include package=".browser" />
+  <include package=".pdf" />
+
+  <utility
+    factory=".convert.Convert"
+    provides=".interfaces.IConvert"
+    />
+
+  <utility
+    factory=".watermark.Watermark"
+    provides=".interfaces.IWatermark"
+    />
+
+</configure>
