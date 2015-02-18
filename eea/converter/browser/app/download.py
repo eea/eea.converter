@@ -58,13 +58,6 @@ class Pdf(BrowserView):
         """
         return queryAdapter(self.context, IPDFOptionsMaker, name=section)
 
-    # BBB
-    def make_pdf_cover(self, **kwargs):
-        """ Return path to PDF cover
-        """
-        pdf = self.make_cover(**kwargs)
-        return pdf.path if pdf else ''
-
     def make_cover(self, dry_run=False, **kwargs):
         """
         Unfortunately wkhtmltopdf can't make cover and body with different
@@ -83,8 +76,12 @@ class Pdf(BrowserView):
         options = options()
         options.extend(cover)
 
+        cleanup = []
+        if isinstance(self.cookies, (str, unicode)):
+            cleanup.append(self.cookies)
+
         html2pdf = queryUtility(IHtml2Pdf)
-        return html2pdf(options, timeout, dry_run)
+        return html2pdf(options, timeout, dry_run, cleanup=cleanup)
 
     def make_back_cover(self, dry_run=False, **kwargs):
         """ Back cover
