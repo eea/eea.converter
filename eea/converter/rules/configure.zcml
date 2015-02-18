@@ -23,7 +23,7 @@
     />
 
   <subscriber
-    for="eea.pdf.events.interfaces.IAsyncExportSuccess"
+    for="eea.converter.events.interfaces.IAsyncExportSuccess"
     handler=".handlers.execute_event"
     />
 
