@@ -17,7 +17,7 @@ logger = logging.getLogger('eea.converter')
 class AsyncJob(object):
     """ Abstract async job
     """
-    def __init__(self, cmd, output, timeout, cleanup, dependencies=None):
+    def __init__(self, cmd, output, timeout, cleanup, dependencies=None, **kw):
         if isinstance(cmd, (tuple, list)):
             self.cmd = ' '.join(cmd)
         else:
@@ -26,6 +26,8 @@ class AsyncJob(object):
         self.toclean = set(cleanup)
         self.path = output
         self.dependencies = dependencies or []
+        for key, value in kw.items():
+            setattr(self, key, value)
 
     def cleanup(self):
         """ Remove temporary files
