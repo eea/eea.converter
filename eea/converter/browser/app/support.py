@@ -3,6 +3,7 @@
 from zope.interface import implementer
 from Products.Five.browser import BrowserView
 from eea.converter.interfaces import ISupport
+from eea.converter.config import ASYNC
 
 @implementer(ISupport)
 class Support(BrowserView):
@@ -16,7 +17,7 @@ class Support(BrowserView):
     def async(self):
         """ Async download
         """
-        return False
+        return ASYNC()
 
     def email(self):
         """ User has email

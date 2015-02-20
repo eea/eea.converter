@@ -154,7 +154,13 @@ like::
     />
 
 Same for asynchronous download, define a method called **async**.
-See default implementation within eea.converter.browser.app.support
+See default implementation within eea.converter.browser.app.support or add an
+environment var called EEACONVERTER_ASYNC within your buildout.cfg::
+
+  [instance]
+  ...
+  environment-vars =
+    EEACONVERTER_ASYNC True
 
 
 Content rules
