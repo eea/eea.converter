@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.0.dev0 - (unreleased)
------------------------
+9.0 - (2015-02-25)
+------------------
 * Bug fix: Fixed UnicodeDecodeError within download.pdf template
   [voineali refs #23338]
 * Cleanup: Remove deprecated **make_pdf_cover** from download.pdf
