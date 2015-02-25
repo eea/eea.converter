@@ -3,6 +3,8 @@ Changelog
 
 9.0.dev0 - (unreleased)
 -----------------------
+* Bug fix: Fixed UnicodeDecodeError within download.pdf template
+  [voineali refs #23338]
 * Cleanup: Remove deprecated **make_pdf_cover** from download.pdf
   [voineali refs #22971]
 * Change: Moved async API from eea.pdf to eea.converter in order to reuse it

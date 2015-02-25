@@ -170,6 +170,9 @@ class BodyOptionsMaker(object):
         if self._toc is None:
             try:
                 body = self.context.restrictedTraverse('@@pdf.toc')
+                body = body()
+                if isinstance(body, unicode):
+                    body = body.encode('utf-8')
             except Exception:
                 self._toc = ''
             else:
@@ -181,7 +184,7 @@ class BodyOptionsMaker(object):
                 with tempfile.NamedTemporaryFile(
                         prefix='eea.converter.', suffix='.xsl',
                         dir=TMPDIR(), delete=False) as ofile:
-                    ofile.write(body())
+                    ofile.write(body)
                     self._toc = ofile.name
 
                 ## End patch
