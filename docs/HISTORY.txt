@@ -3,6 +3,11 @@ Changelog
 
 9.1.dev0 - (unreleased)
 -----------------------
+* Change: Switched to curl in the jenkins builds install script
+  [olimpiurob refs #22402]
+* Change: Changed fetch url for jenkins builds install script to the install 
+  script from the main EEA CPB repository
+  [olimpiurob refs #22402]
 
 9.0 - (2015-02-25)
 ------------------
