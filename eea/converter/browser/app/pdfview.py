@@ -41,6 +41,14 @@ class Toc(Cover):
         return True
 
     @property
+    def toc_depth(self):
+        """
+        :return: Toc depth
+        :rtype: int
+        """
+        return getattr(self.context, 'tocdepth', -1)
+
+    @property
     def header(self):
         """ Header
         """
