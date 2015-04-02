@@ -135,34 +135,9 @@
         </xsl:if>
     <ul>
         <xsl:variable name="count" select="count(ancestor::outline:item)" />
-        <xsl:choose>
-            <xsl:when test="$tocdepth = -1">
-                <xsl:apply-templates select="outline:item"/>
-            </xsl:when>
-            <xsl:when test="$tocdepth = 1">
-                <xsl:if test="$count &lt; 1">
-                    <xsl:apply-templates select="outline:item"/>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="$tocdepth = 2">
-                <xsl:if test="$count &lt; 2">
-                    <xsl:apply-templates select="outline:item"/>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="$tocdepth = 3">
-                <xsl:if test="$count &lt; 3">
-                    <xsl:apply-templates select="outline:item"/>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="$tocdepth = 4">
-                <xsl:if test="$count &lt; 4">
-                    <xsl:apply-templates select="outline:item"/>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="outline:item"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="$count &lt; $tocdepth or $tocdepth = -1">
+            <xsl:apply-templates select="outline:item"/>
+        </xsl:if>
         <xsl:comment>added to prevent self-closing tags in QtXmlPatterns</xsl:comment>
     </ul>
 

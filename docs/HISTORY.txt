@@ -3,6 +3,9 @@ Changelog
 
 9.2.dev0 - (unreleased)
 -----------------------
+* Feature: added the possibility to limit the header tags that appear within
+  the table of contents
+  [ichimdav refs #24351]
 
 9.1 - (2015-03-17)
 ------------------
