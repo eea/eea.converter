@@ -3,6 +3,9 @@ Changelog
 
 9.3.dev0 - (unreleased)
 -----------------------
+* Change: changed footer and header templates in order to preserve template
+  logic when using static headers and footer
+  [ichimdav refs #23904]
 
 9.2 - (2015-04-02)
 ------------------

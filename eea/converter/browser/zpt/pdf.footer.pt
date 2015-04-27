@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal">
-  <head>
+<head>
     <style>
-    .pull-left { float: left; }
-    .pull-right { float: right; }
-    .text-left { text-align: left; }
-    .text-left span.page { float: left }
-    .text-left span.section { padding-left: 20pt; }
-    .text-right { text-align: right; }
-    .text-right span.page { float: right }
-    .text-right span.section { padding-right: 20pt; }
-    body { border:0; margin: 0; }
-    div {
-      width: 100%; text-align: right; color: #999; font-size: 9pt; font-family: Verdana;
-      padding-top: 50pt; font-weight: bold;
-    }
+        .pull-left { float: left; }
+        .pull-right { float: right; }
+        .text-left { text-align: left; }
+        .text-left .page { float: left }
+        .text-left .section { padding-left: 20pt; }
+        .text-right { text-align: right; }
+        .text-right .page { float: right }
+        .text-right .section { padding-right: 20pt; }
+        body { border:0; margin: 0; }
+        div {
+            width: 100%; text-align: right; color: #999; font-size: 9pt; font-family: Verdana;
+            padding-top: 50pt; font-weight: bold;
+        }
     </style>
-  </head>
-  <body>
-    <div tal:define="
-      page request/page|python:0;
-      page python:int(page);
-      even python:page % 2 == 0;
-      klass python:'text-left' if even else 'text-right';
-    " tal:attributes="class klass">
-      <span class="page" tal:content="page"></span>
-      <span class="section" style="padding-right: 20pt" tal:content="view/body"></span>
-    </div>
-  </body>
+</head>
+<body>
+<div class="pdf-footer">
+    <span class="page"></span>
+    <span class="section" style="padding-right: 20pt" tal:content="view/body"></span>
+</div>
+
+<script type="text/javascript">
+    function subst(item_class) {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        var z;
+        for(var i in x) {z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+        var x=['page','subsection'];
+        var y;
+        for(var i in x) {
+            y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+        var header = document.getElementsByClassName(item_class)[0];
+        var even = window.parseInt(vars['page'], 10) % 2 === 0;
+        header.className += even ? ' text-left': ' text-right';
+    }
+    subst('pdf-footer');
+</script>
+</body>
 </html>

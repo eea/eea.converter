@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal">
-  <head>
+<head>
     <style>
-    .pull-left { float: left; }
-    .pull-right { float: right; }
-    .text-left { text-align: left; }
-    .text-right { text-align: right; }
-    div {
-      border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999;
-      font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
-    }
+        .pull-left { float: left; }
+        .pull-right { float: right; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        div {
+            border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999;
+            font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
+        }
     </style>
-  </head>
-  <body style="border:0; margin: 0;">
-    <div tal:define="
-      page request/page|python:0;
-      page python: int(page);
-      even python: page % 2 == 0;
-      klass python:'text-left' if even else 'text-right'
-    " tal:attributes="class klass">
-      <span class="subsection" tal:content="view/body"></span>
-    </div>
-  </body>
+</head>
+<body style="border:0; margin: 0;">
+<div tal:attributes="class string:pdf-header">
+    <span class="subsection" tal:content="view/body"></span>
+</div>
+<script type="text/javascript">
+    function subst(item_class) {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        var z;
+        for(var i in x) { z=x[i].split('=',2); vars[z[0]] = unescape(z[1]);}
+        var x=['page','subsection'];
+        var y;
+        for(var i in x) {
+            y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+        var header = document.getElementsByClassName(item_class)[0];
+        var even = window.parseInt(vars['page'], 10) % 2 === 0;
+        header.className += even ? ' text-left': ' text-right';
+    }
+    subst('pdf-header');
+</script>
+</body>
 </html>
