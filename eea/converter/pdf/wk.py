@@ -128,3 +128,11 @@ class WkHtml2Pdf(Html2Pdf):
         safe = kwargs.get('safe', True)
         job.run(safe=safe)
         return job
+
+# BBB
+Job = AsyncJob
+__all__ = [
+    AsyncJob.__name__,
+    Job.__name__,
+    WkHtml2Pdf.__name__,
+]
