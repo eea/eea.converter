@@ -142,9 +142,19 @@ def get_emails(filepath, default=''):
     return ','.join(emails)
 
 
-def file_exists(path):
-    """ File on disk and it's not empty
+def file_exists(path, touch=True):
+    """ File exists on disk and it's not empty. If touch is True,
+    it update file and parent directory modification time.
     """
-    if os.path.exists(path) and os.path.getsize(path):
-        return True
-    return False
+    if not (os.path.exists(path) and os.path.getsize(path)):
+        return False
+
+    if touch:
+        parent = os.path.dirname(path)
+        try:
+            os.utime(path, None)
+            os.utime(parent, None)
+        except Exception, err:
+            logger.exception(err)
+
+    return True

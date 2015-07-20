@@ -3,6 +3,10 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
+* Bug fix: Update modification time for exported PDF/ePub files in order for
+  the cleanup cron-job to know not to delete PDFs/ePubs files that
+  were recently requested.
+  [voineali refs #27513]
 
 9.4 - (2015-05-26)
 ------------------
