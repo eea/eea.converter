@@ -15,16 +15,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
           body {
-            font-family: verdana;
+            font-family: Verdana, "Lucida Grande", Helvetica, Arial, sans-serif;
           }
 
           header {
             text-align: left;
             font-size: 20pt;
             font-weight: bold;
-            padding-bottom: 2em;
+            padding-bottom: 0.2em;
             border-bottom: 1pt solid #000;
-            margin-bottom: 1.5em;
+            margin-bottom: 0.5em;
+            margin-top: 0;
           }
 
           ul {
@@ -43,9 +44,6 @@
             font-weight: normal;
           }
 
-          ul li {
-            page-break-inside: avoid;
-          }
 
           ul ul li {
             margin: .5em 0 .5em 2em;

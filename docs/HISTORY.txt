@@ -3,6 +3,9 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
+* Change: modified pdf.toc.pt styles in order to avoid page break when
+  outputting the list items with the toc entries
+  [ichimdav refs #27475]
 * Bug fix: Update modification time for exported PDF/ePub files in order for
   the cleanup cron-job to know not to delete PDFs/ePubs files that
   were recently requested.
