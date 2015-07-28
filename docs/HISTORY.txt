@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.6.dev0 - (unreleased)
+-----------------------
+
 9.5 - (2015-07-28)
 ------------------
 * Change: modified pdf.toc.pt styles in order to avoid page break when
