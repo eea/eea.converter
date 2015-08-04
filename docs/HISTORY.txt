@@ -3,6 +3,8 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed pdf.footer title and page number when used on indicators
+  [ichimdav refs #27537]
 
 9.5 - (2015-07-28)
 ------------------

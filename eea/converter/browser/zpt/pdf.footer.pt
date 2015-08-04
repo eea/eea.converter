@@ -7,10 +7,10 @@
         .pull-right { float: right; }
         .text-left { text-align: left; }
         .text-left .page { float: left }
-        .text-left .section { padding-left: 20pt; }
+        .text-left .section { padding-left: 15pt; }
         .text-right { text-align: right; }
         .text-right .page { float: right }
-        .text-right .section { padding-right: 20pt; }
+        .text-right .section { padding-right: 15pt; }
         body { border:0; margin: 0; }
         div {
             width: 100%; text-align: right; color: #999; font-size: 9pt; font-family: Verdana;
@@ -21,7 +21,7 @@
 <body>
 <div class="pdf-footer">
     <span class="page"></span>
-    <span class="section" style="padding-right: 20pt" tal:content="view/body"></span>
+    <span class="section" tal:content="view/body"></span>
 </div>
 
 <script type="text/javascript">
@@ -30,7 +30,7 @@
         var x=document.location.search.substring(1).split('&');
         var z;
         for(var i in x) {z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
-        var x=['page','subsection'];
+        var x=['page','section', 'subsection'];
         var y;
         for(var i in x) {
             y = document.getElementsByClassName(x[i]);
