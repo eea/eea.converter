@@ -12,7 +12,7 @@
             font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
         }
     </style>
-</head>
+    <link rel="stylesheet" type="text/css" href="/pdf_custom_fixes.css" media="all" /></head>
 <body style="border:0; margin: 0;">
 <div tal:attributes="class string:pdf-header">
     <span class="subsection" tal:content="view/body"></span>

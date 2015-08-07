@@ -3,6 +3,9 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+* Change: added pdf_custom_fixes.css loaded by pdf.header and pdf.footer
+  in case there is a need for quickfixes
+  [ichimdav refs #27537]
 * Bug fix: fixed pdf.footer title and page number when used on indicators
   [ichimdav refs #27537]
 
