@@ -239,20 +239,6 @@ Dependencies
   These are not hard dependencies. You can use all features of eea.converter or
   just the ones that you need.
 
-.. _pdfinfo:
-
-* pdfinfo to parse pdf metadata (part of the xpdf package)::
-
-    yum install xpdf (fedora)
-    apt-get install xpdf (debian)
-
-.. _pdftk:
-
-* pdftk to generate a cover image from a pdf file::
-
-    yum install pdftk (fedora)
-    apt-get install pdftk (debian)
-
 .. _imagemagick:
 
 * ImageMagick (6.3.7+)::

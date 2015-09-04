@@ -44,8 +44,9 @@ setup(name=NAME,
       install_requires=[
           'setuptools',
           'kv',
+          'PyPDF2',
           'Pillow',
-          'Products.statusmessages'
+          'Products.statusmessages',
       ],
       extras_require={
           'test': ['plone.app.testing',]

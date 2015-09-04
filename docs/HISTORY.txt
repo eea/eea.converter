@@ -1,8 +1,10 @@
 Changelog
 =========
 
-9.7.dev0 - (unreleased)
+10.0.dev0 - (unreleased)
 -----------------------
+* Change: Drop pdftk dependency and use pure Python PyPDF2 package
+  [voineali refs #28522]
 
 9.6 - (2015-08-18)
 ------------------
