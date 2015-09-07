@@ -8,20 +8,19 @@ Extract metadata from PDF
     >>> from zope.component import getUtility
     >>> parser = getUtility(IPDFParser)
 
-    >>> inp = get_filedata('data/encrypted.pdf')
+    >>> inp = get_filedata('data/encrypted.pdf', as_string=False)
     >>> metadata = parser.parse(inp, password='password')
     >>> pprint(metadata)
-    {'creators': ['Alin Voinea'...
+    {'creators': [u'Alin Voinea'...
     ...
-     'producer': 'LibreOffice 4.4...}
+     'producer': u'LibreOffice 4.4...}
 
-    >>> inp = get_filedata('data/test.pdf')
+    >>> inp = get_filedata('data/test.pdf', as_string=False)
     >>> metadata = parser.parse(inp)
 
     >>> pprint(metadata)
     {...
-     'creators': ['EEA/Frank Wugt Larsen', 'Adobe InDesign CC 2014 (Windows)'],
-     'description': ' ',
+     'creators': [u'EEA/Frank Wugt Larsen', u'Adobe InDesign CC 2014 (Windows)'],
     ...
-     'title': 'EU 2010 biodiversity baseline \xe2\x80\x94 adapted to the MAES typology (2015)',
+     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)',
     ...}
