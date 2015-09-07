@@ -8,7 +8,7 @@ logger = logging.getLogger('eea.converter')
 CLOSE_FDS = not sys.platform.startswith('win')
 
 def can_convert_image():
-    """ Check if pdftk is installed
+    """ Check if ImageMagick is installed
     """
     # Test for ImageMagik
     process = Popen('convert --version', shell=True,

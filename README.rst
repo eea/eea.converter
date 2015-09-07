@@ -13,7 +13,7 @@ Introduction
 This package provides utilities to convert images and PDF files
 using ImageMagick. It also provides a generic /download.pdf browser view that
 allow your users to download Plone pages as PDF files with custom PDF cover,
-disclaimer and back cover (requires `wkhtmltopdf`_ and `pdftk`_ system-packages
+disclaimer and back cover (requires `wkhtmltopdf`_ system-package
 installed on your server).
 
 Installation
