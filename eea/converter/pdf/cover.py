@@ -7,57 +7,44 @@ from subprocess import Popen, PIPE, STDOUT
 
 from zope import interface
 from eea.converter.interfaces import IPDFCoverImage
-from eea.converter import CAN_GENERATE_COVER_IMAGE
-logger = logging.getLogger('eea.reports.pdf.cover')
+from PyPDF2 import PdfFileReader, PdfFileWriter
+logger = logging.getLogger('eea.converter')
+
 
 class PDFCoverImage(object):
-    """ Generate pdf cover image using pdftk toolkit
+    """ Generate pdf cover image using ImageMagick
     """
     interface.implements(IPDFCoverImage)
+
     #
     # Public interface
     #
-    def generate(self, pdf, width=210, height=297):
+    def generate(self, pdf, width=210, height=297, img='.gif'):
         """ Safely generate image. See interface for more details.
         """
         image = None
         try:
-            image = self._generate(pdf, width, height)
+            image = self._generate(pdf, width, height, img='.gif')
         except RuntimeError, err:
             logger.debug('Could not generate pdf cover image: %s', err)
         except Exception, err:
             logger.warn('Could not generate pdf cover image: %s', err)
         return image
 
-    def _generate(self, pdf, width=210, height=297):
+    def _generate(self, pdf, width=210, height=297, img='.gif'):
         """ generate image from given pdf
         """
-        if not self._can_convert():
-            raise RuntimeError('pdftk tool is not installed')
-
-        if getattr(pdf, 'read', None):
-            tmpdata = pdf.read()
-            pdf.seek(0)
-            pdf = tmpdata
-        if not pdf:
-            raise ValueError('Empty pdf file')
-
         tmp_inp = tempfile.mktemp(suffix='.pdf')
-        tmp_out = tempfile.mktemp(suffix='.pdf')
-        tmp_img = tempfile.mktemp(suffix='.gif')
-        open(tmp_inp, 'wb').write(pdf)
+        tmp_img = tempfile.mktemp(suffix=img)
 
-        # Run pdftk
-        cmd = "pdftk %s cat 1 output %s" % (tmp_inp, tmp_out)
-        logger.debug(cmd)
-        process = Popen(cmd, shell=True,
-                        stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
-        res = process.stdout.read()
-        if res:
-            logger.debug(res)
+        cover = PdfFileReader(pdf).getPage(0)
+        out = PdfFileWriter()
+        out.addPage(cover)
+        with open(tmp_inp, 'wb') as sock:
+            out.write(sock)
 
         # Run image magick convert
-        cmd = "convert %s -resize %sx%s %s" % (tmp_out, width, height, tmp_img)
+        cmd = "convert %s -resize %sx%s %s" % (tmp_inp, width, height, tmp_img)
         process = Popen(cmd, shell=True,
                         stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
         res = process.stdout.read()
@@ -66,18 +53,14 @@ class PDFCoverImage(object):
 
         data = open(tmp_img, 'rb').read()
 
-        self._finish(tmp_inp, tmp_out, tmp_img)
+        self._finish(tmp_inp, tmp_img)
         if not data:
             return None
         return data
-    #
-    # Utils
-    #
-    def _can_convert(self):
-        """ Check if pdftk is installed
-        """
-        return CAN_GENERATE_COVER_IMAGE
 
+    #
+    # Cleanup
+    #
     def _finish(self, *paths):
         """ remove temporary files
         """
