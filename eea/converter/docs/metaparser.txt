@@ -1,0 +1,27 @@
+Overview
+========
+Extract metadata from PDF
+
+    >>> from pprint import pprint
+    >>> from eea.converter.tests.utils import get_filedata
+    >>> from eea.converter.interfaces import IPDFParser
+    >>> from zope.component import getUtility
+    >>> parser = getUtility(IPDFParser)
+
+    >>> inp = get_filedata('data/encrypted.pdf')
+    >>> metadata = parser.parse(inp, password='password')
+    >>> pprint(metadata)
+    {'creators': ['Alin Voinea'...
+    ...
+     'producer': 'LibreOffice 4.4...}
+
+    >>> inp = get_filedata('data/test.pdf')
+    >>> metadata = parser.parse(inp)
+
+    >>> pprint(metadata)
+    {...
+     'creators': ['EEA/Frank Wugt Larsen', 'Adobe InDesign CC 2014 (Windows)'],
+     'description': ' ',
+    ...
+     'title': 'EU 2010 biodiversity baseline \xe2\x80\x94 adapted to the MAES typology (2015)',
+    ...}

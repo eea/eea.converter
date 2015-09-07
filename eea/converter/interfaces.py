@@ -85,6 +85,14 @@ class IPDFCoverImage(Interface):
         """
 
 
+class IPDFParser(Interface):
+    """Parser Utility to parse pdf files
+    """
+    def parse(pdf, password=''):
+        """ parses the given pdf file and returns a mapping of attributes
+        """
+
+
 __all__ = [
     ISupport.__name__,
     IConvert.__name__,
@@ -100,4 +108,5 @@ __all__ = [
     IAsyncExportFail.__name__,
     IAsyncExportSuccess.__name__,
     IPDFCoverImage.__name__,
+    IPDFParser.__name__,
 ]

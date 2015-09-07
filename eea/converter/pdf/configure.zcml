@@ -40,5 +40,6 @@
            factory=".wk.WkHtml2Pdf" />
 
   <utility factory=".cover.PDFCoverImage" />
+  <utility factory=".parser.PDFParser" />
 
 </configure>
