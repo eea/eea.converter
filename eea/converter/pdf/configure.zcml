@@ -39,4 +39,6 @@
   <utility provides="eea.converter.interfaces.IHtml2Pdf"
            factory=".wk.WkHtml2Pdf" />
 
+  <utility factory=".cover.PDFCoverImage" />
+
 </configure>
