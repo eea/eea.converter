@@ -61,7 +61,7 @@ Data to test
 Update pdf metadata
 ===================
 
-If pdftk is installed try to update pdf metadata. If something goes wrong the
+Try to update pdf metadata. If something goes wrong the
 original pdf file is returned, that's why we'll test to see if output pdf is
 not the same as original.
 

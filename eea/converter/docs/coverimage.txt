@@ -6,7 +6,7 @@ Generate cover image from pdf files.
 Generate cover image
 ====================
 
-If pdftk is installed try to generate cover image. If something goes wrong None
+Try to generate cover image. If something goes wrong None
 is returned.
 
     >>> from eea.converter.tests.utils import get_filedata
