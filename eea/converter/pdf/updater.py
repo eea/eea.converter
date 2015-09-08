@@ -36,14 +36,12 @@ class PDFMetadataUpdater(object):
         """ Update given pdf with given metadata.
         """
         metadata = self._process_metadata(metadata)
-
         reader = PdfFileReader(pdf)
         writer = PdfFileWriter()
         writer.appendPagesFromReader(reader)
         writer.addMetadata(metadata)
         output = StringIO()
         writer.write(output)
-        output.seek(0)
         return output
 
     def _process_metadata(self, metadata):
@@ -65,13 +63,12 @@ class PDFMetadataUpdater(object):
         keywords.extend([x for x in themes if x not in keywords])
 
         if keywords:
-            keywords = u"; ".join(keywords)
             output[u"/Keywords"] = keywords
             output[u"/Themes"] = keywords
 
         # Creator, Authors
         if metadata.get('creators', []):
-            creators = u"; ".join(metadata['creators'])
+            creators = metadata['creators']
             output[u"/Creator"] = creators
             output[u"/Authors"] = creators
 
@@ -80,8 +77,7 @@ class PDFMetadataUpdater(object):
             output[u"/Producer"] = site.absolute_url()
 
         if metadata.get('publishers', []):
-            publishers = u"; ".join(metadata['publishers'])
-            output[u"/Publishers"] = publishers
+            output[u"/Publishers"] = metadata['publishers']
 
         if metadata.get('isbn', ''):
             output[u"/ISBN"] = metadata['isbn']
@@ -108,4 +104,11 @@ class PDFMetadataUpdater(object):
         if serial_title:
             output[u"/SerialTitle"] = serial_title
 
+        for key, value in output.items():
+            if isinstance(value, str):
+                output[key] = value.decode('utf-8')
+            if isinstance(value, (int, float)):
+                output[key] = u"%s" % value
+            if isinstance(value, (tuple, list)):
+                output[key] = u"; ".join(value)
         return output

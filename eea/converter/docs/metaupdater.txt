@@ -68,14 +68,15 @@ not the same as original.
     >>> inp = get_filedata('data/test.pdf', as_string=False)
     >>> pprint(parser.parse(inp))
     {...
-     'description': ' ',
+     'creators': [u'EEA/Frank Wugt Larsen', u'Adobe InDesign CC 2014 (Windows)'],
+     'creatortool': u'Adobe InDesign CC 2014 (Windows)',
     ...
      'producer': u'Adobe PDF Library 11.0',
      'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)',
     ...}
 
-    >>> out = updater.update(inp, metadata)
-    >>> pprint(parser.parse(out))
+    >>> output = updater.update(inp, metadata)
+    >>> pprint(parser.parse(output))
     {'authors': u'EEA',
      'copyrights': u'(c) Copyrights - EEA (European Environment Agency)',
      'creators': [u'EEA'],

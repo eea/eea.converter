@@ -2,6 +2,7 @@
 """
 import logging
 from PyPDF2 import PdfFileReader
+from PyPDF2.generic import TextStringObject
 from zope import interface
 from zope.component.hooks import getSite
 from Products.CMFCore.utils import getToolByName
@@ -28,8 +29,9 @@ class PDFParser(object):
     def _split(self, text):
         """ Split text
         """
-        if not (isinstance(text, str) or isinstance(text, unicode)):
+        if not isinstance(text, (str, unicode)):
             return text
+
         if text.find(';') != -1:
             return [x.strip() for x in text.split(';') if x.strip()]
         return [y.strip() for y in text.split(',') if y.strip()]
@@ -46,21 +48,18 @@ class PDFParser(object):
             metadata['creators'].extend([
                 x for x in creator if x not in metadata['creators']])
 
-        # Fix effectiveDate
-        if metadata.has_key('moddate'):
-            metadata['effectiveDate'] = metadata.pop('moddate')
-        elif metadata.has_key('modificationdate'):
-            metadata['effectiveDate'] = metadata.pop('modificationdate')
-        elif metadata.has_key('creationdate'):
-            metadata['effectiveDate'] = metadata.pop('creationdate')
 
         # Fix description
         description = metadata.pop('subject', metadata.get('description', ''))
         if isinstance(description, tuple) or isinstance(description, list):
-            description = ' '.join([y.strip() for y in description])
-        if not description:
-            description = ' '
-        metadata['description'] = description
+            description = u' '.join([y.strip() for y in description])
+
+        if isinstance(description, TextStringObject):
+            try:
+                metadata['description'] = u"%s" % description
+            except Exception, err:
+                logger.exception(err)
+                metadata['description'] = u''
 
         # Fix subject
         keywords = metadata.pop('keywords', ())
