@@ -11,15 +11,25 @@ EEA Converter
 Introduction
 ============
 This package provides utilities to convert images and PDF files
-using ImageMagick. It also provides a generic /download.pdf browser view that
+using `ImageMagick`_. It also provides a generic /download.pdf browser view that
 allow your users to download Plone pages as PDF files with custom PDF cover,
 disclaimer and back cover (requires `wkhtmltopdf`_ system-package
 installed on your server).
 
+
+Main features
+=============
+- Download Plone/Zope content as PDF files with custom PDF cover, table of contents, etc;
+- Provide utilities to extract PDF cover as image (using `PyPDF2`_ and `ImageMagick`_);
+- Provide utilities to extract metadata from PDF (using `PyPDF2`_);
+- Provide utilities to update PDF metadata (using `PyPDF2`_).
+
+
 Installation
 ============
 
-- Make sure you have wkhtmltopdf 0.12.1+ installed or install it via zc.buildout
+- Make sure you have `wkhtmltopdf`_ 0.12.1+ installed or install it via `zc.buildout`_
+- Make sure you have `ImageMagick`_ 6.3.7+ installed or install it via `zc.buildout`_
 - Make sure you have an OS environment called EEACONVERTER_TEMP within your
   buildout if you have zope instances over more than one physical server.
 - Add eea.converter to your eggs section in your buildout and re-run buildout.
@@ -270,11 +280,6 @@ Documentation
 See the **doc** directory in this package.
 
 
-API Doc
-=======
-
-http://apidoc.eea.europa.eu/eea.converter-module.html
-
 Copyright and license
 =====================
 The Initial Owner of the Original Code is European Environment Agency (EEA).
@@ -299,3 +304,4 @@ EEA_ - European Environment Agency (EU)
 .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
 .. _`eea.pdf`: http://eea.github.com/docs/eea.pdf
 .. _`eea.epub`: http://eea.github.com/docs/eea.epub
+.. _`PyPDF2`: https://pypi.python.org/pypi/PyPDF2/1.25.1
