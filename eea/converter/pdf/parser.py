@@ -5,8 +5,14 @@ from PyPDF2 import PdfFileReader
 from PyPDF2.generic import TextStringObject
 from zope import interface
 from zope.component.hooks import getSite
-from Products.CMFCore.utils import getToolByName
 from eea.converter.interfaces import IPDFMetadataParser
+try:
+    from Products.CMFCore.utils import getToolByName
+except ImportError:
+    def getToolByName(**kwargs):
+        """ Fallback if CMFCore not present
+        """
+        return None
 
 logger = logging.getLogger('eea.converter')
 
@@ -197,7 +203,10 @@ class PDFParser(object):
 
         site = getSite()
         portal_languages = getToolByName(site, 'portal_languages')
-        langs = portal_languages.getSupportedLanguages()
+
+        getSupportedLanguages = getattr(
+            portal_languages, 'getSupportedLanguages', lambda: {})
+        langs = getSupportedLanguages()
 
         langbyfileid = findAbbrev(filename)
         if langbyfileid in langs:
