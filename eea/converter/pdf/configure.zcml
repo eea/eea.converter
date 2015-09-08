@@ -41,5 +41,6 @@
 
   <utility factory=".cover.PDFCoverImage" />
   <utility factory=".parser.PDFParser" />
+  <utility factory=".updater.PDFMetadataUpdater" />
 
 </configure>

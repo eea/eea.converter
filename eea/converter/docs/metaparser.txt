@@ -4,9 +4,9 @@ Extract metadata from PDF
 
     >>> from pprint import pprint
     >>> from eea.converter.tests.utils import get_filedata
-    >>> from eea.converter.interfaces import IPDFParser
+    >>> from eea.converter.interfaces import IPDFMetadataParser
     >>> from zope.component import getUtility
-    >>> parser = getUtility(IPDFParser)
+    >>> parser = getUtility(IPDFMetadataParser)
 
     >>> inp = get_filedata('data/encrypted.pdf', as_string=False)
     >>> metadata = parser.parse(inp, password='password')

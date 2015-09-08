@@ -5,14 +5,14 @@ from PyPDF2 import PdfFileReader
 from zope import interface
 from zope.component.hooks import getSite
 from Products.CMFCore.utils import getToolByName
-from eea.converter.interfaces import IPDFParser
+from eea.converter.interfaces import IPDFMetadataParser
 
 logger = logging.getLogger('eea.converter')
 
 class PDFParser(object):
     """ parses metadata from pdf files """
 
-    interface.implements(IPDFParser)
+    interface.implements(IPDFMetadataParser)
 
     def parse(self, pdf, password=''):
         """ Safely parses the given pdf file and returns a mapping of attributes
