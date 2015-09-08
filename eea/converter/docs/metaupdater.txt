@@ -1,0 +1,98 @@
+Overview
+========
+Update old reports attached pdf files metadata from zope objects properties
+
+    >>> from eea.converter.tests.utils import get_filedata
+    >>> from eea.converter.interfaces import IPDFMetadataUpdater, IPDFMetadataParser
+    >>> from zope.component import getUtility
+    >>> from pprint import pprint
+
+    >>> updater = getUtility(IPDFMetadataUpdater)
+    >>> parser = getUtility(IPDFMetadataParser)
+
+Data to test
+============
+
+    >>> metadata = {
+    ... 'allowDiscussion': False,
+    ... 'authors_str': 'EEA',
+    ... 'constrainTypesMode': 1,
+    ... 'contributors': (),
+    ... 'copyrights': '(c) Copyrights - EEA (European Environment Agency)',
+    ... 'creators': ('EEA',),
+    ... 'description': u'Настоящая',
+    ... 'eeaid': 0,
+    ... 'excludeFromNav': False,
+    ... 'expirationDate': None,
+    ... 'for_sale': False,
+    ... 'id': '627644646638627645',
+    ... 'immediatelyAddableTypes': ('File', 'Link', 'Folder', 'Image', 'Document'),
+    ... 'isbn': 'SDFHSDJKFSDGHJ344354353',
+    ... 'keywords': (
+    ...        u'\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0430\u044f',
+    ...        u'\u0412\u0441\u0435\u0431\u0430\u043b\u0442\u0438\u0439\u0441\u043a\u0438\u0439',
+    ...        u'poi\u0161\u010di'
+    ...        u'\u0627\u0644\u0646\u0638\u0627\u0645'
+    ...        u'\u0445\u0443\u0434\u043e\u0436\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0430\u044f'
+    ...        u'\u12e8\u12a2\u134c\u12f2\u122a'
+    ...  ),
+    ... 'lang': 'en',
+    ... 'locallyAllowedTypes': ('File', 'Link', 'Folder', 'Image', 'Document'),
+    ... 'order_extra_text': '',
+    ... 'order_id': 'SDFDRTWEYTUIOTYRWEUTIRE',
+    ... 'order_override_text': '',
+    ... 'pages': 4,
+    ... 'price': 0.0,
+    ... 'publication_groups': (),
+    ... 'publishers': ('EEA (European Environment Agency)',),
+    ... 'publishers_str': 'EEA (European Environment Agency)',
+    ... 'relatedItems': [],
+    ... 'rights': '',
+    ... 'serial_title': ('N/A', 0, -1, ''),
+    ... 'serial_title_str': ' 0/1970',
+    ... 'themes': ['Air pollution',
+    ...            'Biodiversity',
+    ...            'Chemicals',
+    ...            'Climate change',
+    ...            'Coasts and seas'],
+    ... 'title': u'\u0645\u062c\u0627\u0644 \u0627\u0644\u0645\u064a\u0627\u0647' ,
+    ... 'trailer': ''}
+
+Update pdf metadata
+===================
+
+If pdftk is installed try to update pdf metadata. If something goes wrong the
+original pdf file is returned, that's why we'll test to see if output pdf is
+not the same as original.
+
+    >>> inp = get_filedata('data/test.pdf', as_string=False)
+    >>> pprint(parser.parse(inp))
+    {...
+     'description': ' ',
+    ...
+     'producer': u'Adobe PDF Library 11.0',
+     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)',
+    ...}
+
+    >>> out = updater.update(inp, metadata)
+    >>> pprint(parser.parse(out))
+    {'authors': u'EEA',
+     'copyrights': u'(c) Copyrights - EEA (European Environment Agency)',
+     'creators': [u'EEA'],
+     'description': u'\xd0\x9d\xd0\xb0\xd1\x81\xd1\x82\xd0\xbe\xd1\x8f\xd1\x89\xd0\xb0\xd1\x8f',
+     'isbn': u'SDFHSDJKFSDGHJ344354353',
+     'language': u'en',
+     'orderid': u'SDFDRTWEYTUIOTYRWEUTIRE',
+     'producer': u'http://nohost/plone',
+     'publishers': u'EEA (European Environment Agency)',
+     'serialtitle': u' 0/1970',
+     'subject': [u'\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0430\u044f',
+                 u'\u0412\u0441\u0435\u0431\u0430\u043b\u0442\u0438\u0439\u0441\u043a\u0438\u0439',
+                 u'poi\u0161\u010di\u0627\u0644\u0646\u0638\u0627\u0645\u0445\u0443\u0434\u043e\u0436\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0430\u044f\u12e8\u12a2\u134c\u12f2\u122a',
+                 u'Air pollution',
+                 u'Biodiversity',
+                 u'Chemicals',
+                 u'Climate change',
+                 u'Coasts and seas'],
+     'themes': u'\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0430\u044f; \u0412\u0441\u0435\u0431\u0430\u043b\u0442\u0438\u0439\u0441\u043a\u0438\u0439; poi\u0161\u010di\u0627\u0644\u0646\u0638\u0627\u0645\u0445\u0443\u0434\u043e\u0436\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0430\u044f\u12e8\u12a2\u134c\u12f2\u122a; Air pollution; Biodiversity; Chemicals; Climate change; Coasts and seas',
+     'title': u'\u0645\u062c\u0627\u0644 \u0627\u0644\u0645\u064a\u0627\u0647'}

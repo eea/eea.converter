@@ -3,6 +3,8 @@ Changelog
 
 10.0.dev0 - (unreleased)
 ------------------------
+* Feature: Added utility to update PDF metadata. Moved from eea.reports
+  [voineali refs #28522]
 * Feature: Added utility to extract metadata from PDF. Moved from eea.reports
   [voineali refs #28522]
 * Feature: Added utility to extract cover image from PDF. Moved from eea.reports

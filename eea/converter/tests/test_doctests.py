@@ -34,6 +34,12 @@ def test_suite():
             layer=FUNCTIONAL_TESTING),
         layered(
             doctest.DocFileSuite(
+                'docs/metaupdater.txt',
+                optionflags=OPTIONFLAGS,
+                package='eea.converter'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'utils.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.converter'),
