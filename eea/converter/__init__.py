@@ -30,4 +30,3 @@ else:
     logger.warn("wkhtmltopdf path unknown, hope it's in the path")
 
 CAN_CONVERT_IMAGE = can_convert_image()
-CAN_GENERATE_COVER_IMAGE = CAN_CONVERT_IMAGE
