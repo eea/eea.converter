@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.0.dev0 - (unreleased)
-------------------------
+10.0 - (2015-09-10)
+-------------------
 * Feature: Added utility to update PDF metadata. Moved from eea.reports
   [voineali refs #28522]
 * Feature: Added utility to extract metadata from PDF. Moved from eea.reports
