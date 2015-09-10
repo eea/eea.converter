@@ -23,5 +23,4 @@ Extract metadata from PDF
     {...
      'creators': [u'EEA/Frank Wugt Larsen', u'Adobe InDesign CC 2014 (Windows)'],
     ...
-     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)',
-    ...}
+     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)'}

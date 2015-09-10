@@ -69,11 +69,9 @@ not the same as original.
     >>> pprint(parser.parse(inp))
     {...
      'creators': [u'EEA/Frank Wugt Larsen', u'Adobe InDesign CC 2014 (Windows)'],
-     'creatortool': u'Adobe InDesign CC 2014 (Windows)',
     ...
      'producer': u'Adobe PDF Library 11.0',
-     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)',
-    ...}
+     'title': u'EU 2010 biodiversity baseline \u2014 adapted to the MAES typology (2015)'}
 
     >>> output = updater.update(inp, metadata)
     >>> pprint(parser.parse(output))
