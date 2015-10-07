@@ -44,7 +44,11 @@ class PDFCoverImage(object):
             out.write(sock)
 
         # Run image magick convert
-        cmd = "convert %s -resize %sx%s %s" % (tmp_inp, width, height, tmp_img)
+        # add -flatten option to fix #28943. It's prevent transparence cover
+        # image
+        cmd = "convert -flatten %s -resize %sx%s %s" % (
+            tmp_inp, width, height, tmp_img
+        )
         process = Popen(cmd, shell=True,
                         stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
         res = process.stdout.read()

@@ -3,6 +3,8 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Bug Fix; add -flatten option to fix #28943. It's prevent transparence cover
+  [lucas refs #28943]
 
 10.0 - (2015-09-10)
 -------------------
