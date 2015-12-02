@@ -3,6 +3,8 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Change: Added system depenedencies within setup.py
+  [voineali refs #27406]
 
 10.1 - (2015-10-22)
 -------------------

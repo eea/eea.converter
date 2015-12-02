@@ -49,7 +49,19 @@ setup(name=NAME,
           'Products.statusmessages',
       ],
       extras_require={
-          'test': ['plone.app.testing',]
+          'test': [
+              'plone.app.testing',
+              ],
+          'yum': [
+              'xorg-x11-server-Xvfb',
+              'wkhtmltopdf',
+              'ImageMagick'
+              ],
+          'apt': [
+              'xvfb',
+              'wkhtmltopdf',
+              'ImageMagick',
+          ]
       },
       entry_points="""
       # -*- Entry points: -*-
