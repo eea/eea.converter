@@ -54,7 +54,7 @@ setup(name=NAME,
               ],
           'yum': [
               'xorg-x11-server-Xvfb',
-              'wkhtmltopdf',
+              'wkhtmltox',
               'ImageMagick'
               ],
           'apt': [

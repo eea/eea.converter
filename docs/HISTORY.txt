@@ -3,6 +3,8 @@ Changelog
 
 10.3.dev0 - (unreleased)
 ------------------------
+* Change: Fixed wkhtmltox dependency on centos
+  [voineali refs #31324]
 
 10.2 - (2015-12-07)
 -------------------
