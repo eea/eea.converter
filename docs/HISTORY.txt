@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.4.dev0 - (unreleased)
+------------------------
+
 10.3 - (2015-12-11)
 -------------------
 * Change: Fixed wkhtmltox dependency on centos
