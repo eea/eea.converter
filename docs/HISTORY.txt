@@ -3,6 +3,9 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Bug fix: text (country names) in the "Contents" section doesn't split between
+  pages
+  [danielm-gh refs #67840]
 
 10.3 - (2015-12-11)
 -------------------
