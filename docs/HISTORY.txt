@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.5.dev0 - (unreleased)
+------------------------
+
 10.4 - (2016-02-03)
 -------------------
 * Bug fix: text (country names) in the "Contents" section doesn't split between
