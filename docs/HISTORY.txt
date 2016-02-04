@@ -3,6 +3,8 @@ Changelog
 
 10.5.dev0 - (unreleased)
 ------------------------
+* Bug fix: in the "Contents" section, avoid the text to split between pages
+  [danielm-gh refs #67840]
 
 10.4 - (2016-02-03)
 -------------------
