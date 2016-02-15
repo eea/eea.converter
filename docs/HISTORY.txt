@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.5.dev0 - (unreleased)
-------------------------
+10.5 - (2016-02-15)
+-------------------
 * Bug fix: in the "Contents" section, avoid the text to split between pages
   [danielm-gh refs #67840]
 
