@@ -22,15 +22,8 @@ class PdfJob(AsyncJob):
     def run(self, **kwargs):
         """ Run job
         """
-        dependencies = []
         for dependency in self.dependencies:
             dependency.run(**kwargs)
-            if dependency.path:
-                dependencies.append(dependency.path)
-
-        self.cmd = self.cmd % {
-            'dependencies': ' '.join(dependencies)
-        }
 
         args = shlex.split(self.cmd)
         safe = kwargs.get('safe', True)

@@ -3,6 +3,8 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Cleanup: Cleanup pdftk specific code
+  [avoinea]
 * Bug fix: Warn if EEACONVERTER_TEMP is not set and fallback to CLIENT_HOME/tmp
   instead of crashing entire application
   [avoinea]
