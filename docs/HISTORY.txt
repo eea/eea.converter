@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.7.dev0 - (unreleased)
+------------------------
+
 10.6 - (2016-03-31)
 -------------------
 * Cleanup: Cleanup pdftk specific code
