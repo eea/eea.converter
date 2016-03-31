@@ -3,6 +3,7 @@
 import logging
 import sys, os
 from subprocess import Popen, PIPE, STDOUT
+from eea.converter.config import TMPDIR
 logger = logging.getLogger('eea.converter')
 
 CLOSE_FDS = not sys.platform.startswith('win')
@@ -30,3 +31,12 @@ else:
     logger.warn("wkhtmltopdf path unknown, hope it's in the path")
 
 CAN_CONVERT_IMAGE = can_convert_image()
+
+def initialize(context):
+    """Initializer called when used as a Zope 2 product.
+    """
+    path = TMPDIR()
+    if not path:
+        raise AttributeError('Missing environment var EEACONVERTER_TEMP')
+    elif not os.path.exists(path):
+        os.makedirs(path)

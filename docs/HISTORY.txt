@@ -3,6 +3,9 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: Warn if EEACONVERTER_TEMP is not set and fallback to CLIENT_HOME/tmp
+  instead of crashing entire application
+  [avoinea]
 
 10.5 - (2016-02-15)
 -------------------

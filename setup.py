@@ -64,6 +64,8 @@ setup(name=NAME,
           ]
       },
       entry_points="""
-      # -*- Entry points: -*-
+      # -*- entry_points -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
