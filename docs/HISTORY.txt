@@ -3,6 +3,8 @@ Changelog
 
 10.7.dev0 - (unreleased)
 ------------------------
+* Change: pylint fixes
+  [ichim-david refs #71940]
 
 10.6 - (2016-03-31)
 -------------------

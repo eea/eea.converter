@@ -1,12 +1,16 @@
 """ Converters
 """
 import logging
-import sys, os
+import os
+import sys
 from subprocess import Popen, PIPE, STDOUT
+
 from eea.converter.config import TMPDIR
+
 logger = logging.getLogger('eea.converter')
 
 CLOSE_FDS = not sys.platform.startswith('win')
+
 
 def can_convert_image():
     """ Check if ImageMagick is installed
@@ -31,6 +35,7 @@ else:
     logger.warn("wkhtmltopdf path unknown, hope it's in the path")
 
 CAN_CONVERT_IMAGE = can_convert_image()
+
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
