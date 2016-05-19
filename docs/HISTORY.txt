@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.7.dev0 - (unreleased)
-------------------------
+10.7 - (2016-05-19)
+-------------------
 * Change: pylint fixes
   [ichim-david refs #71940]
 
