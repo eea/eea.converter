@@ -4,9 +4,7 @@ import os
 import logging
 from kv import KV
 import tempfile
-from Acquisition import Implicit
 from zope import event
-from zope.interface import implementer
 from eea.converter.interfaces import IContextWrapper
 from eea.converter.config import TMPDIR
 logger = logging.getLogger('eea.converter')
@@ -17,21 +15,6 @@ logger = logging.getLogger('eea.converter')
 class ConversionError(IOError):
     """ Conversion error
     """
-
-#
-# Custom context
-#
-@implementer(IContextWrapper)
-class ContextWrapper(Implicit):
-    """ Context wrapper
-    """
-    def __init__(self, context):
-        self.context = context
-
-    def __call__(self, *args, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-        return self.__of__(self.context)
 
 def run_async_job(context, job, success_event, fail_event, **kwargs):
     """ Async job
@@ -44,8 +27,7 @@ def run_async_job(context, job, success_event, fail_event, **kwargs):
     email = kwargs.get('email', '')
     etype = kwargs.get('etype', 'pdf')
 
-    wrapper = ContextWrapper(context)(**kwargs)
-
+    wrapper = IContextWrapper(context)(**kwargs)
     if not filepath:
         wrapper.error = 'Invalid filepath for output %s' % etype
         job.cleanup()

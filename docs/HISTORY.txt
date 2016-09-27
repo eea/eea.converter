@@ -3,6 +3,8 @@ Changelog
 
 10.8.dev0 - (unreleased)
 ------------------------
+* Change: Use IContextWrapper from plone.stringinterp intead of custom one
+  [avoinea]
 
 10.7 - (2016-05-19)
 -------------------

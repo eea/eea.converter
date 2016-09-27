@@ -5,6 +5,7 @@ from zope.interface import Interface
 from eea.converter.browser.interfaces import ISupport
 
 # Events
+from plone.stringinterp.interfaces import IContextWrapper
 from eea.converter.events.interfaces import IEvent
 from eea.converter.events.interfaces import IExportFail
 from eea.converter.events.interfaces import IExportSuccess
@@ -12,6 +13,7 @@ from eea.converter.events.interfaces import IAsyncEvent
 from eea.converter.events.interfaces import IAsyncExportFail
 from eea.converter.events.interfaces import IAsyncExportSuccess
 from eea.converter.config import EEAMessageFactory as _
+
 
 class IConvert(Interface):
     """ Convert images using ImageMagick
@@ -36,11 +38,6 @@ class IPDFOptionsMaker(Interface):
 
 class IHtml2Pdf(Interface):
     """ HTML to PDF utility
-    """
-
-
-class IContextWrapper(Interface):
-    """ Context wrapper used by async events
     """
 
 

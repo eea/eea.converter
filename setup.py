@@ -47,6 +47,7 @@ setup(name=NAME,
           'PyPDF2',
           'Pillow',
           'Products.statusmessages',
+          'plone.stringinterp >= 1.0.14'
       ],
       extras_require={
           'test': [
