@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.9.dev0 - (unreleased)
+------------------------
+
 10.8 - (2016-10-03)
 -------------------
 * Change: Use IContextWrapper from plone.stringinterp intead of custom one
