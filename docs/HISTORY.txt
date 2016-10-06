@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.9.dev0 - (unreleased)
-------------------------
+10.9 - (2016-10-06)
+-------------------
 * Bug fix: Fixed regression bug introduced within version 10.8 about
   custom Content-Rules string substitions defined by this package.
   [voineali refs #77581]
