@@ -12,7 +12,7 @@ class DownloadTitle(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'title', '')
+        return getattr(self.wrapper, 'title', '')
 
 class DownloadEmail(BaseSubstitution):
     """ Download email substitution
@@ -23,7 +23,7 @@ class DownloadEmail(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'email', '')
+        return getattr(self.wrapper, 'email', '')
 
 class DownloadUrl(BaseSubstitution):
     """ Download email substitution
@@ -34,7 +34,7 @@ class DownloadUrl(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'fileurl', '')
+        return getattr(self.wrapper, 'fileurl', '')
 
 class DownloadCameFromUrl(BaseSubstitution):
     """ Download email substitution
@@ -45,7 +45,7 @@ class DownloadCameFromUrl(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'url', '')
+        return getattr(self.wrapper, 'url', '')
 
 class DownloadError(BaseSubstitution):
     """ Download error
@@ -56,7 +56,7 @@ class DownloadError(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'error', '')
+        return getattr(self.wrapper, 'error', '')
 
 class DownloadFromName(BaseSubstitution):
     """ Download from name
@@ -67,7 +67,7 @@ class DownloadFromName(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'from_name', '')
+        return getattr(self.wrapper, 'from_name', '')
 
 class DownloadFromEmail(BaseSubstitution):
     """ Download from name
@@ -78,7 +78,7 @@ class DownloadFromEmail(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'from_email', '')
+        return getattr(self.wrapper, 'from_email', '')
 
 class DownloadType(BaseSubstitution):
     """ Download from name
@@ -89,4 +89,4 @@ class DownloadType(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
-        return getattr(self.context, 'etype', 'pdf').upper()
+        return getattr(self.wrapper, 'etype', 'pdf').upper()
