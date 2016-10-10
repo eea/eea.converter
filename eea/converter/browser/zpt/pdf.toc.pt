@@ -71,11 +71,7 @@
             text-decoration: none;
           }
 
-          ul .page {
-            display: none;
-          }
-
-          ul ul .page {
+          .page {
             float: right;
             display: block;
             color: black;
@@ -84,19 +80,11 @@
             margin-top: -14pt;
           }
 
-          ul ul .item a:after {
+          .item a:after {
             content: "";
             display: block;
             border-bottom: 2pt dotted;
             margin-top: -3pt;
-          }
-
-          ul .item {
-            border-bottom: 2px solid #000;
-          }
-
-          ul ul .item {
-            border-bottom: none;
           }
 
           .title {
