@@ -30,7 +30,7 @@
 
           ul {
             font-weight: bold;
-            font-size: 14pt;
+            font-size: 13pt;
             padding-left: 0;
             list-style: none;
             page-break-inside: auto;
@@ -51,6 +51,7 @@
 
           ul .item {
             margin: 1em 0;
+            page-break-inside: avoid;
           }
 
           ul ul .item {
@@ -69,6 +70,7 @@
             margin-right: 30pt;
             color: #000;
             text-decoration: none;
+            page-break-inside: avoid;
           }
 
           .page {
