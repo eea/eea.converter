@@ -3,6 +3,8 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
+* Change: changed styling of pdf.toc headers
+  [ichim-david refs #77476]
 
 10.9 - (2016-10-06)
 -------------------
