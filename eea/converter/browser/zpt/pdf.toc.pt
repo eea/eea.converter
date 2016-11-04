@@ -93,9 +93,11 @@
             background: white;
             padding-right: 5pt;
           }
-
         </style>
-      </head>
+
+        <link tal:attributes="href string:${context/portal_url}/pdf_custom_fixes.css" rel="stylesheet" type="text/css" tal:condition="exists:context/pdf_custom_fixes.css"/>
+
+    </head>
       <body class="table-of-contents">
           <xsl:if test="$tocdepth != 0">
               <header tal:content="view/header">Contents</header>
