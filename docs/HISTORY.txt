@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.1.dev0 - (unreleased)
-------------------------
+11.1 - (2016-11-07)
+-------------------
 * Feature: Added pdf_custom_fixes to pdf.toc.pt in case this template would need
   custom css fixes
   [ichim-david refs #78802]
