@@ -17,7 +17,8 @@
             padding-top: 50pt; font-weight: bold;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="/www/pdf_custom_fixes.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="" media="all" 
+          tal:attributes="href string:${context/portal_url}/pdf_custom_fixes.css"/>
 </head>
 <body>
 <div class="pdf-footer">
