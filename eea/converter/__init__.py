@@ -7,6 +7,10 @@ from subprocess import Popen, PIPE, STDOUT
 
 from eea.converter.config import TMPDIR
 
+from zope.i18nmessageid import MessageFactory
+
+MessageFactory = MessageFactory('eea')
+
 logger = logging.getLogger('eea.converter')
 
 CLOSE_FDS = not sys.platform.startswith('win')

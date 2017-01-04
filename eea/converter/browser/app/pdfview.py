@@ -4,6 +4,8 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.converter.utils import truncate
 
+from Products.CMFPlone import PloneMessageFactory as _
+
 class Cover(BrowserView):
     """ PDF Cover
     """
@@ -52,7 +54,8 @@ class Toc(Cover):
     def header(self):
         """ Header
         """
-        return u"Contents"
+	contents_translate = _(u"Contents")
+        return contents_translate
 
 class BackCover(Cover):
     """ PDF Back Cover
