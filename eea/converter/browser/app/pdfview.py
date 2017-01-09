@@ -54,7 +54,7 @@ class Toc(Cover):
     def header(self):
         """ Header
         """
-	contents_translate = _(u"Contents")
+        contents_translate = _(u"Contents")
         return contents_translate
 
 class BackCover(Cover):
