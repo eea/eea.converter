@@ -1,7 +1,7 @@
 Changelog
 =========
 
-11.2.dev0 - (2017-01-04)
+11.2.dev0 - (unreleased)
 ------------------------
 * Feature: added internationalization on "Contents" appearing in PDF TOC
   [irina-botez]
