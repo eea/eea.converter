@@ -3,6 +3,8 @@ Changelog
 
 11.3.dev0 - (unreleased)
 ------------------------
+* Bug fix: Remove hard dependency to CMFPlone introduced in v11.2
+  [avoinea]
 
 11.2 - (2017-01-17)
 -------------------

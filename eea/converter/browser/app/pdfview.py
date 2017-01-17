@@ -3,8 +3,7 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.converter.utils import truncate
-
-from Products.CMFPlone import PloneMessageFactory as _
+from eea.converter.config import EEAMessageFactory as _
 
 class Cover(BrowserView):
     """ PDF Cover
