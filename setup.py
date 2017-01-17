@@ -62,6 +62,8 @@ setup(name=NAME,
               'xvfb',
               'wkhtmltopdf',
               'ImageMagick',
+              ]
+          'zope2': [
           ]
       },
       entry_points="""
