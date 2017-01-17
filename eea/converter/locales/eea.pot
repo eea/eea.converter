@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-08-06 14:31+0000\n"
+"POT-Creation-Date: 2017-01-17 09:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,79 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eea\n"
 
+#: ../../converter/interfaces.py:49
+msgid "Absolute file path on disk"
+msgstr ""
+
+#: ../../converter/browser/app/pdfview.py:56
 #: ../../converter/browser/zpt/pdf.disclaimer.pt:17
 msgid "Contents"
 msgstr ""
 
+#: ../../converter/profiles.zcml:12
+msgid "Conversion utilities"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:9
+msgid "Download"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:32
+msgid "Download URL"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:43
+msgid "Download came from URL"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:21
+msgid "Download e-mail"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:54
+msgid "Download error"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:76
+msgid "Download from email"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:65
+msgid "Download from name"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:10
+msgid "Download title"
+msgstr ""
+
+#: ../../converter/rules/adapters.py:87
+msgid "Download type"
+msgstr ""
+
+#: ../../converter/profiles.zcml:12
+msgid "EEA Converter"
+msgstr ""
+
+#: ../../converter/profiles.zcml:20
+msgid "EEA Converter - uninstall"
+msgstr ""
+
+#: ../../converter/interfaces.py:59
+msgid "IAsyncJob job"
+msgstr ""
+
+#: ../../converter/interfaces.py:48
+msgid "List of absolute file paths on disk to be cleaned up"
+msgstr ""
+
+#: ../../converter/interfaces.py:57
+msgid "List of jobs to be ran as dependencies to this job"
+msgstr ""
+
+#: ../../converter/interfaces.py:53
+msgid "Output file path on disk"
+msgstr ""
+
+#: ../../converter/profiles.zcml:20
+msgid "Uninstall eea.converter"
+msgstr ""
