@@ -62,7 +62,7 @@ setup(name=NAME,
               'xvfb',
               'wkhtmltopdf',
               'ImageMagick',
-              ]
+              ],
           'zope2': [
           ]
       },
