@@ -3,6 +3,9 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed pdf.footer and pdf.header title enconding issues,
+  when subpage has content that needed to be escaped
+  [ichim-david refs #80861]
 
 11.3 - (2017-01-17)
 -------------------

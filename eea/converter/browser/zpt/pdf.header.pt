@@ -12,7 +12,7 @@
             font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="" media="all" 
+    <link rel="stylesheet" type="text/css" href="" media="all"
           tal:attributes="href string:${context/portal_url}/pdf_custom_fixes.css"/></head>
 <body style="border:0; margin: 0;">
 <div tal:attributes="class string:pdf-header">
@@ -23,12 +23,18 @@
         var vars={};
         var x=document.location.search.substring(1).split('&');
         var z;
-        for(var i in x) { z=x[i].split('=',2); vars[z[0]] = unescape(z[1]);}
+        for(var i in x) {
+            z=x[i].split('=',2);
+            vars[z[0]] = window.decodeURIComponent(z[1]);
+
+        }
         var x=['page','subsection'];
         var y;
         for(var i in x) {
             y = document.getElementsByClassName(x[i]);
-            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+            for(var j=0; j<y.length; ++j) {
+             y[j].textContent = vars[x[i]];
+            }
         }
         var header = document.getElementsByClassName(item_class)[0];
         var even = window.parseInt(vars['page'], 10) % 2 === 0;
