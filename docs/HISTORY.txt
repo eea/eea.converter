@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.5.dev0 - (unreleased)
+------------------------
+
 11.4 - (2017-03-20)
 -------------------
 * Bug fix: fixed pdf.footer and pdf.header title enconding issues,
