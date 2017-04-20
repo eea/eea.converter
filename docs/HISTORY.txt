@@ -3,6 +3,8 @@ Changelog
 
 11.5.dev0 - (unreleased)
 ------------------------
+* Change: updated package information
+[eduard-fironda]
 
 11.4 - (2017-03-20)
 -------------------
