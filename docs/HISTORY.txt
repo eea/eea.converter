@@ -3,6 +3,10 @@ Changelog
 
 11.6.dev0 - (unreleased)
 ------------------------
+* Change: removed pdf.header title values if we print within collection.pdf.body
+  since printing multiple pages will result in wrong title as soon as we print
+  the next object
+  [ichim-david refs #84084]
 
 11.5 - (2017-04-24)
 -------------------

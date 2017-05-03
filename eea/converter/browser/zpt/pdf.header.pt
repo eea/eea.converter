@@ -7,9 +7,13 @@
         .pull-right { float: right; }
         .text-left { text-align: left; }
         .text-right { text-align: right; }
-        div {
+        .pdf-header {
             border-bottom: 1px solid #333; width: 100%; text-align: right; color: #999;
             font-size: 9pt; font-family: Verdana; padding-bottom: 40pt; font-weight: bold;
+        }
+        .collection-pdf {
+            border-bottom: 0;
+            padding-bottom: 1pt;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="" media="all"
@@ -21,7 +25,7 @@
 <script type="text/javascript">
     function subst(item_class) {
         var vars={};
-        var x=document.location.search.substring(1).split('&');
+        var x=document.location.search.substring(1).split(',');
         var z;
         for(var i in x) {
             z=x[i].split('=',2);
@@ -30,11 +34,18 @@
         }
         var x=['page','subsection'];
         var y;
+
         for(var i in x) {
             y = document.getElementsByClassName(x[i]);
             for(var j=0; j<y.length; ++j) {
              y[j].textContent = vars[x[i]];
             }
+        }
+        var webpage_info = vars['webpage'];
+        if (webpage_info && webpage_info.indexOf('collection.pdf.body') !== -1) {
+            document.getElementsByClassName('subsection')[0].innerHTML = '';
+            document.getElementsByClassName('pdf-header')[0].className += ' collection-pdf';
+
         }
         var header = document.getElementsByClassName(item_class)[0];
         var even = window.parseInt(vars['page'], 10) % 2 === 0;
