@@ -25,7 +25,7 @@
 <script type="text/javascript">
     function subst(item_class) {
         var vars={};
-        var x=document.location.search.substring(1).split(',');
+        var x=document.location.search.substring(1).split('&');
         var z;
         for(var i in x) {
             z=x[i].split('=',2);
