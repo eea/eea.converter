@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.7.dev0 - (unreleased)
+------------------------
+
 11.6 - (2017-05-08)
 -------------------
 * Change: removed pdf.header title values if we print within collection.pdf.body
