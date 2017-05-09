@@ -2,8 +2,8 @@
 """
 import os
 import logging
-from kv import KV
 import tempfile
+from kv import KV
 from zope import event
 from eea.converter.interfaces import IContextWrapper
 from eea.converter.config import TMPDIR

@@ -5,9 +5,9 @@ import logging
 import tempfile
 from urllib2 import urlparse
 from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from zope.publisher.interfaces import NotFound
 from zope.component import queryAdapter, queryUtility, queryMultiAdapter
-from Products.statusmessages.interfaces import IStatusMessage
 from eea.converter.interfaces import IPDFOptionsMaker, IHtml2Pdf
 from eea.converter.config import TMPDIR
 

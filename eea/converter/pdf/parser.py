@@ -57,7 +57,7 @@ class PDFParser(object):
 
         # Fix description
         description = metadata.pop('subject', metadata.get('description', ''))
-        if isinstance(description, tuple) or isinstance(description, list):
+        if isinstance(description, (list, tuple)):
             description = u' '.join([y.strip() for y in description])
 
         if isinstance(description, TextStringObject):

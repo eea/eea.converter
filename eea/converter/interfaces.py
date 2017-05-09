@@ -2,10 +2,10 @@
 """
 from zope import schema
 from zope.interface import Interface
-from eea.converter.browser.interfaces import ISupport
 
 # Events
 from plone.stringinterp.interfaces import IContextWrapper
+from eea.converter.browser.interfaces import ISupport
 from eea.converter.events.interfaces import IEvent
 from eea.converter.events.interfaces import IExportFail
 from eea.converter.events.interfaces import IExportSuccess
