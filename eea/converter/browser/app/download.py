@@ -30,7 +30,7 @@ class Pdf(BrowserView):
                 self._cookies = {}
                 return self._cookies
 
-            ## XXX There is a bug with wkhtmltopdf --cookie param
+            ## There is a bug with wkhtmltopdf --cookie param
             ## Thus we'll use --cookie-jar
             ## EEA ticket #21958. wkhtmltopdf tickets #1870, #1903
 

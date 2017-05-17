@@ -42,13 +42,12 @@ class OptionsMaker(object):
                 '--margin-left', '0',
                 '--margin-right', '0',
             ]
-        else:
-            return [
-                '--margin-top', '32',
-                '--margin-bottom', '32',
-                '--margin-left', '20',
-                '--margin-right', '20',
-            ]
+        return [
+            '--margin-top', '32',
+            '--margin-bottom', '32',
+            '--margin-left', '20',
+            '--margin-right', '20',
+        ]
 
     @property
     def cookies(self):
@@ -178,7 +177,7 @@ class BodyOptionsMaker(object):
             else:
                 # self._toc = self.context.absolute_url() + '/pdf.toc'
 
-                ## XXX wkhtmltopdf doesn't support URLs for TOC xsl
+                ## wkhtmltopdf doesn't support URLs for TOC xsl
                 ## To be replaced with previous commented one when fixed by wk
 
                 with tempfile.NamedTemporaryFile(
