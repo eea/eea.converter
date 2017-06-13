@@ -13,7 +13,7 @@ from eea.converter.events.interfaces import IAsyncExportFail
 from eea.converter.events.interfaces import IAsyncExportSuccess
 from eea.converter.config import EEAMessageFactory as _
 try:
-    from plone.stringinterp.interfaces import import IContextWrapper
+    from plone.stringinterp.interfaces import IContextWrapper
 except ImportError:
     class IContextWrapper(Interface):
         """ plone.stringinterp not installed """
