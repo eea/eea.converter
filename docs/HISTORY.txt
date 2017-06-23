@@ -3,6 +3,8 @@ Changelog
 
 11.9.dev0 - (unreleased)
 ------------------------
+* Change: Remove hard-dependency on plone.stringinterp
+  [avoinea]
 
 11.8 - (2017-05-22)
 -------------------

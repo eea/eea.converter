@@ -4,7 +4,6 @@ from zope import schema
 from zope.interface import Interface
 
 # Events
-from plone.stringinterp.interfaces import IContextWrapper
 from eea.converter.browser.interfaces import ISupport
 from eea.converter.events.interfaces import IEvent
 from eea.converter.events.interfaces import IExportFail
@@ -13,6 +12,11 @@ from eea.converter.events.interfaces import IAsyncEvent
 from eea.converter.events.interfaces import IAsyncExportFail
 from eea.converter.events.interfaces import IAsyncExportSuccess
 from eea.converter.config import EEAMessageFactory as _
+try:
+    from plone.stringinterp.interfaces import IContextWrapper
+except ImportError:
+    class IContextWrapper(Interface):
+        """ plone.stringinterp not installed """
 
 
 class IConvert(Interface):
