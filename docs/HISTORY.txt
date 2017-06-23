@@ -5,6 +5,9 @@ Changelog
 ------------------------
 * Change: Remove hard-dependency on plone.stringinterp
   [avoinea]
+* Bug fix: Fixed imagemagick convert command, added colorspace parameter
+  and page number parameter
+  [zoltan_andras refs #85638]
 
 11.8 - (2017-05-22)
 -------------------
