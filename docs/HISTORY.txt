@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.9.dev0 - (unreleased)
-------------------------
+11.9 - (2017-06-26)
+-------------------
 * Change: Remove hard-dependency on plone.stringinterp
   [avoinea]
 * Bug fix: Fixed imagemagick convert command, added colorspace parameter
