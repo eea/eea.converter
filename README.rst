@@ -1,12 +1,9 @@
 =============
 EEA Converter
 =============
-.. image:: http://ci.eionet.europa.eu/job/eea.converter-www/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea.converter-www/lastBuild
-.. image:: http://ci.eionet.europa.eu/job/eea.converter-plone4/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea.converter-plone4/lastBuild
-.. image:: http://ci.eionet.europa.eu/job/eea.converter-zope/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea.converter-zope/lastBuild
+.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.converter/job/master/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea/job/eea.converter/job/master/display/redirect
+
 
 Introduction
 ============
