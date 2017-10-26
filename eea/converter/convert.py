@@ -32,8 +32,7 @@ class Convert(object):
         return CAN_CONVERT_IMAGE
 
     def convert(self, data, data_from=".pdf", data_to='.png', **kwargs):
-        """
-        Converts raw data from given format to given format
+        """ Converts raw data from given format to given format
 
         Keyword arguments:
         path_from -- if given, ignore `data` param and use this file as input
@@ -100,6 +99,8 @@ class Convert(object):
         return res
 
     def __call__(self, data, **kwargs):
+        """ execute the convertion
+        """
         if getattr(data, 'read', None):
             data = data.read()
         res = None
@@ -108,8 +109,8 @@ class Convert(object):
         except RuntimeError, err:
             logger.debug(err)
         except Exception, err:
-            logger.exception(
+            logger.warning(
                 'Could not run converter with '
                 'this arguments: %s'
-                'Error: %s', kwargs, err)
+                ' | Error: %s', kwargs, err)
         return res

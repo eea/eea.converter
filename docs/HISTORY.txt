@@ -5,6 +5,8 @@ Changelog
 ------------------------
 * Change: Remove Sphinx generated documentation
   [petchesi-iulian refs #88212]
+* Change: improved logging
+  [alecghica refs #88578]
 
 11.9 - (2017-06-26)
 -------------------
