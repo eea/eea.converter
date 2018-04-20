@@ -3,7 +3,7 @@ Changelog
 
 12.2 - (2018-04-20)
 -------------------
-* Change: Possibility to group download info within AsyncInfo namedtuple
+* Change: Possibility to group download info within AsyncInfo wrapper
   [avoinea]
 
 12.1 - (2017-12-12)
