@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.2.dev0 - (unreleased)
+12.2 - (2018-04-20)
 ------------------------
 * Change: Support IContextWrapper context within run_async_job
   [avoinea]
