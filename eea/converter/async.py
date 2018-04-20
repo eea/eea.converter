@@ -19,15 +19,18 @@ class ConversionError(IOError):
 def run_async_job(context, job, success_event, fail_event, **kwargs):
     """ Async job
     """
-    filepath = kwargs.get('filepath', '')
+    wrapper = context
+    if not IContextWrapper.providedBy(wrapper):
+        wrapper = IContextWrapper(context)(**kwargs)
+
+    filepath = getattr(wrapper, 'filepath', '')
     filepath_lock = filepath + '.lock'
     filepath_meta = filepath + '.meta'
 
-    url = kwargs.get('url', '')
-    email = kwargs.get('email', '')
-    etype = kwargs.get('etype', 'pdf')
+    url = getattr(wrapper, 'url', '')
+    email = getattr(wrapper, 'email', '')
+    etype = getattr(wrapper, 'etype', 'pdf')
 
-    wrapper = IContextWrapper(context)(**kwargs)
     if not filepath:
         wrapper.error = 'Invalid filepath for output %s' % etype
         job.cleanup()

@@ -3,6 +3,8 @@ Changelog
 
 12.2.dev0 - (unreleased)
 ------------------------
+* Change: Support IContextWrapper context within run_async_job
+  [avoinea]
 
 12.1 - (2017-12-12)
 -------------------
