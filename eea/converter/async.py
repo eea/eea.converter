@@ -3,12 +3,24 @@
 import os
 import logging
 import tempfile
+from collections import namedtuple
 from kv import KV
 from zope import event
 from eea.converter.interfaces import IContextWrapper
 from eea.converter.config import TMPDIR
 logger = logging.getLogger('eea.converter')
 
+
+AsyncInfo = namedtuple('AsyncInfo', (
+    'fileurl',
+    'filepath',
+    'email',
+    'url',
+    'from_name',
+    'from_email',
+    'title',
+    'etype'
+))
 #
 # Custom Exceptions
 #
@@ -16,9 +28,13 @@ class ConversionError(IOError):
     """ Conversion error
     """
 
-def run_async_job(context, job, success_event, fail_event, **kwargs):
+def run_async_job(context, job, success_event, fail_event, info=None, **kwargs):
     """ Async job
     """
+    if info is not None:
+        for field in AsyncInfo._fields:
+            kwargs.setdefault(field, getattr(info, field, ''))
+
     filepath = kwargs.get('filepath', '')
     filepath_lock = filepath + '.lock'
     filepath_meta = filepath + '.meta'
