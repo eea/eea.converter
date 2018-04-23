@@ -9,6 +9,12 @@ from eea.converter.interfaces import IContextWrapper
 from eea.converter.config import TMPDIR
 logger = logging.getLogger('eea.converter')
 
+
+class AsyncInfo(object):
+    """ Async Info """
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 #
 # Custom Exceptions
 #
@@ -16,9 +22,11 @@ class ConversionError(IOError):
     """ Conversion error
     """
 
-def run_async_job(context, job, success_event, fail_event, **kwargs):
+def run_async_job(context, job, success_event, fail_event, info=None, **kwargs):
     """ Async job
     """
+    kwargs.update(getattr(info, '__dict__', {}))
+
     filepath = kwargs.get('filepath', '')
     filepath_lock = filepath + '.lock'
     filepath_meta = filepath + '.meta'

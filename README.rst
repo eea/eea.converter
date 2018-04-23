@@ -1,8 +1,12 @@
 =============
 EEA Converter
 =============
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.converter/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.converter/job/master/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.converter/develop
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.converter/job/develop/display/redirect
+  :alt: Develop
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.converter/master
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.converter/job/master/display/redirect
+  :alt: Master
 
 
 Introduction
