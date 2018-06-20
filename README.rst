@@ -300,9 +300,9 @@ Funding
 
 EEA_ - European Environment Agency (EU)
 
-.. _EEA: http://www.eea.europa.eu/
-.. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
-.. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
-.. _`eea.pdf`: http://eea.github.com/docs/eea.pdf
-.. _`eea.epub`: http://eea.github.com/docs/eea.epub
+.. _EEA: https://www.eea.europa.eu/
+.. _`plone.recipe.zope2instance`: https://pypi.python.org/pypi/plone.recipe.zope2instance
+.. _`zc.buildout`: https://pypi.python.org/pypi/zc.buildout
+.. _`eea.pdf`: https://eea.github.com/docs/eea.pdf
+.. _`eea.epub`: https://eea.github.com/docs/eea.epub
 .. _`PyPDF2`: https://pypi.python.org/pypi/PyPDF2/1.25.1
