@@ -5,6 +5,8 @@ Changelog
 ---------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
+* Change: fix tests to run on Plone 4.3.17
+  [alecghica refs #96974]
 
 12.2 - (2018-04-20)
 -------------------
