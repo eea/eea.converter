@@ -75,6 +75,7 @@ class OptionsMaker(object):
         """
         if self._options is None:
             self._options = [
+                '--disable-smart-shrinking',
                 '--page-size', 'A4',
                 '--page-offset', '2',
                 '--print-media-type',

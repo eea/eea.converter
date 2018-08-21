@@ -3,6 +3,8 @@ Changelog
 
 12.3-dev0 - (unreleased)
 ---------------------
+* Change: Update to wkhtmltopdf 0.12.4 (add ----disable-smart-shrinking option)
+  [avoinea refs #97586]
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 * Change: fix tests to run on Plone 4.3.17
