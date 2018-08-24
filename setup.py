@@ -14,7 +14,7 @@ setup(name=NAME,
                    "tools as ImageMagick"),
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
           "Framework :: Zope2",
           "Framework :: Plone",
@@ -31,7 +31,7 @@ setup(name=NAME,
       keywords='EEA converter imagemagick utility Add-ons Plone Zope',
       author='European Environment Agency: IDM2 A-Team',
       author_email="eea-edw-a-team-alerts@googlegroups.com",
-      download_url="http://pypi.python.org/pypi/eea.converter",
+      download_url="https://pypi.python.org/pypi/eea.converter",
       url='https://github.com/collective/eea.converter',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),

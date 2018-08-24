@@ -1,6 +1,15 @@
 Changelog
 =========
 
+12.3 - (2018-08-22)
+---------------------
+* Change: Update to wkhtmltopdf 0.12.4 (add ----disable-smart-shrinking option)
+  [avoinea refs #97586]
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+* Change: fix tests to run on Plone 4.3.17
+  [alecghica refs #96974]
+
 12.2 - (2018-04-20)
 -------------------
 * Change: Possibility to group download info within AsyncInfo wrapper
@@ -340,4 +349,3 @@ Changelog
 ------------------
 * Initial release
   [voineali]
-
