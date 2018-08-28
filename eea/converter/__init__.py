@@ -16,6 +16,20 @@ logger = logging.getLogger('eea.converter')
 CLOSE_FDS = not sys.platform.startswith('win')
 
 
+def can_convert_svg():
+    """ Check if rsvg-convert is installed
+    """
+    process = Popen('rsvg-convert --version', shell=True,
+                    stdin=PIPE, stdout=PIPE, stderr=STDOUT,
+                    close_fds=CLOSE_FDS)
+    res = process.stdout.read()
+    if 'version' not in res.lower():
+        logger.warn(
+            ("rsvg-convert NOT FOUND: "
+             "ImageMagick will be used to export SVG to PNG images."))
+        return False
+    return True
+
 def can_convert_image():
     """ Check if ImageMagick is installed
     """
@@ -38,6 +52,7 @@ else:
     WK_COMMAND = 'wkhtmltopdf'
     logger.warn("wkhtmltopdf path unknown, hope it's in the path")
 
+CAN_CONVERT_SVG = can_convert_svg()
 CAN_CONVERT_IMAGE = can_convert_image()
 
 

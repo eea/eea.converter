@@ -257,6 +257,13 @@ Dependencies
     yum install ImageMagick
     apt-get install imagemagick
 
+.. _rsvg-converter:
+
+* rsvg-convert (2.40.16+)::
+
+    yum install rsvg-convert
+    apt-get install librsvg2-bin
+
 .. _wkhtmltopdf:
 
 * wkhtmltopdf (0.12.1+):
