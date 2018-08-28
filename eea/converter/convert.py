@@ -5,7 +5,7 @@ import tempfile
 import logging
 import sys
 from subprocess import Popen, PIPE, STDOUT
-from eea.converter import CAN_CONVERT_IMAGE
+from eea.converter import CAN_CONVERT_IMAGE, CAN_CONVERT_SVG
 
 CLOSE_FDS = not sys.platform.startswith('win')
 
@@ -59,14 +59,24 @@ class Convert(object):
         width = kwargs.get('width', None)
         height = kwargs.get('height', None)
         resize = ''
-        if width and height:
-            resize = '-resize %sx%s' % (width, height)
 
-        cmd = "convert %(input)s %(resize)s %(output)s" % {
-            'input': tmp_from,
-            'output': tmp_to,
-            'resize': resize
-        }
+        if data_from == '.svg' and CAN_CONVERT_SVG:
+            if width and height:
+                resize = '-w %s -h %s' % (width, height)
+            cmd = "rsvg-convert %(input)s %(resize)s -f %(format)s -o %(output)s" % {
+                'input': tmp_from,
+                'output': tmp_to,
+                'format': data_to.strip('.'),
+                'resize': resize
+            }
+        else:
+            if width and height:
+                resize = '-resize %sx%s' % (width, height)
+            cmd = "convert %(input)s %(resize)s %(output)s" % {
+                'input': tmp_from,
+                'output': tmp_to,
+                'resize': resize
+            }
 
         process = Popen(cmd, shell=True,
                         stdin=PIPE, stdout=PIPE, stderr=STDOUT,
