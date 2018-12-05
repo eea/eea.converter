@@ -1,6 +1,11 @@
 Changelog
 =========
 
+12.5 - (2018-12-05)
+---------------------
+* Change: Update cover colorspace to CMYK to work with ghostscript 9.26+
+  [avoinea refs #99812]
+
 12.4 - (2018-08-28)
 ---------------------
 * Feature: Use rsvg-convert to convert SVG to PNG or fallback to ImageMagick
