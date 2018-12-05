@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.6-dev0 - (unreleased)
+---------------------
+
 12.5 - (2018-12-05)
 ---------------------
 * Change: Update cover colorspace to CMYK to work with ghostscript 9.26+
