@@ -24,7 +24,7 @@ class PDFCoverImage(object):
         """
         image = None
         try:
-            image = self._generate(pdf, width, height, img='.gif')
+            image = self._generate(pdf, width, height, img=img)
         except RuntimeError, err:
             logger.debug('Could not generate pdf cover image: %s', err)
         except Exception, err:
