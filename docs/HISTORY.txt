@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.6-dev0 - (unreleased)
+12.6 - (2019-01-17)
 ---------------------
 * Change: Revert cover colorspace to sRGB
   [avoinea refs #101483]
