@@ -24,7 +24,7 @@ class PDFCoverImage(object):
         """
         image = None
         try:
-            image = self._generate(pdf, width, height, img='.gif')
+            image = self._generate(pdf, width, height, img=img)
         except RuntimeError, err:
             logger.debug('Could not generate pdf cover image: %s', err)
         except Exception, err:
@@ -46,7 +46,7 @@ class PDFCoverImage(object):
         # Run image magick convert
         # add -flatten option to fix #28943. It's prevent transparence cover
         # image
-        cmd = "convert -flatten -colorspace CMYK %s[0] -resize %sx%s %s" % (
+        cmd = "convert -flatten -colorspace sRGB %s[0] -resize %sx%s %s" % (
             tmp_inp, width, height, tmp_img
         )
         process = Popen(cmd, shell=True,
