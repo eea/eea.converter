@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.7-dev0 - (unreleased)
+---------------------
+
 12.6 - (2019-01-17)
 ---------------------
 * Change: Revert cover colorspace to sRGB
