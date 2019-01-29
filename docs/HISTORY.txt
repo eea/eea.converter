@@ -1,6 +1,11 @@
 Changelog
 =========
 
+12.7 - (2019-01-28)
+---------------------
+* Jenkins: Add sonarqube step
+  [avoinea refs #101552]
+
 12.6 - (2019-01-17)
 ---------------------
 * Change: Revert cover colorspace to sRGB
