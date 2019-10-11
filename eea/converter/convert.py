@@ -58,11 +58,17 @@ class Convert(object):
 
         width = kwargs.get('width', None)
         height = kwargs.get('height', None)
+        zoom = kwargs.get('zoom', None) # Zoom
+        ratio = kwargs.get('ratio', None) # Keep aspect ratio
         resize = ''
 
         if data_from == '.svg' and CAN_CONVERT_SVG:
             if width and height:
-                resize = '-w %s -h %s' % (width, height)
+                resize += ' -w %s -h %s' % (width, height)
+            if zoom:
+                resize += ' -z %s' % zoom
+            if ratio:
+                resize += ' -a'
             cmd = "rsvg-convert %(input)s %(resize)s -f %(format)s -o %(output)s" % {
                 'input': tmp_from,
                 'output': tmp_to,
