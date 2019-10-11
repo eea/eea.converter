@@ -12,6 +12,7 @@ setup(name=NAME,
       version=VERSION,
       description=("SVG, PNG, PDF converters using external "
                    "tools as ImageMagick"),
+      long_description_content_type="text/x-rst",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # https://pypi.python.org/pypi?%3Aaction=list_classifiers
