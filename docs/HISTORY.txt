@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.9-dev0 - (unreleased)
+---------------------------
+
 12.8 - (2019-10-11)
 --------------------------
 * Feature: Support zoom level and aspect ratio for SVG image conversion
