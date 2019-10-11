@@ -3,6 +3,8 @@ Changelog
 
 12.8-dev0 - (unreleased)
 ---------------------
+* Feature: Support zoom level and aspect ratio for SVG image conversion
+  [avoinea refs #109515]
 
 12.7 - (2019-01-28)
 ---------------------
