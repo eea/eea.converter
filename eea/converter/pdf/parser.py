@@ -93,6 +93,13 @@ class PDFParser(object):
             (key.strip('/').lower(), val) for key, val in info.items()
         )
 
+        # #116365 use title from pdf parsing instead of the data coming
+        # from pypdf2 getDocumentInfo method as that method will wrongly
+        # encode an mdash found in the title
+        parsed_title = metadata.get('title', {}).get('x-default')
+        if parsed_title:
+            new_metadata['title'] = parsed_title
+
         metadata.update(new_metadata)
         #
         # Fix some metadata
