@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.9-dev0 - (unreleased)
+12.9 - (2020-03-31)
 ---------------------------
 * Bug fix: Encode title from pdf parsing instead of the data coming from pypdf2
   getDocumentInfo method as that method will wrongly encode an mdash found
