@@ -3,7 +3,7 @@ Changelog
 
 12.9-dev0 - (unreleased)
 ---------------------------
-* Bug fix: Encode title from pdf parsing instead of the data coming from pypdf2
+* Bug fix: use title from pdf parsing instead of the data coming from pypdf2
   getDocumentInfo method as that method will wrongly encode an mdash found
   in the title when parsing pdf to get it's metadata
   [ichim-david refs #116365]
