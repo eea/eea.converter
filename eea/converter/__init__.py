@@ -23,7 +23,7 @@ def can_convert_svg():
                     stdin=PIPE, stdout=PIPE, stderr=STDOUT,
                     close_fds=CLOSE_FDS)
     res = process.stdout.read()
-    if 'version' not in res.lower():
+    if 'version' not in str(res.lower()):
         logger.warn(
             ("rsvg-convert NOT FOUND: "
              "ImageMagick will be used to export SVG to PNG images."))
@@ -38,7 +38,7 @@ def can_convert_image():
                     stdin=PIPE, stdout=PIPE, stderr=STDOUT,
                     close_fds=CLOSE_FDS)
     res = process.stdout.read()
-    if 'imagemagick' not in res.lower():
+    if 'imagemagick' not in str(res.lower()):
         logger.warn(
             ("ImageMagick NOT FOUND: "
              "Automatic generation of report's cover image is not supported."))
